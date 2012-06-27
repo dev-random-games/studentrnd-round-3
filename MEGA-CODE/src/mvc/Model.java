@@ -26,6 +26,7 @@ public class Model extends Thread {
 	static Port audioOut;
 	
 	public Model() {
+		Client client = new Client();
 	}
 
 	/*

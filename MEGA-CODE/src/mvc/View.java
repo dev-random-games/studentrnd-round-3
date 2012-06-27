@@ -24,6 +24,8 @@ public class View extends JFrame {
 	public static int frameCount = 0;
 	
 	public View(Model model){
+		super("Client");
+		
 		this.model = model;
 		
 		/*
