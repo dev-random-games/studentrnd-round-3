@@ -1,14 +1,21 @@
 package mvc;
 
+import java.awt.Color;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.DataLine;
 import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.Mixer;
 import javax.sound.sampled.Port;
 import javax.sound.sampled.UnsupportedAudioFileException;
+
+import org.newdawn.slick.opengl.TextureLoader;
+import org.newdawn.slick.util.ResourceLoader;
 
 /**
  * 
@@ -19,14 +26,26 @@ import javax.sound.sampled.UnsupportedAudioFileException;
  * 
  */
 public class Model extends Thread {
+
+	public ArrayList<Sprite> sprites;
 	
 	/*
 	 * Audio *out* port.
 	 */
 	static Port audioOut;
 	
+	Client client;
+	
 	public Model() {
-		Client client = new Client();
+		sprites = new ArrayList<Sprite>();
+		
+		sprites.add(new ExtrudeSprite(100, 100, 100, 100, 300, Color.RED));
+		
+//		sprites.add(new TextureSprite(100, 100, 100, 100, 300, "/data/test.png"));
+	}
+	
+	public void setClient(Client client){
+		this.client = client;
 	}
 
 	/*

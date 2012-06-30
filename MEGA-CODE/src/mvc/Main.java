@@ -13,6 +13,7 @@ public class Main extends Thread {
 	Model model;
 	View view;
 	Controller controller;
+	Client client;
 
 	public static void main(String[] args) {
 		new Main().start();
@@ -22,11 +23,18 @@ public class Main extends Thread {
 		
 		model = new Model();
 		view = new View(model);
+		client = new Client(model, view);
 		controller = new Controller(model, view);
+		model.setClient(client);
 		
 		model.start();
 		controller.start();
-		view.repaintCycle();
+		view.start();
+		client.start();
+		
+		/*
+		 * This will probably lead to a lot of concurrence issues. Whatever.
+		 */
 	}
 
 }

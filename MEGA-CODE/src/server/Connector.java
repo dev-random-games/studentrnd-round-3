@@ -49,13 +49,19 @@ public class Connector extends Thread {
 		try {
 			while (true) {
 				try {
-					
 					String val = (String) in.readObject();
 					MessageType type = MessageType.translate(val.charAt(0));
 					String message = val.substring(1);
 					
 					manager.input(type, val, this);
 				} catch (Exception e) {
+					try {
+						Thread.sleep(5);	// Wait for a little bit if no message has been received.
+					} catch (InterruptedException e1){
+						System.err.println("Error: failed to sleep");
+						e1.printStackTrace();
+						e.printStackTrace();
+					}
 				}
 			}
 			// in.close();

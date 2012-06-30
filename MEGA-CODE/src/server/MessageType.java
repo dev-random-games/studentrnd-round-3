@@ -2,7 +2,8 @@ package server;
 
 public enum MessageType {
 	SERVER_MESSAGE (0),
-	CONNECT (1);
+	CONNECT (1),
+	DISCONNECT (2);
 	
 	private final int index;
 	

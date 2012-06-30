@@ -4,6 +4,7 @@ import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.net.ConnectException;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
@@ -17,8 +18,16 @@ public class Client extends Thread{
 	String host = "localhost";
 	int port = 12345;
 	
-	public Client(){
+	int userId;
+	
+	Model model;
+	View view;
+	
+	public Client(Model model, View view){
 		try {
+			this.model = model;
+			this.view = view;
+			
 			client = new Socket(host, port);
 			client.setSoTimeout(1000);
 			
@@ -36,12 +45,14 @@ public class Client extends Thread{
 			
 			System.out.println("Connecting to server...");
 			
-			sendMessage(MessageType.CONNECT, "user1");
+			sendMessage(MessageType.CONNECT, "user");
 			
 		} catch (UnknownHostException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
+			System.err.println("Failed to connect to client");
 			e.printStackTrace();
+			System.exit(1);
 		}
 	}
 	
@@ -58,7 +69,9 @@ public class Client extends Thread{
 					System.out.println("SERVER: " + message);
 					break;
 				case CONNECT:
-					System.out.println("Connection with server confirmed.");
+					System.out.println("Connection with server confirmed. Connected as user " + message + ".");
+					userId = Integer.parseInt(message);
+					sendMessage(MessageType.SERVER_MESSAGE, "Hello server!");
 					break;
 				}
 				
@@ -76,6 +89,11 @@ public class Client extends Thread{
 						System.exit(0);
 					}
 				}
+				try {
+					Thread.sleep(5);	// Wait for a little bit if no message has been received.
+				} catch (InterruptedException e1) {
+					e1.printStackTrace();
+				}	
 			} catch (ClassNotFoundException e) {
 				e.printStackTrace();
 			}

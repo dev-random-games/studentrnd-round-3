@@ -58,12 +58,12 @@ public class ClientManager extends Thread {
 	public void input(MessageType type, String message, Connector client) {
 		switch (type) {
 		case SERVER_MESSAGE:
-			Init.sendServerMessage(message);
-			System.out.println(message);
+			Init.sendServerMessage("[USER " + client.id + "]: " + message);
+			System.out.println("[USER " + client.id + "]: " + message);
 			break;
 		case CONNECT:
 			Init.sendServerMessage("New client connected.");
-			client.sendMessage(MessageType.CONNECT, message);
+			client.sendMessage(MessageType.CONNECT, Integer.toString(client.id));
 			break;
 		}
 	}
