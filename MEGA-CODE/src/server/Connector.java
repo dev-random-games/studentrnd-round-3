@@ -53,7 +53,7 @@ public class Connector extends Thread {
 					MessageType type = MessageType.translate(val.charAt(0));
 					String message = val.substring(1);
 					
-					manager.input(type, val, this);
+					manager.input(type, message, this);
 				} catch (Exception e) {
 					try {
 						Thread.sleep(5);	// Wait for a little bit if no message has been received.

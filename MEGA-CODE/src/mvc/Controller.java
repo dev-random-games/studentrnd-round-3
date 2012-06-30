@@ -104,7 +104,7 @@ public class Controller extends Thread {
 	 * @param evt
 	 */
 	public void mouseReleased(int x, int y){
-		model.client.sendMessage(MessageType.SERVER_MESSAGE, "I clicked the mouse at " + x + ", " + y + "!!!");
+		model.client.addTower(x * 20 / View.WIDTH, y * 20 / View.HEIGHT);
 	}
 	
 	/**

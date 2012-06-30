@@ -65,6 +65,11 @@ public class ClientManager extends Thread {
 			Init.sendServerMessage("New client connected.");
 			client.sendMessage(MessageType.CONNECT, Integer.toString(client.id));
 			break;
+		case ADD_TOWER:
+			int x = message.charAt(0);
+			int y = message.charAt(1);
+			Init.sendServerMessage("[USER " + client.id + "] adding tower at " + x + ", " + y);
+			sendMessage(MessageType.ADD_TOWER, "" + (char) x + (char) y);
 		}
 	}
 }

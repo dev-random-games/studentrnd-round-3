@@ -1,5 +1,7 @@
 package server;
 
+import game.Map;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
@@ -26,6 +28,8 @@ public class Init extends Thread{
 	
 	int WIDTH  = 500;
 	int HEIGHT = 500;
+	
+	static Map map;
 	
 	public void run(){
 		try {
@@ -62,9 +66,11 @@ public class Init extends Thread{
 			serverDisplay.pack();
 			serverDisplay.setVisible(true);
 			
+			map = new Map(20, 20, 50, 50);
+			
 			while (true) {
 				try {
-					Thread.sleep(10);
+					
 				} catch (Exception e) {
 					System.exit(0);
 				}

@@ -40,12 +40,17 @@ public class Model extends Thread {
 	
 	Map map;
 	
+	public static final int WIDTH = 20;
+	public static final int HEIGHT = 20;
+	public static final int TILEW = 50;
+	public static final int TILEH = 50;
+	
 	public Model() {
 		sprites = new ArrayList<Sprite>();
 		
 //		sprites.add(new ExtrudeSprite(100, 100, 100, 100, 300, Color.RED));
 		
-		map = new Map(20, 20, 50, 50);
+		map = new Map(WIDTH, HEIGHT, TILEW, TILEH);
 		
 		sprites.add(map);
 		

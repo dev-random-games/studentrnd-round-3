@@ -73,6 +73,10 @@ public class Client extends Thread{
 					userId = Integer.parseInt(message);
 					sendMessage(MessageType.SERVER_MESSAGE, "Hello server!");
 					break;
+				case ADD_TOWER:
+					int x = message.charAt(0);
+					int y = message.charAt(1);
+					System.out.println("Adding tower at " + x + ", " + y);
 				}
 				
 			} catch (IOException e){
@@ -107,5 +111,9 @@ public class Client extends Thread{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public void addTower(int x, int y){
+		sendMessage(MessageType.ADD_TOWER, "" + (char) x + (char) y);
 	}
 }
