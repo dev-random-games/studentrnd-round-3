@@ -35,9 +35,10 @@ public class Connector extends Thread {
 
 	}
 
-	public boolean sendMessage(String message) {
+	public boolean sendMessage(MessageType type, String message) {
 		try {
-			out.writeObject(message);
+//			System.out.println(type.value());
+			out.writeObject(type.value() + message);
 			return false;
 		} catch (IOException e) {
 			return false;
@@ -48,8 +49,12 @@ public class Connector extends Thread {
 		try {
 			while (true) {
 				try {
+					
 					String val = (String) in.readObject();
-					manager.input(val, this);
+					MessageType type = MessageType.translate(val.charAt(0));
+					String message = val.substring(1);
+					
+					manager.input(type, val, this);
 				} catch (Exception e) {
 				}
 			}
@@ -67,6 +72,8 @@ public class Connector extends Thread {
 		try {
 			out.close();
 			in.close();
+			Init.sendServerMessage("Client disconnected");
+			manager.connections.remove(this);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

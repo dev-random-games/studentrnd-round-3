@@ -33,10 +33,8 @@ public class ClientManager extends Thread {
 				newConnector.start();
 				connections.add(newConnector);
 				
-				newConnector.sendMessage("Welcome to the server!");
+				newConnector.sendMessage(MessageType.SERVER_MESSAGE, "Welcome to the server!");
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
 			}
 		}
 	}
@@ -50,14 +48,23 @@ public class ClientManager extends Thread {
 		}
 	}
 
-	public void sendMessage(String message) {
+	public void sendMessage(MessageType type, String message) {
 		for (Connector client : connections) {
-			client.sendMessage(message);
+			client.sendMessage(type, message);
 		}
 		cleanConnections();
 	}
 
-	public void input(String in, Connector client) {
-		System.out.println(in);
+	public void input(MessageType type, String message, Connector client) {
+		switch (type) {
+		case SERVER_MESSAGE:
+			Init.sendServerMessage(message);
+			System.out.println(message);
+			break;
+		case CONNECT:
+			Init.sendServerMessage("New client connected.");
+			client.sendMessage(MessageType.CONNECT, message);
+			break;
+		}
 	}
 }

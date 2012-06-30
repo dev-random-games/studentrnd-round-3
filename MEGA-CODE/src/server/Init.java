@@ -12,6 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.JTextPane;
 
 public class Init extends Thread{
 	
@@ -21,6 +22,7 @@ public class Init extends Thread{
 	static JPanel displayPanel;
 	static JScrollPane scroll;
 	static JTextArea textOut;
+	static JTextPane textIn;
 	
 	int WIDTH  = 500;
 	int HEIGHT = 500;
@@ -41,7 +43,6 @@ public class Init extends Thread{
 //			textOut.setPreferredSize(new Dimension(WIDTH - 40, HEIGHT - 40));
 			textOut.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 			textOut.setEditable(false);
-			textOut.setText("TESTING TESTING 123");
 			
 			scroll = new JScrollPane(textOut);
 			scroll.setLocation(20, 20);
