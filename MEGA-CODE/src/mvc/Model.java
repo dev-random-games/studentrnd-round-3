@@ -1,5 +1,7 @@
 package mvc;
 
+import game.Map;
+
 import java.awt.Color;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -36,10 +38,16 @@ public class Model extends Thread {
 	
 	Client client;
 	
+	Map map;
+	
 	public Model() {
 		sprites = new ArrayList<Sprite>();
 		
-		sprites.add(new ExtrudeSprite(100, 100, 100, 100, 300, Color.RED));
+//		sprites.add(new ExtrudeSprite(100, 100, 100, 100, 300, Color.RED));
+		
+		map = new Map(20, 20, 50, 50);
+		
+		sprites.add(map);
 		
 //		sprites.add(new TextureSprite(100, 100, 100, 100, 300, "/data/test.png"));
 	}
