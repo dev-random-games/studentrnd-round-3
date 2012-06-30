@@ -77,6 +77,7 @@ public class Client extends Thread{
 					int x = message.charAt(0);
 					int y = message.charAt(1);
 					System.out.println("Adding tower at " + x + ", " + y);
+					model.map.addTower(x, y);
 				}
 				
 			} catch (IOException e){

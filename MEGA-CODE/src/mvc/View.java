@@ -45,7 +45,7 @@ public class View extends Thread {
 			e.printStackTrace();
 			System.exit(0);
 		}
-		viewTranslation = new Vector3D(0, 0, HEIGHT);
+		viewTranslation = new Vector3D((Model.WIDTH * Model.TILEW) / 2, (Model.HEIGHT * Model.TILEH) / 2, HEIGHT);
 		
 		textureLoader = new TextureLoader();
 	}
