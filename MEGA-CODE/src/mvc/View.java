@@ -130,6 +130,8 @@ public class View extends Thread {
 			GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, GL11.GL_NEAREST);
 			GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MAG_FILTER, GL11.GL_NEAREST);
 			
+			TextureSprite hud = new TextureSprite(0, 0, 100, 100, 0, "src/data/HUD.png");
+			
 			//Fonts?
 			//NOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOPE!
 			// load font from a .ttf file
@@ -182,9 +184,14 @@ public class View extends Thread {
 				GL11.glDisable(GL11.GL_DEPTH_TEST);  // disable depth-testing
 				
 				Point corner1 = pickPointOnScreen(new Point(0, 0), 0);
-				Point corner2 = pickPointOnScreen(new Point(700, 100), 0);
+				Point corner2 = pickPointOnScreen(new Point(700, 700), 0);
 				
-				new RectSprite(corner1.x, corner1.y, corner2.x - corner1.x, corner2.y - corner1.y, 0, Color.blue).draw();
+				hud.x = corner1.x;
+				hud.y = corner1.y;
+				hud.w = corner2.x - corner1.x;
+				hud.h = corner2.y - corner1.y;
+				
+				hud.draw();
 				
 				GL11.glDepthMask(true);  // disable writes to Z-Buffer
 				GL11.glEnable(GL11.GL_DEPTH_TEST);  // disable depth-testing
