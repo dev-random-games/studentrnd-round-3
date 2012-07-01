@@ -2,6 +2,7 @@ package mvc;
 
 import game.EntMonster;
 import game.ThornMonster;
+import game.Tile;
 import game.TreeMonster;
 
 import java.awt.Color;
@@ -157,6 +158,7 @@ public class View extends Thread {
 			TreeMonster demoTree = new TreeMonster(0, 0, 50, 50);
 			ThornMonster demoThorn = new ThornMonster(0, 0, 50, 50);
 			TextureSprite upgrade = new TextureSprite(0, 0, 50, 100, 0, "src/data/upgrade.png");
+			TextureSprite mechaMenu = new TextureSprite(0, 0, 100, 100, 0, "src/data/mechaMenu.png");
 			energy = new RectSprite(0, 0, 10, 10, 0, Color.BLUE);
 			
 			//Fonts?
@@ -218,6 +220,10 @@ public class View extends Thread {
 					sprite.draw();
 				}
 				
+				if (model.map.selectedTile != null){
+					Tile tile = model.map.selectedTile;
+					new RectSprite(tile.x, tile.y, tile.w, tile.h, 20, Color.RED).draw();
+				}
 				
 				GL11.glDepthMask(false);  // disable writes to Z-Buffer
 				GL11.glDisable(GL11.GL_DEPTH_TEST);  // disable depth-testing
@@ -299,6 +305,13 @@ public class View extends Thread {
 					upgrade.h = upgradeCorner2.y - upgradeCorner1.y;
 					
 					upgrade.draw();
+				} else {
+					mechaMenu.x = corner1.x;
+					mechaMenu.y = corner1.y;
+					mechaMenu.w = corner2.x - corner1.x;
+					mechaMenu.h = corner2.y - corner1.y;
+					
+					mechaMenu.draw();
 				}
 				
 				hud.x = corner1.x;

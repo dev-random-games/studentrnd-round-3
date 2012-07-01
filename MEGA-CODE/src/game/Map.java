@@ -39,6 +39,8 @@ public class Map extends Sprite{
 	public ArrayList<Tower> towers;
 	public ArrayList<Monster> monsters;
 	
+	public Tile selectedTile = null;
+	
 	Point start, end;
 	
 	public Map(String path, int width, int height, float tileWidth, float tileHeight) {

@@ -21,7 +21,7 @@ public class ClientManager extends Thread {
 
 	ArrayList<Connector> connections;
 	
-	boolean hasPlant = false;
+	boolean hasPlant = true;
 	boolean hasMecha = false;
 
 	public ClientManager(ServerSocket server) {
