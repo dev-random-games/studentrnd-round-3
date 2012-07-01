@@ -77,23 +77,24 @@ public class Controller extends Thread {
 				mouseReleased((int) mousePos.getX(), (int) mousePos.getY());
 			}
 			
-			view.viewTranslation = view.viewTranslation.add(new Vector3D(0, 0, - Mouse.getDWheel() * (view.viewTranslation.getZ() / 2000)));
+			/* DON'T REMOVE THIS LINE WITHOUT SOMEHOW COPYING VIEWTRANSLATION TO NEWVIEWTRANSLATION */
+			view.newViewTranslation = view.viewTranslation.add(new Vector3D(0, 0, - Mouse.getDWheel() * (view.viewTranslation.getZ() / 2000)));
 			
 			if (mousePos.x > 0 && mousePos.y > 0 && mousePos.x < model.map.width * model.map.tileWidth && mousePos.y < model.map.height * model.map.tileHeight){
 				model.map.tiles[mousePos.x / model.TILEW][mousePos.y / model.TILEH].mouseOver = true;
 			}
 			
 			if (keysPressed[Keyboard.KEY_LEFT]){
-				view.viewTranslation = view.viewTranslation.add(new Vector3D(-4 * (view.viewTranslation.getZ() / 1000), 0, 0));
+				view.newViewTranslation = view.newViewTranslation.add(new Vector3D(-4 * (view.viewTranslation.getZ() / 1000), 0, 0));
 			}
 			if (keysPressed[Keyboard.KEY_UP]){
-				view.viewTranslation = view.viewTranslation.add(new Vector3D(0, 4 * (view.viewTranslation.getZ() / 1000), 0));
+				view.newViewTranslation = view.newViewTranslation.add(new Vector3D(0, 4 * (view.viewTranslation.getZ() / 1000), 0));
 			}
 			if (keysPressed[Keyboard.KEY_RIGHT]){
-				view.viewTranslation = view.viewTranslation.add(new Vector3D(4 * (view.viewTranslation.getZ() / 1000), 0, 0));
+				view.newViewTranslation = view.newViewTranslation.add(new Vector3D(4 * (view.viewTranslation.getZ() / 1000), 0, 0));
 			}
 			if (keysPressed[Keyboard.KEY_DOWN]){
-				view.viewTranslation = view.viewTranslation.add(new Vector3D(0, -4 * (view.viewTranslation.getZ() / 1000), 0));
+				view.newViewTranslation = view.newViewTranslation.add(new Vector3D(0, -4 * (view.viewTranslation.getZ() / 1000), 0));
 			}
 		}
 	}
