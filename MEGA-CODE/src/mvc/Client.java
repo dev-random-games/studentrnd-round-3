@@ -23,7 +23,9 @@ public class Client extends Thread{
 	Model model;
 	View view;
 	
-	public Client(Model model, View view){
+	float energy;
+	
+	public Client(Model model, View view, float energy){
 		try {
 			this.model = model;
 			this.view = view;
@@ -76,8 +78,13 @@ public class Client extends Thread{
 				case ADD_TOWER:
 					int x = message.charAt(0);
 					int y = message.charAt(1);
-					System.out.println("Adding tower at " + x + ", " + y);
-					model.map.addTower(x, y);
+					if (this.canPlaceTower(x, y)) {
+						this.subtractEnergy();
+						System.out.println("Adding tower at " + x + ", " + y);
+						model.map.addTower(x, y);
+					} else {
+						System.out.println("Cannot place tower at " + x + ", " + y);
+					}
 				}
 				
 			} catch (IOException e){
@@ -104,6 +111,16 @@ public class Client extends Thread{
 			}
 			
 		}
+	}
+	
+	public void subtractEnergy() {
+		float scalar  = 1f;
+		
+		this.energy *= scalar;
+	}
+	
+	public boolean canPlaceTower(int x, int y) {
+		return true;
 	}
 	
 	public void sendMessage(MessageType type, String message) {

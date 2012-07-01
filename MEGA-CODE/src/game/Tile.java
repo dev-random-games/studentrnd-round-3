@@ -6,7 +6,7 @@ import mvc.RectSprite;
 
 public class Tile extends RectSprite{
 	
-	boolean highGround = false;
+	public boolean highGround = false;
 	boolean onPath = false;
 	
 	public static final int lowGroundHeight = 0;

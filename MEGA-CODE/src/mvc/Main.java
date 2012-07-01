@@ -23,7 +23,7 @@ public class Main extends Thread {
 		
 		model = new Model();
 		view = new View(model);
-		client = new Client(model, view);
+		client = new Client(model, view, 500f);
 		controller = new Controller(model, view);
 		model.setClient(client);
 		
