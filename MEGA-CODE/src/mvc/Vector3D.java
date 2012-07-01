@@ -178,4 +178,8 @@ public class Vector3D {
 	public void setZ(float z) {
 		this.z = z;
 	}
+	
+	public String toString() {
+		return new String("(" + x + ", " + y + ", " + z + ")");
+	}
 }

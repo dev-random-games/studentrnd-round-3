@@ -1,6 +1,7 @@
 package mvc;
 
 import java.awt.KeyboardFocusManager;
+import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
@@ -61,17 +62,19 @@ public class Controller extends Thread {
 				}
 			}
 			
+			Point mousePos = view.pickPointOnScreen(new Point(Mouse.getX(), Mouse.getY()));
+			
 			/*
 			 * Catch mouse events
 			 */
 			if (Mouse.isButtonDown(0)){
 				if (!mouseDown){
 					mouseDown = true;
-					mousePressed(Mouse.getX(), Mouse.getY());
+					mousePressed((int) mousePos.getX(), (int) mousePos.getY());
 				}
 			} else if (mouseDown){
 				mouseDown = false;
-				mouseReleased(Mouse.getX(), Mouse.getY());
+				mouseReleased((int) mousePos.getX(), (int) mousePos.getY());
 			}
 			
 			if (keysPressed[Keyboard.KEY_LEFT]){

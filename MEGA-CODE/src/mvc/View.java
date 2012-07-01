@@ -1,6 +1,7 @@
 package mvc;
 
 import java.awt.Dimension;
+import java.awt.Point;
 import java.io.IOException;
 
 import javax.swing.JFrame;
@@ -45,7 +46,8 @@ public class View extends Thread {
 			e.printStackTrace();
 			System.exit(0);
 		}
-		viewTranslation = new Vector3D((Model.WIDTH * Model.TILEW) / 2, (Model.HEIGHT * Model.TILEH) / 2, HEIGHT);
+//		viewTranslation = new Vector3D((Model.WIDTH * Model.TILEW) / 2, (Model.HEIGHT * Model.TILEH) / 2, HEIGHT);
+		viewTranslation = new Vector3D(0, 0, HEIGHT);
 		
 		textureLoader = new TextureLoader();
 	}
@@ -65,6 +67,31 @@ public class View extends Thread {
 
 		GL11.glMatrixMode(GL11.GL_MODELVIEW);
 		GL11.glLoadIdentity();
+	}
+	
+	public Point pickPointOnScreen(Point screenPixel){
+		Vector3D cameraForwards = new Vector3D(0, 0, 1);
+		Vector3D cameraRight = new Vector3D(1, 0, 0);
+		Vector3D cameraUp = new Vector3D(0, 1, 0);
+		
+		float screenX = screenPixel.x - WIDTH / 2;
+		float screenY = screenPixel.y - HEIGHT / 2;
+		
+		System.out.println("(" + screenX + ", " + screenY + ")");
+		System.out.println(viewTranslation.toString());
+		
+		Vector3D screenVector = cameraForwards.scale(700).add(cameraRight.scale(screenX))
+											  		  	 .add(cameraUp.scale(screenY));
+		
+//		model.client.addTower((int) (viewTranslation.getX() / model.map.tileWidth), (int) (viewTranslation.getY() / model.map.tileHeight));
+		
+		float distScale = viewTranslation.getZ() / screenVector.getZ();
+		Vector3D planeIntersection = viewTranslation.add(screenVector.scale(distScale));
+		
+		System.out.println("Projected point: " + planeIntersection.toString());
+		
+		return new Point((int) (planeIntersection.getX()), (int) planeIntersection.getY());
+
 	}
 	
 	/*
