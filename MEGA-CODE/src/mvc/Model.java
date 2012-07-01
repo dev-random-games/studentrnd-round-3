@@ -46,8 +46,13 @@ public class Model extends Thread {
 	public static final int WIDTH = 32;
 	public static final int HEIGHT = 32;
 
-	public static final int TILEW = 100;
-	public static final int TILEH = 100;
+	public static final int TILEW = 50;
+	public static final int TILEH = 50;
+	
+	/**
+	 * True if plants, false if mecha.
+	 */
+	boolean plantMode = false;
 	
 	public Model() {
 		sprites = new ArrayList<Sprite>();

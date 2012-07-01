@@ -46,6 +46,8 @@ public class View extends Thread {
 	public static int frameCount = 0;
 
 	TextureLoader textureLoader;
+	
+	TextureSprite hud;
 
 //	@SuppressWarnings("deprecation")
 //	TrueTypeFont font;
@@ -130,7 +132,11 @@ public class View extends Thread {
 			GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, GL11.GL_NEAREST);
 			GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MAG_FILTER, GL11.GL_NEAREST);
 			
-			TextureSprite hud = new TextureSprite(0, 0, 100, 100, 0, "src/data/HUD.png");
+			if (model.plantMode){
+				hud = new TextureSprite(0, 0, 100, 100, 0, "src/data/plantHUD.png");
+			} else {
+				hud = new TextureSprite(0, 0, 100, 100, 0, "src/data/HUD.png");
+			}
 			
 			//Fonts?
 			//NOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOPE!
