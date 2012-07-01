@@ -1,9 +1,13 @@
 package mvc;
 
+import game.EntMonster;
+import game.ThornMonster;
 import game.Tower;
+import game.TreeMonster;
 
 import java.awt.KeyboardFocusManager;
 import java.awt.Point;
+import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
@@ -65,6 +69,8 @@ public class Controller extends Thread {
 			}
 			
 			Point mousePos = view.pickPointOnScreen(new Point(Mouse.getX(), Mouse.getY()), 0);
+			
+			System.out.println(Mouse.getX() + ", " + Mouse.getY());
 
 			for (Tower tower : model.map.towers){
 				tower.mouseHovering = false;
@@ -84,14 +90,18 @@ public class Controller extends Thread {
 			/*
 			 * Catch mouse events
 			 */
-			if (Mouse.isButtonDown(0)){
-				if (!mouseDown){
-					mouseDown = true;
-					mousePressed((int) mousePos.getX(), (int) mousePos.getY());
+			try {
+				if (Mouse.isButtonDown(0)){
+					if (!mouseDown){
+						mouseDown = true;
+						mousePressed((int) mousePos.getX(), (int) mousePos.getY());
+					}
+				} else if (mouseDown){
+					mouseDown = false;
+					mouseReleased((int) mousePos.getX(), (int) mousePos.getY());
 				}
-			} else if (mouseDown){
-				mouseDown = false;
-				mouseReleased((int) mousePos.getX(), (int) mousePos.getY());
+			} catch (IllegalStateException e){
+				
 			}
 			
 			try {
@@ -138,10 +148,24 @@ public class Controller extends Thread {
 		int mapX = (int) (x / model.map.tileWidth);
 		int mapY = (int) (y / model.map.tileHeight);
 		
-		if (mapX >= 0 && mapY >= 0 && mapX < model.map.width && mapY < model.map.height){
-			if (model.plantMode){
-				model.client.addMonster(mapX, mapY, 0);
-			} else {
+		if (model.plantMode){
+			Point mouse = new Point(Mouse.getX(), Mouse.getY());//new Point(x + view.WIDTH / 2, y + view.HEIGHT / 2);
+			if (new Rectangle(19, 64, 79 - 19, 121 - 64).contains(mouse)){	// Add an Ent
+				model.client.addMonster(1, 1, 0);
+			} else if (new Rectangle(79, 64, 111 - 79, 121 - 64).contains(mouse)){	// Upgrade an Ent
+				EntMonster.baseEvolution++;
+			} else if (new Rectangle(111, 64, 169 - 111, 121 - 64).contains(mouse)){	// Add a Tree
+				model.client.addMonster(1, 1, 1);
+			} else if (new Rectangle(169, 64, 203 - 169, 121 - 64).contains(mouse)){	// Upgrade a Tree
+				TreeMonster.baseEvolution++;
+			} else if (new Rectangle(203, 64, 262 - 203, 121 - 64).contains(mouse)){	// Add a Thorn
+				model.client.addMonster(1, 1, 2);
+			} else if (new Rectangle(262, 64, 298 - 262, 121 - 64).contains(mouse)){	// Upgrade a Thorn
+				ThornMonster.baseEvolution++;
+			}
+		} else {
+		
+			if (mapX >= 0 && mapY >= 0 && mapX < model.map.width && mapY < model.map.height){
 				if (model.map.tiles[mapX][mapY].tower == null){
 					model.client.addTower(mapX, mapY, 1);
 				} else {

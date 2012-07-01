@@ -25,7 +25,7 @@ public class Monster extends RectSprite {
 	
 	String[] texturePaths;
 	
-	static TextureSprite stage0, stage1, stage2;
+	TextureSprite stage0, stage1, stage2;
 	
 	public Monster(float x, float y, float tileWidth, float tileHeight, double health) {
 		super(x * tileWidth - 5 + tileWidth / 2, y * tileHeight - 5 + tileHeight / 2, 10, 10, 5, Color.RED);
@@ -44,13 +44,27 @@ public class Monster extends RectSprite {
 		this.evolutionScalar = evolutionScalar;
 		this.texturePaths = texturePaths;
 		
-		if (stage0 == null || stage1 == null || stage2 == null){
-			stage0 = new TextureSprite(this.x, this.y, w, h, 20, this.texturePaths[0]);
-			stage1 = new TextureSprite(this.x, this.y, w * evolutionScalar, h * evolutionScalar, 20, this.texturePaths[1]);
-			stage2 = new TextureSprite(this.x, this.y, w * evolutionScalar * evolutionScalar, h * evolutionScalar * evolutionScalar, 20, this.texturePaths[2]);
-		}
+//		for (int i = 0; i < evolution; i++){
+//			if (!evolve()) break;
+//		}
+		
+		this.stage0 = new TextureSprite(this.x, this.y, w, h, 20, this.texturePaths[0]);
+		this.stage1 = new TextureSprite(this.x, this.y, w * evolutionScalar, h * evolutionScalar, 20, this.texturePaths[1]);
+		this.stage2 = new TextureSprite(this.x, this.y, w * evolutionScalar * evolutionScalar, h * evolutionScalar * evolutionScalar, 20, this.texturePaths[2]);
 		
 		System.out.println("sex: " + this.x);
+	}
+	
+	public boolean evolve(){
+		if (evolution < 2){
+			evolution ++;
+			speed *= evolutionScalar;
+			maxHealth *= evolutionScalar;
+			health *= evolutionScalar;
+			return true;
+		} else {
+			return false;
+		}
 	}
 	
 	public Point getMapPosition(float tileWidth, float tileHeight){
@@ -91,16 +105,25 @@ public class Monster extends RectSprite {
 		case 0:
 			stage0.x = this.x;
 			stage0.y = this.y;
+			stage0.w = this.w;
+			stage0.h = this.h;
+			stage0.depth = this.depth;
 			stage0.draw();
 			break;
 		case 1:
 			stage1.x = this.x - (w * evolutionScalar - w) / 2;
 			stage1.y = this.y - (h * evolutionScalar - h) / 2;
+			stage1.w = this.w * evolutionScalar;
+			stage1.h = this.h * evolutionScalar;
+			stage1.depth = this.depth;
 			stage1.draw();
 			break;
 		case 2:
 			stage2.x = this.x - (w * evolutionScalar * evolutionScalar - w) / 2;
 			stage2.y = this.y - (h * evolutionScalar * evolutionScalar - h) / 2;
+			stage2.w = this.w * evolutionScalar * evolutionScalar;
+			stage2.h = this.h * evolutionScalar * evolutionScalar;
+			stage2.depth = this.depth;
 			stage2.draw();
 			break;
 		}

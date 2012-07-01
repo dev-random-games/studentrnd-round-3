@@ -7,6 +7,15 @@ public class ThornMonster extends Monster{
 	public static int baseEvolution = 0;
 	
 	public ThornMonster(float x, float y, float tileWidth, float tileHeight) {
-		super(x, y, tileWidth, tileHeight, 50, 2, 0, 2, texturePaths);
+		super(x, y, tileWidth, tileHeight, 500, 2, baseEvolution, 2f, texturePaths);
 	}
+	
+	/**
+	 * Ignore this it is necessary.
+	 */
+//	public void draw(){
+//		x += 15 * evolution;
+//		y -= 10 * evolution;
+//		super.draw();
+//	}
 }
