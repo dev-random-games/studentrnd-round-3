@@ -74,7 +74,7 @@ public class Init extends Thread{
 			serverDisplay.pack();
 			serverDisplay.setVisible(true);
 			
-			map = new Map("data/map2.png", Model.WIDTH, Model.HEIGHT, Model.TILEW, Model.TILEH);
+			map = new Map("data/testcase.png", Model.WIDTH, Model.HEIGHT, Model.TILEW, Model.TILEH);
 			StateEncoder encode = new StateEncoder();
 			
 			//map.monsters.add(new Monster(1, 1, 1, 1, 1));
