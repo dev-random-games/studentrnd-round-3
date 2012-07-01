@@ -170,7 +170,7 @@ public class Map extends Sprite{
 		mapNode(new Point(start.x, start.y), start, end);
 	}
 	
-	public void generatePath(Point start, Point end){
+	public ArrayList<Point> generatePath(Point start, Point end){
 		map = getTraversableMap();
 		regraph(start, end);
 		
@@ -183,8 +183,14 @@ public class Map extends Sprite{
 		int count = width * height + 1;
 		Point p = end;
 		Point next;
+		
+		ArrayList<Point> path = new ArrayList<Point>();
+		
+		path.add(start);
+		
 		while (count > 1){
 			next = this.smallestNeighbor(p);
+			path.add(next);
 			if (graph[next.x][next.y] >= count){
 				break;
 			}else{
@@ -193,6 +199,8 @@ public class Map extends Sprite{
 			}
 			p = next;
 		}
+		
+		return path;
 	}
 
 }

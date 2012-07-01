@@ -40,6 +40,8 @@ public class Model extends Thread {
 	
 	Map map;
 	
+	boolean gameMode;
+	
 	public static final int WIDTH = 20;
 	public static final int HEIGHT = 20;
 	public static final int TILEW = 29;
