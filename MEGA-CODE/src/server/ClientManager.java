@@ -66,13 +66,19 @@ public class ClientManager extends Thread {
 			client.sendMessage(MessageType.CONNECT, Integer.toString(client.id));
 			break;
 		case ADD_TOWER:
+			try{
 			int x = message.charAt(0);
 			int y = message.charAt(1);
-			Init.sendServerMessage("[USER " + client.id + "] adding tower at " + x + ", " + y);
+			System.out.println("SENT");
 			if (Init.map.addTower(x, y)){
+				Init.sendServerMessage("[USER " + client.id + "] adding tower at " + x + ", " + y);
 				sendMessage(MessageType.ADD_TOWER, "" + (char) x + (char) y);
+				
 			} else {
 				Init.sendServerMessage("[USER " + client.id + "] Oops, there's already a tower there!");
+			}
+			}catch (Exception e){
+				e.printStackTrace();
 			}
 		}
 	}

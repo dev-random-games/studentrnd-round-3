@@ -3,6 +3,7 @@ package game;
 import java.awt.Color;
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.util.ArrayList;
 
 import server.Init;
 
@@ -18,7 +19,7 @@ public class Monster extends RectSprite {
 	int uniqueId;
 	
 	public Monster(float x, float y, float tileWidth, float tileHeight) {
-		super(x - 5 + tileWidth / 2, y - 5 + tileHeight / 2, 10, 10, 5, Color.RED);
+		super(x * tileWidth - 5 + tileWidth / 2, y * tileHeight - 5 + tileHeight / 2, 10, 10, 5, Color.RED);
 	}
 	
 	public Point getMapPosition(float tileWidth, float tileHeight){
@@ -34,5 +35,15 @@ public class Monster extends RectSprite {
 		
 		x += velocity.getX();
 		y += velocity.getY();
+	}
+	
+	public boolean moveAlong(ArrayList<Point> path, float tileWidth, float tileHeight){
+		for (int i = 1; i < path.size(); i++){
+			if (path.get(i).equals(getMapPosition(tileWidth, tileHeight))){
+				moveTowards(path.get(i - 1), tileWidth, tileHeight);
+				return true;
+			}
+		}
+		return false;
 	}
 }
