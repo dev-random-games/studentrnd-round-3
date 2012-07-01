@@ -90,6 +90,11 @@ public class Init extends Thread{
 		new Init().start();
 	}
 	
+	public static int getUniqueId(){
+		currentId++;
+		return currentId;
+	}
+	
 	public static void sendServerMessage(String msg){
 		textOut.append(msg + "\n");
 		scroll.getVerticalScrollBar().setValue(scroll.getVerticalScrollBar().getMaximum());

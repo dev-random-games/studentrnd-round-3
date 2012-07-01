@@ -15,15 +15,38 @@ import mvc.Vector3D;
 public class Monster extends RectSprite {
 	
 //	float x, y, z;
-	float speed = 2;
+	public float speed = 2;
 	public double health;
 	int uniqueId;
-	public double maxHealth, rotation;
-	public int speedUpgrade, healthUpgrade;
+	public double maxHealth;
+
+	public int evolution;
+	public double evolutionScalar;
+	
+	String[] texturePaths;
+	
+	TextureSprite stage0, stage1, stage2;
 	
 	public Monster(float x, float y, float tileWidth, float tileHeight, double health) {
 		super(x * tileWidth - 5 + tileWidth / 2, y * tileHeight - 5 + tileHeight / 2, 10, 10, 5, Color.RED);
+		this.maxHealth = health;
 		this.health = health;
+		this.health = 100;
+		this.evolutionScalar = 1;
+	}
+	
+	public Monster(float x, float y, float tileWidth, float tileHeight, double health, float speed, int evolution, double evolutionScalar, String[] texturePaths) {
+		super(x * tileWidth - 5 + tileWidth / 2, y * tileHeight - 5 + tileHeight / 2, 10, 10, 5, Color.RED);
+		this.speed = speed;
+		this.maxHealth = health;
+		this.health = health;
+		this.evolution = evolution;
+		this.evolutionScalar = evolutionScalar;
+		this.texturePaths = texturePaths;
+		
+		this.stage0 = new TextureSprite(x, y, tileWidth, tileHeight, 100, texturePaths[0]);
+		this.stage1 = new TextureSprite(x, y, tileWidth, tileHeight, 100, texturePaths[1]);
+		this.stage2 = new TextureSprite(x, y, tileWidth, tileHeight, 100, texturePaths[2]);
 	}
 	
 	public Point getMapPosition(float tileWidth, float tileHeight){
@@ -57,5 +80,19 @@ public class Monster extends RectSprite {
 	
 	public boolean shouldDie() {
 		return this.health <= 0;
+	}
+	
+	public void draw() {
+		switch(this.evolution) {
+		case 0:
+			stage0.draw();
+			break;
+		case 1:
+			stage1.draw();
+			break;
+		case 2:
+			stage2.draw();
+			break;
+		}
 	}
 }

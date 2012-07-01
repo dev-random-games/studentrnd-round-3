@@ -49,6 +49,8 @@ public class Model extends Thread {
 	public static final int TILEW = 50;
 	public static final int TILEH = 50;
 	
+	public static final float STARTENERGY = 500f;
+	
 	/**
 	 * True if plants, false if mecha.
 	 */
