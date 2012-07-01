@@ -113,7 +113,7 @@ public class Controller extends Thread {
 				view.viewVelocity.setZ(view.viewVelocity.getZ() - Mouse.getDWheel() * (view.viewTranslation.getZ() / 16000));
 				
 				if (mousePos.x > 0 && mousePos.y > 0 && mousePos.x < model.map.width * model.map.tileWidth && mousePos.y < model.map.height * model.map.tileHeight){
-					model.map.tiles[mousePos.x / model.TILEW][mousePos.y / model.TILEH].mouseOver = true;
+					model.map.tiles[mousePos.x / Model.TILEW][mousePos.y / Model.TILEH].mouseOver = true;
 				}
 				
 				if (keysPressed[Keyboard.KEY_LEFT]){
@@ -179,19 +179,19 @@ public class Controller extends Thread {
 							model.map.selectedTile = model.map.tiles[mapX][mapY];
 						}
 					} else {
-						model.map.tiles[mapX][mapY].tower.upgrade();
+						Model.energy -= model.map.tiles[mapX][mapY].tower.upgrade(Model.energy);
 					}
 				}
 			} else {
 				Point mouse = new Point(Mouse.getX(), Mouse.getY());//new Point(x + view.WIDTH / 2, y + view.HEIGHT / 2);
 				if (new Rectangle(19, 64, 79 - 19, 121 - 64).contains(mouse)){	// Add a laser turret
-					model.client.addTower((int) model.map.selectedTile.x / model.TILEW, (int) model.map.selectedTile.y / model.TILEH, 0);
+					model.client.addTower((int) model.map.selectedTile.x / Model.TILEW, (int) model.map.selectedTile.y / Model.TILEH, 0);
 					model.map.selectedTile = null;
 				} else if (new Rectangle(111, 64, 169 - 111, 121 - 64).contains(mouse)){	// Add a bomb turret
-					model.client.addTower((int) model.map.selectedTile.x / model.TILEW, (int) model.map.selectedTile.y / model.TILEH, 2);
+					model.client.addTower((int) model.map.selectedTile.x / Model.TILEW, (int) model.map.selectedTile.y / Model.TILEH, 2);
 					model.map.selectedTile = null;
 				} else if (new Rectangle(203, 64, 262 - 203, 121 - 64).contains(mouse)){	// Add a gatling gun
-					model.client.addTower((int) model.map.selectedTile.x / model.TILEW, (int) model.map.selectedTile.y / model.TILEH, 1);
+					model.client.addTower((int) model.map.selectedTile.x / Model.TILEW, (int) model.map.selectedTile.y / Model.TILEH, 1);
 					model.map.selectedTile = null;
 				} else if (new Rectangle(299, 64, 356 - 299, 121 - 64).contains(mouse)){	// Cancel
 					model.map.selectedTile = null;

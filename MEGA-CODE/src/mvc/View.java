@@ -344,7 +344,7 @@ public class View extends Thread {
 				Point barXY   = pickPointOnScreen(new Point(101, 13), 0);
 				Point barX1Y1 = pickPointOnScreen(new Point(598, 45), 0);
 				
-				energy = new RectSprite(barXY.x, barXY.y, (barX1Y1.x - barXY.x) * Model.energy / Model.STARTENERGY, barX1Y1.y - barXY.y, 0, new Color(150, 150, 255));
+				energy = new RectSprite(barXY.x, barXY.y, (barX1Y1.x - barXY.x) * Model.energy / Model.STARTENERGY, barX1Y1.y - barXY.y, 0, new Color(27, 255, 13));
 				energy.draw();
 				if (Model.energyCost > 0){
 					float x2 = ((barX1Y1.x - barXY.x) * Model.energy / Model.STARTENERGY) + barXY.x;

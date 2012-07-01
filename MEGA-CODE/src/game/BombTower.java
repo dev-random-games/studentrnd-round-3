@@ -7,7 +7,7 @@ public class BombTower extends Tower {
 	
 	
 	public BombTower(Map map, float x, float y) {
-		super(map, x, y, map.tileHeight, map.tileHeight, 100.0, 100.0, 60.0, 2.0, Color.CYAN, texturePaths);
+		super(map, x, y, map.tileHeight, map.tileHeight, 100.0, 100.0, 60.0, 2.0, Color.CYAN, texturePaths, 100);
 		red = 255;
 		blue = 0;
 		green = 255;

@@ -21,11 +21,14 @@ public class Monster extends RectSprite {
 	public double maxHealth;
 
 	public int evolution;
-	public float evolutionScalar;
+	public static float evolutionScalar;
 	
 	String[] texturePaths;
 	
 	TextureSprite stage0, stage1, stage2;
+	
+	public float cost;
+	public static float baseCost;
 	
 	public Monster(float x, float y, float tileWidth, float tileHeight, double health) {
 		super(x * tileWidth - 5 + tileWidth / 2, y * tileHeight - 5 + tileHeight / 2, 10, 10, 5, Color.RED);
@@ -33,9 +36,10 @@ public class Monster extends RectSprite {
 		this.health = health;
 		this.health = 100;
 		this.evolutionScalar = 1;
+		this.cost = 50;
 	}
 	
-	public Monster(float x, float y, float tileWidth, float tileHeight, double health, float speed, int evolution, float evolutionScalar, String[] texturePaths) {
+	public Monster(float x, float y, float tileWidth, float tileHeight, double health, float speed, int evolution, float evolutionScalar, String[] texturePaths, float cost) {
 		super(x * tileWidth + tileWidth / 4, y * tileHeight + tileHeight / 4, tileWidth / 2, tileHeight / 2, 5, Color.RED);
 		this.speed = speed;
 		this.maxHealth = health;
@@ -43,6 +47,8 @@ public class Monster extends RectSprite {
 		this.evolution = evolution;
 		this.evolutionScalar = evolutionScalar;
 		this.texturePaths = texturePaths;
+		this.cost = cost;
+		this.baseCost = cost;
 		
 //		for (int i = 0; i < evolution; i++){
 //			if (!evolve()) break;
@@ -127,5 +133,10 @@ public class Monster extends RectSprite {
 			stage2.draw();
 			break;
 		}
+	}
+	
+	
+	public static double getCost(int evolution) {
+		return baseCost * (evolution + 1);
 	}
 }

@@ -7,6 +7,6 @@ public class EntMonster extends Monster {
 	public static int baseEvolution = 0;
 	
 	public EntMonster(float x, float y, float tileWidth, float tileHeight) {
-		super(x, y, tileWidth, tileHeight, 100, .5f, baseEvolution, 1.5f, texturePaths);
+		super(x, y, tileWidth, tileHeight, 100, .5f, baseEvolution, 1.5f, texturePaths, 50);
 	}
 }
