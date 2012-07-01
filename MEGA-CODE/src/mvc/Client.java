@@ -28,8 +28,8 @@ public class Client extends Thread{
 	private ObjectOutputStream out;
 	public ObjectInputStream in;
 	
-//	String host = "localhost";
-	String host = "192.168.137.74";
+	String host = "localhost";
+//	String host = "192.168.137.74";
 	int port = 12345;
 	
 	int userId;
@@ -108,27 +108,7 @@ public class Client extends Thread{
 					x = message.charAt(0);
 					y = message.charAt(1);
 					int towerType = message.charAt(2);
-					if (this.canPlaceTower(x, y)) {
-						System.out.println("Adding tower at " + x + ", " + y);
-						if (!model.plantMode) {
-							double cost = 0;
-							switch (towerType) {
-							case(0):
-								cost = LaserTower.cost;
-							case(1):
-								cost = GatlingTower.cost;
-							case(2):
-								cost = BombTower.cost;
-							} 
-							
-							if (this.model.energy >= cost || true) {
-								this.model.energy -= cost;
-								model.map.addTower(x, y, towerType);
-							}
-						}
-					} else {
-						System.out.println("Cannot place tower at " + x + ", " + y);
-					}
+					model.map.addTower(x, y, towerType);
 					break;
 				case ADD_MONSTER:
 					System.out.println("monster - client incoming");
@@ -136,27 +116,7 @@ public class Client extends Thread{
 					y = message.charAt(1);
 					int monsterType = message.charAt(2);
 					int monsterId = Integer.parseInt(message.substring(3));
-					if (this.canPlaceTower(x, y)) {
-						System.out.println("Adding monster at " + x + ", " + y);
-						if (model.plantMode) {
-							double cost = 0;
-							switch (monsterType) {
-							case(0):
-								cost = EntMonster.getCost(EntMonster.baseEvolution);
-							case(1):
-								cost = TreeMonster.getCost(TreeMonster.baseEvolution);
-							case(2):
-								cost = ThornMonster.getCost(ThornMonster.baseEvolution);
-							} 
-							
-							if (this.model.energy >= cost || true) {
-								this.model.energy -= cost;
-								model.map.addMonster(x, y, monsterType, monsterId);	
-							}
-						}
-					} else {
-						System.out.println("Cannot place monster at " + x + ", " + y);
-					}
+					model.map.addMonster(x, y, monsterType, monsterId);	
 					break;
 				case MOVE_MONSTER:
 					String[] parts = message.split("\\.");
@@ -238,12 +198,52 @@ public class Client extends Thread{
 	}
 	
 	public void addTower(int x, int y, int towerType){
-		sendMessage(MessageType.ADD_TOWER, "" + (char) x + (char) y + (char) towerType);
+		if (this.canPlaceTower(x, y)) {
+			System.out.println("Adding tower at " + x + ", " + y);
+			if (!model.plantMode) {
+				double cost = 0;
+				switch (towerType) {
+				case(0):
+					cost = LaserTower.cost;
+				case(1):
+					cost = GatlingTower.cost;
+				case(2):
+					cost = BombTower.cost;
+				} 
+				
+				if (this.model.energy >= cost || true) {
+					this.model.energy -= cost;
+					sendMessage(MessageType.ADD_TOWER, "" + (char) x + (char) y + (char) towerType);
+				}
+			}
+		} else {
+			System.out.println("Cannot place tower at " + x + ", " + y);
+		}
 	}
 	
 	public void addMonster(int x, int y, int monsterType){
-		//System.out.println("monster - client outgoing");
-		sendMessage(MessageType.ADD_MONSTER, "" + (char) x + (char) y + (char) monsterType);
+		if (this.canPlaceTower(x, y)) {
+			System.out.println("Adding monster at " + x + ", " + y);
+
+			if (model.plantMode) {
+				double cost = 0;
+				switch (monsterType) {
+				case(0):
+					cost = EntMonster.getCost(EntMonster.baseEvolution);
+				case(1):
+					cost = TreeMonster.getCost(TreeMonster.baseEvolution);
+				case(2):
+					cost = ThornMonster.getCost(ThornMonster.baseEvolution);
+				} 
+				
+				if (this.model.energy >= cost || true) {
+					this.model.energy -= cost;
+					sendMessage(MessageType.ADD_MONSTER, "" + (char) x + (char) y + (char) monsterType);
+				}
+			}
+		} else {
+			System.out.println("Cannot place monster at " + x + ", " + y);
+		}
 	}
 	
 	public void upgrade(int type){
