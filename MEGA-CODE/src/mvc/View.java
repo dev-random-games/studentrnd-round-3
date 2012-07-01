@@ -57,9 +57,6 @@ public class View extends Thread {
 		}
 //		viewTranslation = new Vector3D((Model.WIDTH * Model.TILEW) / 2, (Model.HEIGHT * Model.TILEH) / 2, HEIGHT);
 		viewTranslation = new Vector3D(0, 0, HEIGHT);
-		
-		textureLoader = new TextureLoader();
-		viewTranslation = new Vector3D((Model.WIDTH * Model.TILEW) / 2, (Model.HEIGHT * Model.TILEH) / 2, HEIGHT);
 
 		textureLoader = new TextureLoader(); 
 	}

@@ -23,48 +23,19 @@ public class Map extends Sprite{
 	
 	public int width;		//x and y position, number of tiles width-wise and height-wise
 	public int height;
-	public float tileWidth;	//W/H for individual tiles on the map
-	public float tileHeight;
+	float tileWidth, tileHeight;	//W/H for individual tiles on the map
 	float mapWidth, mapHeight;		//Total width and height of the map
 	
 	public Tile[][] tiles;
 	
 	public int[][] map;
 	public int[][] graph;
+	ArrayList<Point> monsterPath;
 	
-	ArrayList<Tower> towers;
-
-	ArrayList<Monster> monster;
-
+	public ArrayList<Tower> towers;
+	public ArrayList<Monster> monsters;
 	
 	Point start, end;
-
-	
-	public Map(int width, int height, float tileWidth, float tileHeight){
-		this.width = width;
-		this.height = height;
-		this.tileWidth = tileWidth;
-		this.tileHeight = tileHeight;
-		
-		mapWidth = width * tileWidth;
-		mapHeight = height * tileHeight;
-		
-		graph = new int[width][height];
-		map = new int[width][height];
-		
-		tiles = new Tile[width][height];
-		towers = new ArrayList<Tower>();
-		
-		for (int x = 0; x < width; x++){
-			for (int y = 0; y < height; y++){
-				tiles[x][y] = new Tile(x, y, tileWidth, tileHeight, false);
-			}
-		}
-		
-		start = new Point(0, 0);
-		end = new Point(width - 1, height - 1);
-		generatePath(start, end);
-	}
 	
 	public Map(String path, int width, int height, float tileWidth, float tileHeight) {
 		
@@ -80,6 +51,10 @@ public class Map extends Sprite{
 		
 		tiles = new Tile[width][height];
 		towers = new ArrayList<Tower>();
+		monsters = new ArrayList<Monster>();
+		
+		graph = new int[width][height];
+		map = new int[width][height];
 		
 		try {
 			BufferedImage image = ImageIO.read(file);
@@ -109,7 +84,22 @@ public class Map extends Sprite{
 			e.printStackTrace();
 			System.exit(0);
 		}
+		
+		start = new Point(1, 1);
+		end = new Point(width - 5, height - 2);
+		monsterPath = generatePath(start, end);
+		
+		addMonster(1, 1);
 				
+	}
+	
+	public void step(){
+		for (Monster monster : monsters){
+			if (!monster.moveAlong(monsterPath, tileWidth, tileHeight)){
+				monster.moveAlong(generatePath(monster.getMapPosition(tileWidth, tileHeight), end), tileWidth, tileHeight);
+			}
+			
+		}
 	}
 
 	@Override
@@ -124,6 +114,9 @@ public class Map extends Sprite{
 				tiles[x][y].draw();
 			}
 		}
+		for (Monster monster : monsters){
+			monster.draw();
+		}
 	}
 	
 	public boolean addTower(int x, int y){
@@ -131,7 +124,16 @@ public class Map extends Sprite{
 			Tower tower = new Tower(x * tileWidth + 5, y * tileHeight + 5, tileWidth - 10, tileHeight - 10);
 			towers.add(tower);
 			tiles[x][y].tower = tower;
-			generatePath(start, end);
+			monsterPath = generatePath(start, end);
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	public boolean addMonster(int x, int y){
+		if (tiles[x][y].tower == null && !tiles[x][y].highGround){
+			monsters.add(new Monster(x, y, tileWidth, tileHeight));
 			return true;
 		} else {
 			return false;
