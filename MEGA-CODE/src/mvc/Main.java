@@ -1,5 +1,9 @@
 package mvc;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
 
 /**
  * 
@@ -23,7 +27,26 @@ public class Main extends Thread {
 		
 		model = new Model();
 		view = new View(model);
-		client = new Defender(model, view);
+		
+		System.out.print("[a]ttacker or [d]efender? ");
+		
+		BufferedReader stdin = new BufferedReader(new InputStreamReader(System.in));
+
+	    String rawChoice = null;
+	    
+	    try {
+	    	rawChoice = stdin.readLine();
+	    } catch (IOException ioe) {
+	    	System.out.println("io error while parsing attacker defender choice");
+	    	System.exit(1);
+	    }
+		
+	    if (rawChoice.toLowerCase().contains("a")) {
+	    	client = new Attacker(model, view);
+	    } else {
+	    	client = new Defender(model, view);
+	    }
+	    
 		controller = new Controller(model, view);
 		model.setClient(client);
 		
