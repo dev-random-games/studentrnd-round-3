@@ -1,5 +1,6 @@
 package mvc;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.Font;
@@ -14,7 +15,7 @@ import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.util.glu.GLU;
-import org.newdawn.slick.Color;
+//import org.newdawn.slick.Color;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.opengl.TextureLoader;
@@ -40,6 +41,7 @@ public class View extends Thread {
 
 	public Vector3D viewTranslation;// Vector specifying the translation of the
 	// view in 2D space.
+	public Vector3D newViewTranslation;
 
 	public static int frameCount = 0;
 
@@ -72,7 +74,7 @@ public class View extends Thread {
 		GL11.glLoadIdentity();
 
 		float whRatio = (float) WIDTH / (float) HEIGHT;
-		GLU.gluPerspective(FOV, whRatio, 1, 1000);
+		GLU.gluPerspective(FOV, whRatio, 1, 10000);
 		GLU.gluLookAt(viewTranslation.getX(), viewTranslation.getY(), viewTranslation.getZ(),
 				viewTranslation.getX(), viewTranslation.getY(), 0, 0, 1, 0);
 
@@ -80,7 +82,7 @@ public class View extends Thread {
 		GL11.glLoadIdentity();
 	}
 	
-	public Point pickPointOnScreen(Point screenPixel){
+	public Point pickPointOnScreen(Point screenPixel, float pickHeight){
 		Vector3D cameraForwards = new Vector3D(0, 0, -1);
 		Vector3D cameraRight = new Vector3D(1, 0, 0);
 		Vector3D cameraUp = new Vector3D(0, 1, 0);
@@ -88,16 +90,11 @@ public class View extends Thread {
 		float screenX = screenPixel.x - WIDTH / 2;
 		float screenY = screenPixel.y - HEIGHT / 2;
 		
-		//System.out.println("(" + screenX + ", " + screenY + ")");
-		//System.out.println(viewTranslation.toString());
-		
 		Vector3D screenVector = cameraForwards.scale((float) (WIDTH / (2 * Math.tan(FOV / 360 * Math.PI)))).add(cameraRight.scale(screenX))
 											  		  	 .add(cameraUp.scale(screenY));
 		
-		float distScale = viewTranslation.getZ() / screenVector.getZ();
+		float distScale = (viewTranslation.getZ()) / screenVector.getZ();
 		Vector3D planeIntersection = viewTranslation.add(screenVector.scale(-distScale));
-		
-		//System.out.println("Projected point: " + planeIntersection.toString());
 		
 		return new Point((int) (planeIntersection.getX()), (int) planeIntersection.getY());
 
@@ -162,6 +159,12 @@ public class View extends Thread {
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
+				
+				if (newViewTranslation != null){
+					viewTranslation = newViewTranslation;
+					newViewTranslation = null;
+				}
+				
 				setCamera(); // *DO NOT CHANGE THIS*
 
 				/*
@@ -170,11 +173,23 @@ public class View extends Thread {
 
 //				Color.white.bind();
 //				font.drawString(100, 50, "THE LIGHTWEIGHT JAVA GAMES LIBRARY", Color.yellow);
-				
 
 				for (Sprite sprite : model.sprites){
 					sprite.draw();
 				}
+				
+				GL11.glDepthMask(false);  // disable writes to Z-Buffer
+				GL11.glDisable(GL11.GL_DEPTH_TEST);  // disable depth-testing
+				
+				Point corner1 = pickPointOnScreen(new Point(0, 0), 0);
+				Point corner2 = pickPointOnScreen(new Point(700, 100), 0);
+				
+				new RectSprite(corner1.x, corner1.y, corner2.x - corner1.x, corner2.y - corner1.y, 0, Color.blue).draw();
+				
+				GL11.glDepthMask(true);  // disable writes to Z-Buffer
+				GL11.glEnable(GL11.GL_DEPTH_TEST);  // disable depth-testing
+				
+//				GL11.glDisable(GL11.GL_DEPTH_TEST);
 
 				/*
 				 * End of stuff you can change without breaking everything.

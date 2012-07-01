@@ -132,5 +132,9 @@ public class ExtrudeSprite extends Sprite{
 		GL11.glVertex3f(x + w, y + h, 0);
 		GL11.glEnd();
 	}
+	
+	public void setColor(Color color){
+		this.color = color;
+	}
 
 }

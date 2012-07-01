@@ -7,22 +7,24 @@ import game.Map;
 
 public class Tower extends ExtrudeSprite{
 	
-	double range;
-	double strength;
-	double cooldown;
+	public double range;
+	public double damage;
+	public double cooldown;
 	
-	int evolution;
-	double evolutionScalar;
+	public int evolution;
+	public double evolutionScalar;
 	
 	String[] texturePaths;
-	
-	int uniqueId;
+
+	public int beamType;
+	public char towerType;
+	public int uniqueId;
 	
 	public Tower(Map map, float x, float y) {
 		super(x * map.tileWidth + 5, y * map.tileHeight + 5, map.tileWidth - 6, map.tileHeight - 6, 20, Color.BLUE);
 		
 		range = 150;
-		strength = 20;
+		damage = 20;
 		cooldown = 1;
 		
 		evolution = 0;
@@ -30,16 +32,20 @@ public class Tower extends ExtrudeSprite{
 		
 	}
 	
-	public Tower(Map map, float x, float y, float width, float height, double range, double strength, double cooldown, double evolutionScalar, Color color, String[] texturePaths) {
+	public Tower(Map map, float x, float y, float width, float height, double range, double damage, double cooldown, double evolutionScalar, Color color, String[] texturePaths) {
 		super(x * map.tileWidth + 5, y * map.tileHeight + 5, width, width, height, color);
 		
 		this.range = range;
-		this.strength = strength;
+		this.damage = damage;
 		this.cooldown = cooldown;
 		
 		this.evolutionScalar = evolutionScalar;
 		
 		this.texturePaths = texturePaths;
 		
+	}
+	
+	public String getClassName() {
+		return "Tower";
 	}
 }

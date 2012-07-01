@@ -46,8 +46,8 @@ public class Model extends Thread {
 	public static final int WIDTH = 32;
 	public static final int HEIGHT = 32;
 
-	public static final int TILEW = 40;
-	public static final int TILEH = 40;
+	public static final int TILEW = 100;
+	public static final int TILEH = 100;
 	
 	public Model() {
 		sprites = new ArrayList<Sprite>();

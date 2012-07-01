@@ -16,10 +16,14 @@ public class Monster extends RectSprite {
 	
 //	float x, y, z;
 	float speed = 2;
+	public double health;
 	int uniqueId;
+	public double maxHealth, rotation;
+	public int speedUpgrade, healthUpgrade;
 	
-	public Monster(float x, float y, float tileWidth, float tileHeight) {
+	public Monster(float x, float y, float tileWidth, float tileHeight, double health) {
 		super(x * tileWidth - 5 + tileWidth / 2, y * tileHeight - 5 + tileHeight / 2, 10, 10, 5, Color.RED);
+		this.health = health;
 	}
 	
 	public Point getMapPosition(float tileWidth, float tileHeight){
@@ -45,5 +49,13 @@ public class Monster extends RectSprite {
 			}
 		}
 		return false;
+	}
+	
+	public void damage(double amount) {
+		this.health -= amount;
+	}
+	
+	public boolean shouldDie() {
+		return this.health <= 0;
 	}
 }

@@ -2,17 +2,21 @@ package game;
 
 import java.awt.Color;
 
-import mvc.RectSprite;
+import mvc.ExtrudeSprite;
 
-public class Tile extends RectSprite{
+public class Tile extends ExtrudeSprite{
 	
 	public boolean highGround = false;
 	boolean onPath = false;
 	
-	public static final int lowGroundHeight = 0;
-	public static final int highGroundHeight = 0;
+	public boolean mouseOver = false;
 	
-	Tower tower;
+	public static final int lowGroundHeight = 0;
+	public static final int highGroundHeight = 20;
+	
+	public String terrainType = "default";
+	
+	public Tower tower;
 	
 	public Tile(int x, int y, float tileWidth, float tileHeight, boolean highGround){
 		super(x * tileWidth, y * tileHeight, tileWidth, tileHeight, highGround ? highGroundHeight : lowGroundHeight , highGround ? Color.LIGHT_GRAY : Color.DARK_GRAY);
@@ -21,6 +25,10 @@ public class Tile extends RectSprite{
 	}
 	
 	public void draw(){
+		if (mouseOver){
+			setColor(Color.WHITE);
+			mouseOver = false;
+		}
 		super.draw();
 		
 		if (onPath){
