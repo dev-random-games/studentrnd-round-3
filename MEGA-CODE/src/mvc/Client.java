@@ -105,9 +105,12 @@ public class Client extends Thread{
 					y = message.charAt(1);
 					int towerType = message.charAt(2);
 					if (this.canPlaceTower(x, y)) {
-						this.subtractEnergy();
 						System.out.println("Adding tower at " + x + ", " + y);
 						model.map.addTower(x, y, towerType);	
+						if (!model.plantMode) {
+							this.energy -= model.map.tiles[x][y].tower.cost;
+							System.out.println("energy: " + energy);
+						}
 					} else {
 						System.out.println("Cannot place tower at " + x + ", " + y);
 					}
@@ -122,6 +125,10 @@ public class Client extends Thread{
 						this.subtractEnergy();
 						System.out.println("Adding monster at " + x + ", " + y);
 						model.map.addMonster(x, y, monsterType, monsterId);	
+						if (model.plantMode) {
+							this.energy -= model.map.tiles[x][y].tower.cost;
+							System.out.println("energy: " + energy);
+						}
 					} else {
 						System.out.println("Cannot place monster at " + x + ", " + y);
 					}

@@ -36,6 +36,8 @@ public class Tower extends ExtrudeSprite{
 	
 	float upgradeArrowTranslate = 0;
 	
+	public float cost;
+	
 	public Tower(Map map, float x, float y) {
 		super(x * map.tileWidth + 5, y * map.tileHeight + 5, map.tileWidth - 6, map.tileHeight - 6, 20, Color.BLUE);
 		
@@ -46,9 +48,11 @@ public class Tower extends ExtrudeSprite{
 		evolution = 0;
 		evolutionScalar = 1.25;
 		
+		cost = 100;
+		
 	}
 	
-	public Tower(Map map, float x, float y, float width, float height, double range, double damage, double cooldown, double evolutionScalar, Color color, String[] texturePaths) {
+	public Tower(Map map, float x, float y, float width, float height, double range, double damage, double cooldown, double evolutionScalar, Color color, String[] texturePaths, float cost) {
 		super(x * map.tileWidth + 5, y * map.tileHeight + 5, width, width, height, color);
 		
 		this.range = range;
@@ -62,6 +66,8 @@ public class Tower extends ExtrudeSprite{
 		base = new TextureSprite(this.x, this.y, w, h, 20, texturePaths[0]);
 		guns = new TextureSprite(this.x, this.y, w, h, 30, texturePaths[1]);
 		tower = new TextureSprite(this.x, this.y, w, h, 40, texturePaths[2]);
+		
+		this.cost = cost;
 		
 	}
 	
