@@ -20,6 +20,7 @@ public class Connector extends Thread {
 		super();
 		try {
 			this.reciever = reciever;
+			reciever.setTcpNoDelay(true);
 			this.manager = manager;
 			in = new ObjectInputStream(new BufferedInputStream(reciever.getInputStream()));
 			out = new ObjectOutputStream(reciever.getOutputStream());

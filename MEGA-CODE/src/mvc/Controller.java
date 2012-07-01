@@ -60,12 +60,16 @@ public class Controller extends Thread {
 			/*
 			 * Catch all keyboard events
 			 */
-			while (Keyboard.next()){
-				if (Keyboard.getEventKeyState()){
-					keyPressed(Keyboard.getEventKey());
-				} else {
-					keyReleased(Keyboard.getEventKey());
+			try {
+				while (Keyboard.next()){
+					if (Keyboard.getEventKeyState()){
+						keyPressed(Keyboard.getEventKey());
+					} else {
+						keyReleased(Keyboard.getEventKey());
+					}
 				}
+			} catch (IllegalStateException e){
+				
 			}
 			
 			Point mousePos = view.pickPointOnScreen(new Point(Mouse.getX(), Mouse.getY()), 0);
