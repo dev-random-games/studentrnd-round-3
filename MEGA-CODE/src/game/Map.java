@@ -109,11 +109,11 @@ public class Map extends Sprite{
 		for (Tower tower : towers){
 			Monster target= tower.target(monsters, end);
 			if (target != null) { 
-				if (tower.cooldown <= 0) {
+				if (tower.coolCounter <= 0) {
 					target.health -= tower.damage; 
-					tower.cooldown = 10;
+					tower.coolCounter = tower.cooldown;
 				} else {
-					tower.cooldown -= 1;
+					tower.coolCounter -= 1;
 				}
 			}
 		}

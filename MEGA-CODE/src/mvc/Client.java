@@ -41,6 +41,7 @@ public class Client extends Thread{
 			this.view = view;
 			
 			client = new Socket(host, port);
+			client.setTcpNoDelay(true);
 			client.setSoTimeout(1000);
 			
 			out = new ObjectOutputStream(client.getOutputStream());
