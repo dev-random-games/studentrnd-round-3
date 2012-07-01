@@ -39,18 +39,18 @@ public class StateEncoder {
 		/* 
 		 * Monster encoding:
 		 * float x | float y | float speed | double maxHealth | double health | int speedUpgrade |
-		 * 		int healthUpgrade | double rotation;
+		 * 		int healthUpgrade | double rotation | int uniqueId;
 		 */
 		for (Monster m : Init.map.monsters) {
 			state += "monster" + delimiter + m.x + delimiter + m.y + delimiter + m.speed + delimiter +
 					m.maxHealth + delimiter + m.health + delimiter + m.speedUpgrade + delimiter + 
-					m.healthUpgrade + delimiter + m.r + "\n";
+					m.healthUpgrade + delimiter + m.r + delimiter + m.uniqueId + "\n";
 		}
 		
 		/*
 		 * Tower encoding:
-		 * int x | int y | double damage | int cooldownPeriod | float rotation | int upgradeDamage | 
-		 * 		int upgradeCooldown | int upgradeRange | int range | int beamType | char towerType | int uniqueId
+		 * int x | int y | double damage | int cooldown | float rotation | int evolution |
+		 * 	int evolutionScalar | int range | int beamType | char towerType | int uniqueId
 		 */
 		
 		return state;

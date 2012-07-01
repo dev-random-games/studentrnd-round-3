@@ -17,7 +17,7 @@ public class Monster extends RectSprite {
 //	float x, y, z;
 	public float speed = 2;
 	public double health;
-	int uniqueId;
+	public int uniqueId;
 	public double maxHealth;
 	public int speedUpgrade, healthUpgrade;
 	
