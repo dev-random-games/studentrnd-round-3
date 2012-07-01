@@ -23,6 +23,8 @@ public class Tower extends ExtrudeSprite{
 	public char towerType;
 	public int uniqueId;
 	
+	public boolean mouseHovering;
+	
 	public Tower(Map map, float x, float y) {
 		super(x * map.tileWidth + 5, y * map.tileHeight + 5, map.tileWidth - 6, map.tileHeight - 6, 20, Color.BLUE);
 		
@@ -66,7 +68,6 @@ public class Tower extends ExtrudeSprite{
 		}
 		
 		if (targeted != null){
-			System.out.println("TARGET!");
 			r = - Math.atan2(targeted.x + targeted.w / 2 - x - w / 2, targeted.y + targeted.h / 2 - y - h / 2) * 180 / Math.PI;
 		}
 		

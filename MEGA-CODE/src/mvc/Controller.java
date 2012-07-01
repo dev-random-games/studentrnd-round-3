@@ -1,5 +1,7 @@
 package mvc;
 
+import game.Tower;
+
 import java.awt.KeyboardFocusManager;
 import java.awt.Point;
 import java.awt.event.KeyEvent;
@@ -63,6 +65,19 @@ public class Controller extends Thread {
 			}
 			
 			Point mousePos = view.pickPointOnScreen(new Point(Mouse.getX(), Mouse.getY()), 0);
+
+			for (Tower tower : model.map.towers){
+				tower.mouseHovering = false;
+			}
+			
+			int mapX = (int) (mousePos.x / model.map.tileWidth);
+			int mapY = (int) (mousePos.y / model.map.tileHeight);
+			
+			if (mapX >= 0 && mapY >= 0 && mapX < model.map.width && mapY < model.map.height){
+				if (model.map.tiles[mapX][mapY].tower != null){
+					model.map.tiles[mapX][mapY].tower.mouseHovering = true;
+				}
+			}
 			
 			/*
 			 * Catch mouse events
@@ -79,23 +94,23 @@ public class Controller extends Thread {
 			
 			try {
 				/* DON'T REMOVE THIS LINE WITHOUT SOMEHOW COPYING VIEWTRANSLATION TO NEWVIEWTRANSLATION */
-				view.newViewTranslation = view.viewTranslation.add(new Vector3D(0, 0, - Mouse.getDWheel() * (view.viewTranslation.getZ() / 2000)));
+				view.viewVelocity.setZ(view.viewVelocity.getZ() - Mouse.getDWheel() * (view.viewTranslation.getZ() / 16000));
 				
 				if (mousePos.x > 0 && mousePos.y > 0 && mousePos.x < model.map.width * model.map.tileWidth && mousePos.y < model.map.height * model.map.tileHeight){
 					model.map.tiles[mousePos.x / model.TILEW][mousePos.y / model.TILEH].mouseOver = true;
 				}
 				
 				if (keysPressed[Keyboard.KEY_LEFT]){
-					view.newViewTranslation = view.newViewTranslation.add(new Vector3D(-4 * (view.viewTranslation.getZ() / 1000), 0, 0));
+					view.viewVelocity.setX(-4 * (view.viewTranslation.getZ() / 1000));
 				}
 				if (keysPressed[Keyboard.KEY_UP]){
-					view.newViewTranslation = view.newViewTranslation.add(new Vector3D(0, 4 * (view.viewTranslation.getZ() / 1000), 0));
+					view.viewVelocity.setY(4 * (view.viewTranslation.getZ() / 1000));
 				}
 				if (keysPressed[Keyboard.KEY_RIGHT]){
-					view.newViewTranslation = view.newViewTranslation.add(new Vector3D(4 * (view.viewTranslation.getZ() / 1000), 0, 0));
+					view.viewVelocity.setX(4 * (view.viewTranslation.getZ() / 1000));
 				}
 				if (keysPressed[Keyboard.KEY_DOWN]){
-					view.newViewTranslation = view.newViewTranslation.add(new Vector3D(0, -4 * (view.viewTranslation.getZ() / 1000), 0));
+					view.viewVelocity.setY(-4 * (view.viewTranslation.getZ() / 1000));
 				}
 			} catch (NullPointerException e){
 				continue;
@@ -118,10 +133,17 @@ public class Controller extends Thread {
 	 * @param evt
 	 */
 	public void mouseReleased(int x, int y){
-		if (model.plantMode){
-			model.client.addMonster((int) (x / model.map.tileWidth), (int) (y / model.map.tileHeight), 0);
-		} else {
-			model.client.addTower((int) (x / model.map.tileWidth), (int) (y / model.map.tileHeight), 1);
+		int mapX = (int) (x / model.map.tileWidth);
+		int mapY = (int) (y / model.map.tileHeight);
+		
+		if (mapX >= 0 && mapY >= 0 && mapX < model.map.width && mapY < model.map.height){
+			if (model.plantMode){
+				model.client.addMonster(mapX, mapY, 0);
+			} else {
+				if (model.map.tiles[mapX][mapY].tower == null){
+					model.client.addTower(mapX, mapY, 1);
+				}
+			}
 		}
 	}
 	

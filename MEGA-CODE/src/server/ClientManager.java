@@ -67,12 +67,12 @@ public class ClientManager extends Thread {
 		case CONNECT:
 			Init.sendServerMessage("New client connected.");
 			int newClientType;
-			if (!hasPlant){
-				newClientType = 0;	//Connect plant player
-				hasPlant = true;
-			} else if (!hasMecha){
-				newClientType = 1;	//Connect mecha player
+			if (!hasMecha){
+				newClientType = 1;	//Connect plant player
 				hasMecha = true;
+			} else if (!hasPlant){
+				newClientType = 0;	//Connect mecha player
+				hasPlant = true;
 			} else {
 				newClientType = 2;	//Reject player
 			}

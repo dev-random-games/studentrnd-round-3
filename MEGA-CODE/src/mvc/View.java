@@ -38,10 +38,15 @@ public class View extends Thread {
 	public static final int HEIGHT = 700;
 	public static final int Z = 1000;
 	public static final float FOV = 45;
+	
+	public static final int MAXZ = 2000;
+	public static final int MINZ = 200;
 
 	public Vector3D viewTranslation;// Vector specifying the translation of the
 	// view in 2D space.
-	public Vector3D newViewTranslation;
+//	public Vector3D newViewTranslation;
+	
+	Vector3D viewVelocity;
 
 	public static int frameCount = 0;
 
@@ -69,6 +74,8 @@ public class View extends Thread {
 		viewTranslation = new Vector3D(0, 0, Z);
 
 		textureLoader = new TextureLoader(); 
+		viewVelocity = new Vector3D();
+	
 	}
 
 	/*
@@ -172,9 +179,20 @@ public class View extends Thread {
 					e.printStackTrace();
 				}
 				
-				if (newViewTranslation != null){
-					viewTranslation = newViewTranslation;
-					newViewTranslation = null;
+//				if (newViewTranslation != null){
+//					viewTranslation = newViewTranslation;
+//					newViewTranslation = null;
+//				}
+				
+				viewTranslation = viewTranslation.add(viewVelocity);
+				viewVelocity = viewVelocity.scale(.95f);
+				
+				if (viewTranslation.getZ() > MAXZ){
+					viewTranslation.setZ(MAXZ);
+					viewVelocity.setZ(0);
+				} else if (viewTranslation.getZ() < MINZ){
+					viewTranslation.setZ(MINZ);
+					viewVelocity.setZ(0);
 				}
 				
 				setCamera(); // *DO NOT CHANGE THIS*
