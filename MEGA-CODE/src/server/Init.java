@@ -66,7 +66,7 @@ public class Init extends Thread{
 			serverDisplay.pack();
 			serverDisplay.setVisible(true);
 			
-			map = new Map(20, 20, 50, 50);
+			map = new Map(20, 20, 5, 5);
 			
 			while (true) {
 				try {

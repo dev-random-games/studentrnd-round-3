@@ -2,6 +2,7 @@ package game;
 
 import java.awt.Color;
 import java.awt.Rectangle;
+import java.util.ArrayList;
 
 import mvc.RectSprite;
 import mvc.Sprite;
@@ -17,6 +18,8 @@ public class Map extends Sprite{
 	
 	Tile[][] tiles;
 	
+	ArrayList<Tower> towers;
+	
 	public Map(int width, int height, float tileWidth, float tileHeight){
 		this.width = width;
 		this.height = height;
@@ -27,6 +30,7 @@ public class Map extends Sprite{
 		mapHeight = height * tileHeight;
 		
 		tiles = new Tile[width][height];
+		towers = new ArrayList<Tower>();
 		
 		for (int x = 0; x < width; x++){
 			for (int y = 0; y < height; y++){
@@ -47,6 +51,12 @@ public class Map extends Sprite{
 				tiles[x][y].draw();
 			}
 		}
+	}
+	
+	public void addTower(int x, int y){
+		Tower tower = new Tower(x * tileWidth + 5, y * tileHeight + 5, tileWidth - 10, tileHeight - 10);
+		towers.add(tower);
+		tiles[x][y].tower = tower;
 	}
 
 }

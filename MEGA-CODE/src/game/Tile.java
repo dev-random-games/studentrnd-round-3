@@ -9,7 +9,7 @@ public class Tile extends RectSprite{
 	boolean highGround = false;
 	
 	public static final int lowGroundHeight = 0;
-	public static final int highGroundHeight = 20;
+	public static final int highGroundHeight = 0;
 	
 	Tower tower;
 	
@@ -21,7 +21,7 @@ public class Tile extends RectSprite{
 		super.draw();
 		
 		if (tower != null){
-			
+			tower.draw();
 		}
 	}
 	
