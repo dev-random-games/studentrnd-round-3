@@ -25,7 +25,7 @@ public class Tower extends ExtrudeSprite{
 		
 		range = 150;
 		damage = 20;
-		cooldown = 1;
+		cooldown = 30;
 		
 		evolution = 0;
 		evolutionScalar = 1;

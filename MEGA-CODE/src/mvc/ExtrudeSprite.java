@@ -7,7 +7,7 @@ import org.lwjgl.opengl.GL11;
 
 public class ExtrudeSprite extends Sprite{
 
-	float x, y, w, h, depth;
+	public float x, y, w, h, depth;
 	Color color;
 	
 	public ExtrudeSprite(float x, float y, float w, float h, float depth, Color color){

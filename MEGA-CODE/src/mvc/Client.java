@@ -19,7 +19,7 @@ public class Client extends Thread{
 	private ObjectOutputStream out;
 	public ObjectInputStream in;
 	
-	String host = "localhost";
+	String host = "192.168.1.2";
 	int port = 12345;
 	
 	int userId;
@@ -29,7 +29,7 @@ public class Client extends Thread{
 	
 	float energy;
 	
-	public Client(Model model, View view, float energy){
+	public Client(Model model, View view){
 		try {
 			this.model = model;
 			this.view = view;
@@ -70,6 +70,8 @@ public class Client extends Thread{
 				MessageType type = MessageType.translate(val.charAt(0));
 				String message = val.substring(1);
 				
+				int x, y;
+				
 				switch (type){
 				case SERVER_MESSAGE:
 					System.out.println("SERVER: " + message);
@@ -80,8 +82,8 @@ public class Client extends Thread{
 					sendMessage(MessageType.SERVER_MESSAGE, "Hello server!");
 					break;
 				case ADD_TOWER:
-					int x = message.charAt(0);
-					int y = message.charAt(1);
+					x = message.charAt(0);
+					y = message.charAt(1);
 					int towerType = message.charAt(2);
 					if (this.canPlaceTower(x, y)) {
 						this.subtractEnergy();
@@ -90,6 +92,20 @@ public class Client extends Thread{
 					} else {
 						System.out.println("Cannot place tower at " + x + ", " + y);
 					}
+					break;
+				case ADD_MONSTER:
+					x = message.charAt(0);
+					y = message.charAt(1);
+					int monsterType = message.charAt(2);
+					int monsterId = Integer.parseInt(message.substring(3));
+					if (this.canPlaceTower(x, y)) {
+						this.subtractEnergy();
+						System.out.println("Adding monster at " + x + ", " + y);
+						model.map.addMonster(x, y, monsterType, monsterId);	
+					} else {
+						System.out.println("Cannot place monster at " + x + ", " + y);
+					}
+					break;
 				case PROVIDE_STATE:
 					model.map.monsters = new ArrayList<Monster>();
 					
@@ -105,7 +121,6 @@ public class Client extends Thread{
 							
 						}
 					}
-					
 					
 				}
 				
@@ -155,5 +170,9 @@ public class Client extends Thread{
 	
 	public void addTower(int x, int y, int towerType){
 		sendMessage(MessageType.ADD_TOWER, "" + (char) x + (char) y + (char) towerType);
+	}
+	
+	public void addMonster(int x, int y, int monsterType){
+		sendMessage(MessageType.ADD_MONSTER, "" + (char) x + (char) y + (char) monsterType);
 	}
 }

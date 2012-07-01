@@ -89,7 +89,7 @@ public class Map extends Sprite{
 		end = new Point(width - 5, height - 2);
 		monsterPath = generatePath(start, end);
 		
-		addMonster(1, 1);
+//		addMonster(1, 1, 0);
 				
 	}
 	
@@ -131,11 +131,14 @@ public class Map extends Sprite{
 	}
 	
 	public boolean addTower(int x, int y, int type){
-		if (tiles[x][y].tower == null){
+		if (tiles[x][y].tower == null && tiles[x][y].highGround){
 			Tower tower;
 			switch (type) {
 			case 0: 
 				tower = new LaserTower(this, x, y);
+				break;
+			case 1:
+				tower = new GatlingTower(this, x, y);
 				break;
 			default:
 				tower = new Tower(this, x, y);
@@ -151,9 +154,11 @@ public class Map extends Sprite{
 		}
 	}
 	
-	public boolean addMonster(int x, int y){
+	public boolean addMonster(int x, int y, int type, int id){
 		if (tiles[x][y].tower == null && !tiles[x][y].highGround){
-			monsters.add(new Monster(x, y, tileWidth, tileHeight, 100)); // Add a real health value at some point!!
+			Monster monster = new Monster(x, y, tileWidth, tileHeight, 100);	// Add a real health value at some point!!
+			monster.uniqueId = id;
+			monsters.add(monster); 
 			return true;
 		} else {
 			return false;
