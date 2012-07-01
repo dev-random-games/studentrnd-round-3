@@ -18,7 +18,7 @@ import org.newdawn.slick.util.ResourceLoader;
  */
 public class TextureSprite extends Sprite{
 	
-	private float x, y, w, h, depth, r;
+	public float x, y, w, h, depth, r;
 	private Texture texture;
 	private String texturePath;
 
@@ -96,6 +96,8 @@ public class TextureSprite extends Sprite{
 		GL11.glEnd();
 		
 		GL11.glPopMatrix();
+		
+		GL11.glDisable(GL11.GL_TEXTURE_2D);
 	}
 
 	/**
