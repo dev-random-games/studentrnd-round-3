@@ -39,7 +39,7 @@ public class StateEncoder {
 		/* 
 		 * Monster encoding:
 		 * float x | float y | float speed | double maxHealth | double health | int speedUpgrade |
-		 * 		int healthUpgrade | double rotation | int uniqueId;
+		 * 		int healthUpgrade | double rotation | int uniqueId | String classname;
 		 */
 		for (Monster m : Init.map.monsters) {
 			state += "monster" + delimiter + m.x + delimiter + m.y + delimiter + m.speed + delimiter +
