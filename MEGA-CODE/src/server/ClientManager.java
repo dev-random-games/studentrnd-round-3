@@ -74,7 +74,7 @@ public class ClientManager extends Thread {
 		case REQUEST_ID:
 			int id = Init.currentId;
 			Init.currentId++;
-			sendMessage(MessageType.PROVIDE_ID, id.toString());
+			sendMessage(MessageType.PROVIDE_ID, "" + id);
 		}
 	}
 }
