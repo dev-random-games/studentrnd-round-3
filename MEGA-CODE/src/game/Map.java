@@ -100,6 +100,17 @@ public class Map extends Sprite{
 			}
 			
 		}
+		
+		// Remove dead monsters
+		
+		int i = 0;
+		while (i < monsters.size()) {
+			if (monsters.get(i).shouldDie()) {
+				monsters.remove(i);
+			} else {
+				i++;
+			}
+		}
 	}
 
 	@Override
@@ -133,7 +144,7 @@ public class Map extends Sprite{
 	
 	public boolean addMonster(int x, int y){
 		if (tiles[x][y].tower == null && !tiles[x][y].highGround){
-			monsters.add(new Monster(x, y, tileWidth, tileHeight));
+			monsters.add(new Monster(x, y, tileWidth, tileHeight, 100)); // Add a real health value at some point!!
 			return true;
 		} else {
 			return false;

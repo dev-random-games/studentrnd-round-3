@@ -6,9 +6,9 @@ import mvc.ExtrudeSprite;
 
 public class Tower extends ExtrudeSprite{
 	
-	double range;
-	double strength;
-	double reload;
+	double range, coolDown, damage;
+	int upgradeRange, upgradeDamage, upgradeCooldown;
+	int beamType;
 	
 	int uniqueId;
 	
@@ -16,7 +16,8 @@ public class Tower extends ExtrudeSprite{
 		super(x, y, width, height, 50, Color.BLUE);
 		
 		range = 150;
-		strength = 20;
-		reload = 1;
+		coolDown = 1;
+		damage = 1;
+		
 	}
 }
