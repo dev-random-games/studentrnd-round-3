@@ -23,11 +23,12 @@ public class StateEncoder {
 						t.highGroundHeight + "\n";
 				if (t.tower != null) {
 					state += "tower" + delimiter + x + delimiter + y + delimiter +
-							t.tower.damage + delimiter + t.tower.coolDown + delimiter + 
-							t.tower.r + delimiter + t.tower.upgradeDamage + delimiter +
-							t.tower.upgradeCooldown + delimiter + t.tower.upgradeRange + 
+							t.tower.damage + delimiter + t.tower.cooldown + delimiter + 
+							t.tower.r + delimiter + t.tower.evolution + delimiter +
+							t.tower.evolutionScalar + delimiter +
 							t.tower.range + delimiter + t.tower.beamType + delimiter + 
-							t.tower.towerType + delimiter + t.tower.uniqueId + "\n";
+							t.tower.towerType + delimiter + t.tower.uniqueId + delimiter +
+							t.tower.getClassName() + "\n";
 				}
 				
 			}
