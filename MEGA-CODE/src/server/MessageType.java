@@ -5,7 +5,10 @@ public enum MessageType {
 	CONNECT (1),
 	DISCONNECT (2),
 	ADD_TOWER (3),
-	ADD_MONSTER (4);
+	ADD_MONSTER (4),
+	REQUEST_STATE (5),
+	REQUEST_ID (6),
+	PROVIDE_ID (7);
 	
 	private final int index;
 	

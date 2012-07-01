@@ -71,6 +71,10 @@ public class ClientManager extends Thread {
 			Init.sendServerMessage("[USER " + client.id + "] adding tower at " + x + ", " + y);
 			Init.map.addTower(x, y);
 			sendMessage(MessageType.ADD_TOWER, "" + (char) x + (char) y);
+		case REQUEST_ID:
+			int id = Init.currentId;
+			Init.currentId++;
+			sendMessage(MessageType.PROVIDE_ID, id.toString());
 		}
 	}
 }

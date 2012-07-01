@@ -12,13 +12,15 @@ import mvc.Sprite;
  */
 public class Map extends Sprite{
 	
-	int width, height;		//x and y position, number of tiles width-wise and height-wise
+	public int width;		//x and y position, number of tiles width-wise and height-wise
+	public int height;
 	float tileWidth, tileHeight;	//W/H for individual tiles on the map
 	float mapWidth, mapHeight;		//Total width and height of the map
 	
-	Tile[][] tiles;
+	public Tile[][] tiles;
 	
 	ArrayList<Tower> towers;
+	ArrayList<Monster> monster;
 	
 	public Map(int width, int height, float tileWidth, float tileHeight){
 		this.width = width;
