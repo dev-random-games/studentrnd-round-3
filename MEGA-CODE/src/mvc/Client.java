@@ -211,7 +211,7 @@ public class Client extends Thread{
 					cost = BombTower.cost;
 				} 
 				
-				if (this.model.energy >= cost || true) {
+				if (this.model.energy >= cost) {
 					this.model.energy -= cost;
 					sendMessage(MessageType.ADD_TOWER, "" + (char) x + (char) y + (char) towerType);
 				}
@@ -236,7 +236,7 @@ public class Client extends Thread{
 					cost = ThornMonster.getCost(ThornMonster.baseEvolution);
 				} 
 				
-				if (this.model.energy >= cost || true) {
+				if (this.model.energy >= cost) {
 					this.model.energy -= cost;
 					sendMessage(MessageType.ADD_MONSTER, "" + (char) x + (char) y + (char) monsterType);
 				}
