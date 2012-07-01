@@ -18,7 +18,7 @@ import org.newdawn.slick.util.ResourceLoader;
  */
 public class TextureSprite extends Sprite{
 	
-	private float x, y, w, h, depth, r;
+	public float x, y, w, h, depth, r;
 	private Texture texture;
 	private String texturePath;
 

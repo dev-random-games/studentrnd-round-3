@@ -128,6 +128,7 @@ public class Model extends Thread {
 		while (true) {
 			try {
 				Thread.sleep(10);
+				map.step();
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}

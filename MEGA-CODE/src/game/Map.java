@@ -24,12 +24,9 @@ public class Map extends Sprite{
 	public int[][] graph;
 	
 	ArrayList<Tower> towers;
+	ArrayList<Monster> monsters;
 
-	ArrayList<Monster> monster;
-
-	
 	Point start, end;
-
 	
 	public Map(int width, int height, float tileWidth, float tileHeight){
 		this.width = width;
@@ -45,6 +42,7 @@ public class Map extends Sprite{
 		
 		tiles = new Tile[width][height];
 		towers = new ArrayList<Tower>();
+		monsters = new ArrayList<Monster>();
 		
 		for (int x = 0; x < width; x++){
 			for (int y = 0; y < height; y++){
@@ -55,6 +53,14 @@ public class Map extends Sprite{
 		start = new Point(0, 0);
 		end = new Point(width - 1, height - 1);
 		generatePath(start, end);
+		
+		addMonster(0, 0);
+	}
+	
+	public void step(){
+		for (Monster monster : monsters){
+			monster.moveTowards(smallestNeighbor(monster.getMapPosition(tileWidth, tileHeight)), tileWidth, tileHeight);
+		}
 	}
 
 	@Override
@@ -69,6 +75,9 @@ public class Map extends Sprite{
 				tiles[x][y].draw();
 			}
 		}
+		for (Monster monster : monsters){
+			monster.draw();
+		}
 	}
 	
 	public boolean addTower(int x, int y){
@@ -77,6 +86,15 @@ public class Map extends Sprite{
 			towers.add(tower);
 			tiles[x][y].tower = tower;
 			generatePath(start, end);
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	public boolean addMonster(int x, int y){
+		if (tiles[x][y].tower == null && !tiles[x][y].highGround){
+			monsters.add(new Monster(x, y, tileWidth, tileHeight));
 			return true;
 		} else {
 			return false;
