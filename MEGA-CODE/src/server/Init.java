@@ -1,6 +1,8 @@
 package server;
 
 import game.Map;
+import game.Monster;
+import game.Tower;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -70,11 +72,19 @@ public class Init extends Thread{
 			serverDisplay.setVisible(true);
 			
 			map = new Map("data/testcase.png", 32, 32, 29, 29);
+			StateEncoder encode = new StateEncoder();
 			
+			//map.monsters.add(new Monster(1, 1, 1, 1, 1));
 			while (true) {
 				try {
-					
+					map.step();
+					String state = encode.getEncodedState();
+					System.out.println("------------------");
+					System.out.println(state);
+					connector.sendMessage(MessageType.PROVIDE_STATE, state);
+					Thread.sleep(2000);
 				} catch (Exception e) {
+					e.printStackTrace();
 					System.exit(0);
 				}
 			}

@@ -9,7 +9,7 @@ public class StateEncoder {
 	
 	public String getEncodedState() {
 		String state = "";
-		String delimiter = "#@#@#@#";
+		String delimiter = "##";
 		
 		/*
 		 * Tile encoding:
@@ -19,9 +19,11 @@ public class StateEncoder {
 		for (int x = 0; x < server.Init.map.width; x++) {
 			for (int y = 0; y < server.Init.map.height; y++) {
 				Tile t = server.Init.map.tiles[x][y];
+				/*
 				state += "tile" + delimiter + x + delimiter + y + delimiter + 
 						t.terrainType + delimiter +
 						t.highGroundHeight + "\n";
+				*/
 				if (t.tower != null) {
 					state += "tower" + delimiter + x + delimiter + y + delimiter +
 							t.tower.damage + delimiter + t.tower.cooldown + delimiter + 

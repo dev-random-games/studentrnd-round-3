@@ -121,7 +121,7 @@ public class Controller extends Thread {
 		if (model.plantMode){
 			model.client.addMonster((int) (x / model.map.tileWidth), (int) (y / model.map.tileHeight), 0);
 		} else {
-			model.client.addTower((int) (x / model.map.tileWidth), (int) (y / model.map.tileHeight), 1);
+			model.client.addTower((int) (x / model.map.tileWidth), (int) (y / model.map.tileHeight), 0);
 		}
 	}
 	
