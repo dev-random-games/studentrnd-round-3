@@ -86,7 +86,7 @@ public class ClientManager extends Thread {
 			if (Init.map.addTower(x, y, towerType)){
 				sendMessage(MessageType.ADD_TOWER, "" + (char) x + (char) y + (char) towerType);
 			} else {
-				Init.sendServerMessage("[USER " + client.id + "] Oops, there's already a tower there!");
+				Init.sendServerMessage("[USER " + client.id + "] Oops, you can't build a tower there!");
 			}
 			break;
 		case ADD_MONSTER:

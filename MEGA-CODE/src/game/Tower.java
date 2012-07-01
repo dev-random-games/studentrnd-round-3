@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Point;
 import java.util.ArrayList;
 
+import org.lwjgl.opengl.GL11;
+
 import mvc.ExtrudeSprite;
 import mvc.Model;
 import mvc.TextureSprite;
@@ -25,6 +27,13 @@ public class Tower extends ExtrudeSprite{
 	public char towerType;
 	public int uniqueId;
 	
+	public boolean mouseHovering;
+	
+	TextureSprite hoverRing = new TextureSprite(this.x, this.y, w, h, 45, "src/data/hoverRing.png");
+	TextureSprite upgradeArrow = new TextureSprite(this.x + w / 4, this.y, w / 2, h / 2, 45, "src/data/upgrade.png");
+	
+	float upgradeArrowTranslate = 0;
+	
 	public Tower(Map map, float x, float y) {
 		super(x * map.tileWidth + 5, y * map.tileHeight + 5, map.tileWidth - 6, map.tileHeight - 6, 20, Color.BLUE);
 		
@@ -33,7 +42,7 @@ public class Tower extends ExtrudeSprite{
 		cooldown = 30;
 		
 		evolution = 0;
-		evolutionScalar = 1;
+		evolutionScalar = 1.25;
 		
 	}
 	
@@ -54,6 +63,14 @@ public class Tower extends ExtrudeSprite{
 		
 	}
 	
+	public void upgrade(){
+		evolution++;
+		System.out.println("UPGRADE");
+		range *= evolutionScalar;
+		damage *= evolutionScalar;
+		cooldown /= evolutionScalar;
+	}
+	
 	public Monster target(ArrayList<Monster> monsters, Point end){
 		int minTaxiDistance = Integer.MAX_VALUE;
 		Monster targeted = null;
@@ -72,7 +89,6 @@ public class Tower extends ExtrudeSprite{
 		}
 		
 		if (targeted != null){
-			System.out.println("TARGET!");
 			r = - Math.atan2(targeted.x + targeted.w / 2 - x - w / 2, targeted.y + targeted.h / 2 - y - h / 2) * 180 / Math.PI;
 		}
 		
@@ -97,5 +113,22 @@ public class Tower extends ExtrudeSprite{
 		tower.draw();
 		
 		r += 1;
+		
+		if (mouseHovering){
+			GL11.glColor4f(1.0f, 1.0f, 1.0f, .5f);
+			hoverRing.w = hoverRing.h = (float) (range * 2);
+			hoverRing.x = (float) (x + w / 2 - range);
+			hoverRing.y = (float) (y + h / 2 - range);
+			hoverRing.r += 10;
+			hoverRing.draw();
+			GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+			
+			upgradeArrowTranslate ++;
+			upgradeArrow.y = y + upgradeArrowTranslate;
+			upgradeArrow.draw();
+			if (upgradeArrowTranslate > h){
+				upgradeArrowTranslate = 0;
+			}
+		}
 	}
 }
