@@ -32,6 +32,8 @@ public class Model extends Thread {
 	
 	public ArrayList<Sprite> sprites;
 	
+	public ArrayList<Effect> effects;
+	
 	/*
 	 * Audio *out* port.
 	 */
@@ -53,12 +55,16 @@ public class Model extends Thread {
 	
 	public static float energy = STARTENERGY;
 	
+	public static float energyCost = 0;
+	
 	/**
 	 * True if plants, false if mecha.
 	 */
 	boolean plantMode = false;
 	
 	public Model() {
+		effects = new ArrayList<Effect>();
+		effects.add(new Effect(45, 45, 100, 100, 100));
 		sprites = new ArrayList<Sprite>();
 		
 //		sprites.add(new ExtrudeSprite(100, 100, 100, 100, 300, Color.RED));

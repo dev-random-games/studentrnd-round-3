@@ -36,8 +36,12 @@ public class Map extends Sprite{
 	public int[][] graph;
 	ArrayList<Point> monsterPath;
 	
+	public ArrayList<String> effectMessages;
+	
 	public ArrayList<Tower> towers;
 	public ArrayList<Monster> monsters;
+	
+	public Tile selectedTile = null;
 	
 	Point start, end;
 	
@@ -56,6 +60,8 @@ public class Map extends Sprite{
 		tiles = new Tile[width][height];
 		towers = new ArrayList<Tower>();
 		monsters = new ArrayList<Monster>();
+		
+		effectMessages = new ArrayList<String>();
 		
 		graph = new int[width][height];
 		map = new int[width][height];
@@ -112,6 +118,7 @@ public class Map extends Sprite{
 				if (tower.coolCounter <= 0) {
 					target.health -= tower.damage; 
 					tower.coolCounter = tower.cooldown;
+					effectMessages.add("" + target.x + "#" + target.y + "#" + (tower.x + this.tileWidth/2) + "#" + (tower.y + this.tileHeight/2));
 				} else {
 					tower.coolCounter -= 1;
 				}

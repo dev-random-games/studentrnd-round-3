@@ -74,7 +74,7 @@ public class Controller extends Thread {
 			
 			Point mousePos = view.pickPointOnScreen(new Point(Mouse.getX(), Mouse.getY()), 0);
 			
-			System.out.println(Mouse.getX() + ", " + Mouse.getY());
+//			System.out.println(Mouse.getX() + ", " + Mouse.getY());
 
 			for (Tower tower : model.map.towers){
 				tower.mouseHovering = false;
@@ -168,12 +168,30 @@ public class Controller extends Thread {
 				ThornMonster.baseEvolution++;
 			}
 		} else {
-		
-			if (mapX >= 0 && mapY >= 0 && mapX < model.map.width && mapY < model.map.height){
-				if (model.map.tiles[mapX][mapY].tower == null){
-					model.client.addTower(mapX, mapY, 2);
-				} else {
-					model.map.tiles[mapX][mapY].tower.upgrade();
+			if (model.map.selectedTile == null){
+				if (mapX >= 0 && mapY >= 0 && mapX < model.map.width && mapY < model.map.height){
+					if (model.map.tiles[mapX][mapY].tower == null){
+	//					model.client.addTower(mapX, mapY, 1);
+						if (model.map.tiles[mapX][mapY].highGround){
+							model.map.selectedTile = model.map.tiles[mapX][mapY];
+						}
+					} else {
+						model.map.tiles[mapX][mapY].tower.upgrade();
+					}
+				}
+			} else {
+				Point mouse = new Point(Mouse.getX(), Mouse.getY());//new Point(x + view.WIDTH / 2, y + view.HEIGHT / 2);
+				if (new Rectangle(19, 64, 79 - 19, 121 - 64).contains(mouse)){	// Add a laser turret
+					model.client.addTower((int) model.map.selectedTile.x / model.TILEW, (int) model.map.selectedTile.y / model.TILEH, 0);
+					model.map.selectedTile = null;
+				} else if (new Rectangle(111, 64, 169 - 111, 121 - 64).contains(mouse)){	// Add a bomb turret
+					model.client.addTower((int) model.map.selectedTile.x / model.TILEW, (int) model.map.selectedTile.y / model.TILEH, 2);
+					model.map.selectedTile = null;
+				} else if (new Rectangle(203, 64, 262 - 203, 121 - 64).contains(mouse)){	// Add a gatling gun
+					model.client.addTower((int) model.map.selectedTile.x / model.TILEW, (int) model.map.selectedTile.y / model.TILEH, 1);
+					model.map.selectedTile = null;
+				} else if (new Rectangle(299, 64, 356 - 299, 121 - 64).contains(mouse)){	// Cancel
+					model.map.selectedTile = null;
 				}
 			}
 		}

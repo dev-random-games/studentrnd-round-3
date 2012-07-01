@@ -156,6 +156,16 @@ public class Client extends Thread{
 						}
 					}
 					break;
+				case PROVIDE_EFFECT:
+					System.out.println(message);
+					String[] split = message.split("#");
+					System.out.println(split.toString());
+					float startX = Float.parseFloat(split[0]);
+					float startY = Float.parseFloat(split[1]);
+					float endX = Float.parseFloat(split[2]);
+					float endY = Float.parseFloat(split[3]);
+					model.effects.add(new Effect(startX, startY, endX, endY, 10));
+					break;
 				}
 				model.map.move();
 			} catch (IOException e) {

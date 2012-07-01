@@ -9,6 +9,7 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.io.IOException;
 import java.net.ServerSocket;
+import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
@@ -97,6 +98,12 @@ public class Init extends Thread{
 							i++;
 						}
 					}
+					
+					// Send out effects
+					for (String s : map.effectMessages){
+						connector.sendMessage(MessageType.PROVIDE_EFFECT, s);
+					}
+					map.effectMessages = new ArrayList<String>();
 					
 					Thread.sleep(10);
 				} catch (Exception e) {
