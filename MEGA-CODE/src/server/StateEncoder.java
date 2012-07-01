@@ -1,6 +1,7 @@
 package server;
 
 import game.Tile;
+import game.Tower;
 
 public class StateEncoder {
 	// All server states include: map, towers, monsters, upgrades
@@ -9,11 +10,35 @@ public class StateEncoder {
 		String state = "";
 		String delimiter = "///|||///";
 		
+		/*
+		 * Tile encoding:
+		 * float x | float y | String terrainType | boolean highGround
+		 */
+		
 		for (int x = 0; x < server.Init.map.width; x++) {
 			for (int y = 0; y < server.Init.map.height; y++) {
-				state += "" + server.Init.map.tiles[x][y].r;
+				Tile t = server.Init.map.tiles[x][y];
+				state += "tile" + delimiter + x + delimiter + y + delimiter + 
+						t.terrainType + delimiter +
+						t.highGroundHeight + "\n";
+				if (t.tower != null) {
+					state += "tower" + delimiter + x + delimiter + y + delimiter +
+							t.tower.damage + delimiter + t.tower.coolDown + delimiter + 
+							t.tower.r + delimiter + t.tower.upgradeDamage + delimiter +
+							t.tower.upgradeCooldown + delimiter + t.tower.upgradeRange + 
+							t.tower.range + delimiter + t.tower.beamType + delimiter + 
+							t.tower.towerType + delimiter + t.tower.uniqueId + "\n";
+				}
+				
 			}
 		}
+		
+		/*
+		 * Tower encoding:
+		 * int x | int y | double damage | int cooldownPeriod | float rotation | int upgradeDamage | 
+		 * 		int upgradeCooldown | int upgradeRange | int range | int beamType | char towerType | int uniqueId
+		 */
+		
 		return "";
 	}
 }

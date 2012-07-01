@@ -6,11 +6,13 @@ import mvc.ExtrudeSprite;
 
 public class Tower extends ExtrudeSprite{
 	
-	double range, coolDown, damage;
-	int upgradeRange, upgradeDamage, upgradeCooldown;
-	int beamType;
+	public double range, coolDown, damage;
+	public int upgradeRange, upgradeDamage, upgradeCooldown;
+	public int beamType;
 	
-	int uniqueId;
+	public char towerType;
+	
+	public int uniqueId;
 	
 	public Tower(float x, float y, float width, float height) {
 		super(x, y, width, height, 50, Color.BLUE);

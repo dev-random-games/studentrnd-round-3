@@ -6,7 +6,7 @@ import mvc.ExtrudeSprite;
 
 public class Tile extends ExtrudeSprite{
 	
-	boolean highGround = false;
+	public boolean highGround = false;
 	boolean onPath = false;
 	
 	public boolean mouseOver = false;
@@ -14,7 +14,9 @@ public class Tile extends ExtrudeSprite{
 	public static final int lowGroundHeight = 0;
 	public static final int highGroundHeight = 20;
 	
-	Tower tower;
+	public String terrainType = "default";
+	
+	public Tower tower;
 	
 	public Tile(int x, int y, float tileWidth, float tileHeight, boolean highGround){
 		super(x * tileWidth, y * tileHeight, tileWidth, tileHeight, highGround ? highGroundHeight : lowGroundHeight , highGround ? Color.LIGHT_GRAY : Color.DARK_GRAY);
