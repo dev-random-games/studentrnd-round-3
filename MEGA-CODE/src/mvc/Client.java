@@ -16,7 +16,6 @@ public class Client extends Thread{
 	public ObjectInputStream in;
 	
 	String host = "localhost";
-	
 	int port = 12345;
 	
 	int userId;
@@ -65,8 +64,6 @@ public class Client extends Thread{
 				MessageType type = MessageType.translate(val.charAt(0));
 				String message = val.substring(1);
 				
-				int x, y;	// THESE ARE THE X AND Y ECLIPSE AND DON't YOU FORGET YE RSCOER S. pleas!
-				
 				switch (type){
 				case SERVER_MESSAGE:
 					System.out.println("SERVER: " + message);
@@ -77,17 +74,10 @@ public class Client extends Thread{
 					sendMessage(MessageType.SERVER_MESSAGE, "Hello server!");
 					break;
 				case ADD_TOWER:
-					x = message.charAt(0);
-					y = message.charAt(1);
+					int x = message.charAt(0);
+					int y = message.charAt(1);
 					System.out.println("Adding tower at " + x + ", " + y);
 					model.map.addTower(x, y);
-					break;
-				case ADD_MONSTER:
-					x = message.charAt(0);
-					y = message.charAt(1);
-					System.out.println("Adding monster at " + x + ", " + y);
-					
-					break;
 				}
 				
 			} catch (IOException e){
