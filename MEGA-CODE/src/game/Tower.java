@@ -1,8 +1,11 @@
 package game;
 
 import java.awt.Color;
+import java.awt.Point;
+import java.util.ArrayList;
 
 import mvc.ExtrudeSprite;
+import mvc.Model;
 import game.Map;
 
 public class Tower extends ExtrudeSprite{
@@ -43,6 +46,31 @@ public class Tower extends ExtrudeSprite{
 		
 		this.texturePaths = texturePaths;
 		
+	}
+	
+	public Monster target(ArrayList<Monster> monsters, Point end){
+		int minTaxiDistance = Integer.MAX_VALUE;
+		Monster targeted = null;
+		
+		for (int i = 0; i < monsters.size(); i++){
+			Monster monster = monsters.get(i);
+			
+			if (Math.sqrt(Math.pow(monster.x + monster.w / 2 - x - w / 2, 2) +
+						  Math.pow(monster.y + monster.h / 2 - y - h / 2, 2)) < range){
+				int taxiDistance = (int) Math.abs(end.x - (monster.x + monster.w / 2) + Math.abs(end.y - (monster.y + monster.h / 2)));
+				if (taxiDistance < minTaxiDistance){
+					minTaxiDistance = taxiDistance;
+					targeted = monster;
+				}
+			}
+		}
+		
+		if (targeted != null){
+			System.out.println("TARGET!");
+			r = - Math.atan2(targeted.x + targeted.w / 2 - x - w / 2, targeted.y + targeted.h / 2 - y - h / 2) * 180 / Math.PI;
+		}
+		
+		return targeted;
 	}
 	
 	public String getClassName() {
