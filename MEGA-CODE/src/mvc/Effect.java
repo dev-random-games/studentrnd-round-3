@@ -6,19 +6,24 @@ public class Effect {
 	
 	public float x, y, endX, endY;
 	public int duration;
+	public float r, g, b;
 	
-	public Effect(float x, float y, float endX, float endY, int duration) {
+	public Effect(float x, float y, float endX, float endY, int duration, int r, int g, int b) {
 		this.x = x;
 		this.y = y;
 		this.endX = endX;
 		this.endY = endY;
 		this.duration = duration;
+		
+		this.r = ((float) r)/255f;
+		this.g = ((float) g)/255f;
+		this.b = ((float) b)/255f;
 	}
 	
 	public void draw() {
 		System.out.println(duration);
 		this.duration--;
-		GL11.glColor3f(255, 0, 0);
+		GL11.glColor3f(r, g, b);
 		float w = 10;
 		float depth = 50;
 		float h = 10;

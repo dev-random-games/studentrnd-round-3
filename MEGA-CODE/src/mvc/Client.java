@@ -157,7 +157,10 @@ public class Client extends Thread{
 					float startY = Float.parseFloat(split[1]);
 					float endX = Float.parseFloat(split[2]);
 					float endY = Float.parseFloat(split[3]);
-					model.effects.add(new Effect(startX, startY, endX, endY, 10));
+					int r = Integer.parseInt(split[4]);
+					int g = Integer.parseInt(split[5]);
+					int b = Integer.parseInt(split[6]);
+					model.effects.add(new Effect(startX, startY, endX, endY, 10, r, g, b));
 					break;
 				case UPGRADE:
 					int upType = (int) message.charAt(0);
