@@ -20,7 +20,7 @@ public class Client extends Thread{
 	private ObjectOutputStream out;
 	public ObjectInputStream in;
 	
-	String host = "192.168.1.2";
+	String host = "localhost";
 	int port = 12345;
 	
 	int userId;
@@ -106,6 +106,7 @@ public class Client extends Thread{
 					}
 					break;
 				case ADD_MONSTER:
+					System.out.println("monster - client incoming");
 					x = message.charAt(0);
 					y = message.charAt(1);
 					int monsterType = message.charAt(2);
@@ -211,6 +212,7 @@ public class Client extends Thread{
 	}
 	
 	public void addMonster(int x, int y, int monsterType){
+		System.out.println("monster - client outgoing");
 		sendMessage(MessageType.ADD_MONSTER, "" + (char) x + (char) y + (char) monsterType);
 	}
 }

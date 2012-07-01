@@ -44,9 +44,11 @@ public class Monster extends RectSprite {
 		this.evolutionScalar = evolutionScalar;
 		this.texturePaths = texturePaths;
 		
-		this.stage0 = new TextureSprite(x, y, tileWidth, tileHeight, 100, texturePaths[0]);
-		this.stage1 = new TextureSprite(x, y, tileWidth, tileHeight, 100, texturePaths[1]);
-		this.stage2 = new TextureSprite(x, y, tileWidth, tileHeight, 100, texturePaths[2]);
+		this.stage0 = new TextureSprite(this.x, this.y, tileWidth, tileHeight, 20, this.texturePaths[0]);
+		this.stage1 = new TextureSprite(this.x, this.y, tileWidth, tileHeight, 20, this.texturePaths[1]);
+		this.stage2 = new TextureSprite(this.x, this.y, tileWidth, tileHeight, 20, this.texturePaths[2]);
+		
+		System.out.println("sex: " + this.x);
 	}
 	
 	public Point getMapPosition(float tileWidth, float tileHeight){
@@ -85,12 +87,18 @@ public class Monster extends RectSprite {
 	public void draw() {
 		switch(this.evolution) {
 		case 0:
+			stage0.x = this.x;
+			stage0.y = this.y;
 			stage0.draw();
 			break;
 		case 1:
+			stage1.x = this.x;
+			stage1.y = this.y;
 			stage1.draw();
 			break;
 		case 2:
+			stage2.x = this.x;
+			stage2.y = this.y;
 			stage2.draw();
 			break;
 		}
