@@ -21,7 +21,7 @@ public class Monster extends RectSprite {
 	public double maxHealth;
 
 	public int evolution;
-	public double evolutionScalar;
+	public float evolutionScalar;
 	
 	String[] texturePaths;
 	
@@ -35,8 +35,8 @@ public class Monster extends RectSprite {
 		this.evolutionScalar = 1;
 	}
 	
-	public Monster(float x, float y, float tileWidth, float tileHeight, double health, float speed, int evolution, double evolutionScalar, String[] texturePaths) {
-		super(x * tileWidth - 5 + tileWidth / 2, y * tileHeight - 5 + tileHeight / 2, 10, 10, 5, Color.RED);
+	public Monster(float x, float y, float tileWidth, float tileHeight, double health, float speed, int evolution, float evolutionScalar, String[] texturePaths) {
+		super(x * tileWidth + tileWidth / 4, y * tileHeight + tileHeight / 4, tileWidth / 2, tileHeight / 2, 5, Color.RED);
 		this.speed = speed;
 		this.maxHealth = health;
 		this.health = health;
@@ -44,9 +44,9 @@ public class Monster extends RectSprite {
 		this.evolutionScalar = evolutionScalar;
 		this.texturePaths = texturePaths;
 		
-		this.stage0 = new TextureSprite(this.x, this.y, tileWidth, tileHeight, 20, this.texturePaths[0]);
-		this.stage1 = new TextureSprite(this.x, this.y, tileWidth, tileHeight, 20, this.texturePaths[1]);
-		this.stage2 = new TextureSprite(this.x, this.y, tileWidth, tileHeight, 20, this.texturePaths[2]);
+		this.stage0 = new TextureSprite(this.x, this.y, w, h, 20, this.texturePaths[0]);
+		this.stage1 = new TextureSprite(this.x, this.y, w * evolutionScalar, h * evolutionScalar, 20, this.texturePaths[1]);
+		this.stage2 = new TextureSprite(this.x, this.y, w * evolutionScalar * evolutionScalar, h * evolutionScalar * evolutionScalar, 20, this.texturePaths[2]);
 		
 		System.out.println("sex: " + this.x);
 	}
@@ -92,13 +92,13 @@ public class Monster extends RectSprite {
 			stage0.draw();
 			break;
 		case 1:
-			stage1.x = this.x;
-			stage1.y = this.y;
+			stage1.x = this.x - (w * evolutionScalar - w) / 2;
+			stage1.y = this.y - (h * evolutionScalar - h) / 2;
 			stage1.draw();
 			break;
 		case 2:
-			stage2.x = this.x;
-			stage2.y = this.y;
+			stage2.x = this.x - (w * evolutionScalar * evolutionScalar - w) / 2;
+			stage2.y = this.y - (h * evolutionScalar * evolutionScalar - h) / 2;
 			stage2.draw();
 			break;
 		}

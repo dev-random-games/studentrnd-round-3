@@ -79,6 +79,8 @@ public class Controller extends Thread {
 				}
 			}
 			
+			view.pickPointOnScreen(mousePos, 0);
+			
 			/*
 			 * Catch mouse events
 			 */
@@ -142,6 +144,8 @@ public class Controller extends Thread {
 			} else {
 				if (model.map.tiles[mapX][mapY].tower == null){
 					model.client.addTower(mapX, mapY, 1);
+				} else {
+					model.map.tiles[mapX][mapY].tower.upgrade();
 				}
 			}
 		}

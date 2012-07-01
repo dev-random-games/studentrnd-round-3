@@ -56,6 +56,7 @@ public class View extends Thread {
 	TextureSprite plantOverlay;
 	TextureSprite energyBar;
 	TextureSprite energyBarBackdrop;
+	TextureSprite plantMenu;
 	RectSprite energy;
 
 //	@SuppressWarnings("deprecation")
@@ -147,6 +148,7 @@ public class View extends Thread {
 			hud = new TextureSprite(0, 0, 100, 100, 0, "src/data/HUD.png");
 			energyBar = new TextureSprite(0, 0, 100, 100, 0, "src/data/energyBar.png");
 			energyBarBackdrop = new TextureSprite(0, 0, 100, 100, 0, "src/data/energyBarBackdrop.png");
+			plantMenu = new TextureSprite(0, 0, 100, 100, 0, "src/data/plantMenu.png");
 			energy = new RectSprite(0, 0, 10, 10, 0, Color.BLUE);
 			
 			//Fonts?
@@ -213,6 +215,15 @@ public class View extends Thread {
 				
 				Point corner1 = pickPointOnScreen(new Point(0, 0), 0);
 				Point corner2 = pickPointOnScreen(new Point(700, 700), 0);
+				
+				if (model.plantMode){
+					plantMenu.x = corner1.x;
+					plantMenu.y = corner1.y;
+					plantMenu.w = corner2.x - corner1.x;
+					plantMenu.h = corner2.y - corner1.y;
+					
+					plantMenu.draw();
+				}
 				
 				hud.x = corner1.x;
 				hud.y = corner1.y;

@@ -67,12 +67,12 @@ public class ClientManager extends Thread {
 		case CONNECT:
 			Init.sendServerMessage("New client connected.");
 			int newClientType;
-			if (!hasMecha){
-				newClientType = 1;	//Connect plant player
-				hasMecha = true;
-			} else if (!hasPlant){
-				newClientType = 0;	//Connect mecha player
+			if (!hasPlant){
+				newClientType = 0;	//Connect plant player
 				hasPlant = true;
+			} else if (!hasMecha){
+				newClientType = 1;	//Connect mecha player
+				hasMecha = true;
 			} else {
 				newClientType = 2;	//Reject player
 			}
@@ -86,7 +86,7 @@ public class ClientManager extends Thread {
 			if (Init.map.addTower(x, y, towerType)){
 				sendMessage(MessageType.ADD_TOWER, "" + (char) x + (char) y + (char) towerType);
 			} else {
-				Init.sendServerMessage("[USER " + client.id + "] Oops, there's already a tower there!");
+				Init.sendServerMessage("[USER " + client.id + "] Oops, you can't build a tower there!");
 			}
 			break;
 		case ADD_MONSTER:

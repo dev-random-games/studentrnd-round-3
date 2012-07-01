@@ -93,8 +93,12 @@ public class Map extends Sprite{
 	
 	public void step(){
 		for (int i = 0; i < monsters.size(); i++){
-			if (!monsters.get(i).moveAlong(monsterPath, tileWidth, tileHeight)){
-				monsters.get(i).moveAlong(generatePath(monsters.get(i).getMapPosition(tileWidth, tileHeight), end), tileWidth, tileHeight);
+			try {
+				if (!monsters.get(i).moveAlong(monsterPath, tileWidth, tileHeight)){
+					monsters.get(i).moveAlong(generatePath(monsters.get(i).getMapPosition(tileWidth, tileHeight), end), tileWidth, tileHeight);
+				}
+			} catch (Exception e){
+				e.printStackTrace();
 			}
 		}
 		

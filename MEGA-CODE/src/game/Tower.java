@@ -33,7 +33,7 @@ public class Tower extends ExtrudeSprite{
 		cooldown = 30;
 		
 		evolution = 0;
-		evolutionScalar = 1;
+		evolutionScalar = 1.25;
 		
 	}
 	
@@ -48,6 +48,14 @@ public class Tower extends ExtrudeSprite{
 		
 		this.texturePaths = texturePaths;
 		
+	}
+	
+	public void upgrade(){
+		evolution++;
+		System.out.println("UPGRADE");
+		range *= evolutionScalar;
+		damage *= evolutionScalar;
+		cooldown /= evolutionScalar;
 	}
 	
 	public Monster target(ArrayList<Monster> monsters, Point end){
