@@ -118,7 +118,8 @@ public class Map extends Sprite{
 				if (tower.coolCounter <= 0) {
 					target.health -= tower.damage; 
 					tower.coolCounter = tower.cooldown;
-					effectMessages.add("" + target.x + "#" + target.y + "#" + (tower.x + this.tileWidth/2) + "#" + (tower.y + this.tileHeight/2));
+					effectMessages.add("" + target.x + "#" + target.y + "#" + (tower.x + this.tileWidth/2) + "#" + (tower.y + this.tileHeight/2) +
+							"#" + tower.red + "#" + tower.green + "#" + tower.blue);
 				} else {
 					tower.coolCounter -= 1;
 				}
@@ -208,6 +209,26 @@ public class Map extends Sprite{
 			return true;
 		} else {
 			return false;
+		}
+	}
+	
+	public void upgrade(int type){
+		switch (type) {
+		case 0: 
+			if (EntMonster.baseEvolution < 2){
+				EntMonster.baseEvolution++;
+			}
+			break;
+		case 1:
+			if (TreeMonster.baseEvolution < 2){
+				TreeMonster.baseEvolution++;
+			}
+			break;
+		default:
+			if (ThornMonster.baseEvolution < 2){
+				ThornMonster.baseEvolution++;
+			}
+			break;
 		}
 	}
 	

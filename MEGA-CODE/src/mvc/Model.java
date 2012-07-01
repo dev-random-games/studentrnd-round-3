@@ -64,7 +64,7 @@ public class Model extends Thread {
 	
 	public Model() {
 		effects = new ArrayList<Effect>();
-		effects.add(new Effect(45, 45, 100, 100, 100));
+		//effects.add(new Effect(45, 45, 100, 100, 100));
 		sprites = new ArrayList<Sprite>();
 		
 //		sprites.add(new ExtrudeSprite(100, 100, 100, 100, 300, Color.RED));
@@ -73,6 +73,8 @@ public class Model extends Thread {
 		map = new Map("data/testcase.png", WIDTH, HEIGHT, TILEW, TILEH);
 		
 		sprites.add(map);
+		
+		sprites.add(new TextureSprite(0, 0, TILEW * 3, TILEH * 3, 50, "src/data/motherTree.png"));
 		
 //		sprites.add(new TextureSprite(100, 100, 100, 100, 300, "/data/test.png"));
 	}

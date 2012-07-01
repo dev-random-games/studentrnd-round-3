@@ -157,15 +157,18 @@ public class Controller extends Thread {
 			if (new Rectangle(19, 64, 79 - 19, 121 - 64).contains(mouse)){	// Add an Ent
 				model.client.addMonster(1, 1, 0);
 			} else if (new Rectangle(79, 64, 111 - 79, 121 - 64).contains(mouse)){	// Upgrade an Ent
-				EntMonster.baseEvolution++;
+				model.client.upgrade(0);
+//				EntMonster.baseEvolution++;
 			} else if (new Rectangle(111, 64, 169 - 111, 121 - 64).contains(mouse)){	// Add a Tree
 				model.client.addMonster(1, 1, 1);
 			} else if (new Rectangle(169, 64, 203 - 169, 121 - 64).contains(mouse)){	// Upgrade a Tree
-				TreeMonster.baseEvolution++;
+				model.client.upgrade(1);
+//				TreeMonster.baseEvolution++;
 			} else if (new Rectangle(203, 64, 262 - 203, 121 - 64).contains(mouse)){	// Add a Thorn
 				model.client.addMonster(1, 1, 2);
 			} else if (new Rectangle(262, 64, 298 - 262, 121 - 64).contains(mouse)){	// Upgrade a Thorn
-				ThornMonster.baseEvolution++;
+				model.client.upgrade(2);
+//				ThornMonster.baseEvolution++;
 			}
 		} else {
 			if (model.map.selectedTile == null){
