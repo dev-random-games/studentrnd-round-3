@@ -43,8 +43,8 @@ public class StateEncoder {
 		 */
 		for (Monster m : Init.map.monsters) {
 			state += "monster" + delimiter + m.x + delimiter + m.y + delimiter + m.speed + delimiter +
-					m.maxHealth + delimiter + m.health + delimiter + m.speedUpgrade + delimiter + 
-					m.healthUpgrade + delimiter + m.r + delimiter + m.uniqueId + "\n";
+					m.maxHealth + delimiter + m.health + delimiter + m.evolution + delimiter + 
+					m.evolutionScalar + delimiter + m.r + delimiter + m.uniqueId + "\n";
 		}
 		
 		/*

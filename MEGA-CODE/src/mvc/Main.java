@@ -1,5 +1,9 @@
 package mvc;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
 
 /**
  * 
@@ -23,6 +27,7 @@ public class Main extends Thread {
 		
 		model = new Model();
 		view = new View(model);
+		
 		client = new Client(model, view);
 		controller = new Controller(model, view);
 		model.setClient(client);

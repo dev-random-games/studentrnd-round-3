@@ -20,7 +20,7 @@ public class Client extends Thread{
 	private ObjectOutputStream out;
 	public ObjectInputStream in;
 	
-	String host = "localhost";
+	String host = "192.168.1.2";
 	int port = 12345;
 	
 	int userId;
@@ -136,15 +136,16 @@ public class Client extends Thread{
 							temp.uniqueId = Integer.parseInt(splitl[11]);
 							model.map.tiles[(int) towerX][(int) towerY].tower = temp;
 						} else if (splitl[0].equals("monster")) {
+							//TODO: fix
 							float monsterX = Float.parseFloat(splitl[1]);
 							float monsterY = Float.parseFloat(splitl[2]);
 							float health = Float.parseFloat(splitl[5]);
 							Monster m = new Monster(monsterX, monsterY, model.map.tileWidth, model.map.tileHeight, health);
-							m.healthUpgrade = Integer.parseInt(splitl[7]);
+							m.evolution= Integer.parseInt(splitl[7]); //fix me!
 							m.maxHealth = Double.parseDouble(splitl[4]);
 							m.r = Float.parseFloat(splitl[8]);
 							m.speed = Float.parseFloat(splitl[3]);
-							m.speedUpgrade = Integer.parseInt(splitl[6]);
+							m.evolutionScalar = Integer.parseInt(splitl[6]); //fix me!
 							m.uniqueId = Integer.parseInt(splitl[9]);
 							model.map.monsters.add(m);
 						}
