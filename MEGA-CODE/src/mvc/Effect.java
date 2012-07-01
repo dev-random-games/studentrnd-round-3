@@ -21,7 +21,7 @@ public class Effect {
 	}
 	
 	public void draw() {
-		System.out.println(duration);
+//		System.out.println(duration);
 		this.duration--;
 		GL11.glColor3f(r, g, b);
 		float w = 10;

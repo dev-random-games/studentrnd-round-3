@@ -28,8 +28,8 @@ public class Client extends Thread{
 	private ObjectOutputStream out;
 	public ObjectInputStream in;
 	
-	String host = "localhost";
-//	String host = "192.168.137.74";
+//	String host = "localhost";
+	String host = "192.168.137.74";
 	int port = 12345;
 	
 	int userId;
@@ -111,7 +111,7 @@ public class Client extends Thread{
 					model.map.addTower(x, y, towerType);
 					break;
 				case ADD_MONSTER:
-					System.out.println("monster - client incoming");
+//					System.out.println("monster - client incoming");
 					x = message.charAt(0);
 					y = message.charAt(1);
 					int monsterType = message.charAt(2);
@@ -134,7 +134,7 @@ public class Client extends Thread{
 					break;
 				case REMOVE_MONSTER:
 					int monsterID = Integer.parseInt(message);
-					System.out.println("deleting monster " + monsterID);
+//					System.out.println("deleting monster " + monsterID);
 					for (int i = 0; i < model.map.monsters.size(); i++) {
 						if (monsterID == model.map.monsters.get(i).uniqueId) {
 							Monster dead = model.map.monsters.get(i);
@@ -144,9 +144,9 @@ public class Client extends Thread{
 					}
 					break;
 				case PROVIDE_EFFECT:
-					System.out.println(message);
+//					System.out.println(message);
 					String[] split = message.split("#");
-					System.out.println(split.toString());
+//					System.out.println(split.toString());
 					float startX = Float.parseFloat(split[0]);
 					float startY = Float.parseFloat(split[1]);
 					float endX = Float.parseFloat(split[2]);

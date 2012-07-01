@@ -59,7 +59,7 @@ public class Monster extends RectSprite {
 		this.stage1 = new TextureSprite(this.x, this.y, w * evolutionScalar, h * evolutionScalar, 20, this.texturePaths[1]);
 		this.stage2 = new TextureSprite(this.x, this.y, w * evolutionScalar * evolutionScalar, h * evolutionScalar * evolutionScalar, 20, this.texturePaths[2]);
 		
-		System.out.println("sex: " + this.x);
+//		System.out.println("sex: " + this.x);
 	}
 	
 	public boolean evolve(){
