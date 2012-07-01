@@ -135,7 +135,7 @@ public class Model extends Thread {
 	 */
 	public void run() {
 		while (true) {
-			map.step();
+//			map.step();
 			try {
 				Thread.sleep(10);
 			} catch (InterruptedException e) {

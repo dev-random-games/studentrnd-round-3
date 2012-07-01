@@ -7,7 +7,9 @@ public enum MessageType {
 	ADD_TOWER (3),
 	ADD_MONSTER (4),
 	REQUEST_STATE (5),
-	PROVIDE_STATE (6);
+	PROVIDE_STATE (6),
+	MOVE_MONSTER (7),
+	UPGRADE (8);
 	
 	
 	private final int index;

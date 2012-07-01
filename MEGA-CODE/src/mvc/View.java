@@ -1,5 +1,9 @@
 package mvc;
 
+import game.EntMonster;
+import game.ThornMonster;
+import game.TreeMonster;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Point;
@@ -149,6 +153,9 @@ public class View extends Thread {
 			energyBar = new TextureSprite(0, 0, 100, 100, 0, "src/data/energyBar.png");
 			energyBarBackdrop = new TextureSprite(0, 0, 100, 100, 0, "src/data/energyBarBackdrop.png");
 			plantMenu = new TextureSprite(0, 0, 100, 100, 0, "src/data/plantMenu.png");
+			EntMonster demoEnt = new EntMonster(0, 0, 50, 50);
+			TreeMonster demoTree = new TreeMonster(0, 0, 50, 50);
+			ThornMonster demoThorn = new ThornMonster(0, 0, 50, 50);
 			energy = new RectSprite(0, 0, 10, 10, 0, Color.BLUE);
 			
 			//Fonts?
@@ -224,6 +231,42 @@ public class View extends Thread {
 					plantMenu.h = corner2.y - corner1.y;
 					
 					plantMenu.draw();
+					
+					Point demoEntCorner1 = pickPointOnScreen(new Point(0, 0), 0);
+					Point demoEntCorner2 = pickPointOnScreen(new Point(700, 700), 0);
+					
+					demoEnt.x = demoEntCorner1.x;
+					demoEnt.y = demoEntCorner1.y;
+					demoEnt.w = demoEntCorner2.x - demoEntCorner1.x;
+					demoEnt.h = demoEntCorner2.y - demoEntCorner1.y;
+					
+					demoEnt.evolution = EntMonster.baseEvolution;
+					
+					demoEnt.draw();
+					
+					Point demoTreeCorner1 = pickPointOnScreen(new Point(0, 0), 0);
+					Point demoTreeCorner2 = pickPointOnScreen(new Point(700, 700), 0);
+					
+					demoTree.x = demoTreeCorner1.x;
+					demoTree.y = demoTreeCorner1.y;
+					demoTree.w = demoTreeCorner2.x - demoTreeCorner1.x;
+					demoTree.h = demoTreeCorner2.y - demoTreeCorner1.y;
+					
+					demoTree.evolution = TreeMonster.baseEvolution;
+					
+					demoTree.draw();
+					
+					Point demoThornCorner1 = pickPointOnScreen(new Point(0, 0), 0);
+					Point demoThornCorner2 = pickPointOnScreen(new Point(700, 700), 0);
+					
+					demoThorn.x = demoThornCorner1.x;
+					demoThorn.y = demoThornCorner1.y;
+					demoThorn.w = demoThornCorner2.x - demoThornCorner1.x;
+					demoThorn.h = demoThornCorner2.y - demoThornCorner1.y;
+					
+					demoThorn.evolution = ThornMonster.baseEvolution;
+					
+					demoThorn.draw();
 				}
 				
 				hud.x = corner1.x;

@@ -74,7 +74,7 @@ public class Controller extends Thread {
 			int mapY = (int) (mousePos.y / model.map.tileHeight);
 			
 			if (mapX >= 0 && mapY >= 0 && mapX < model.map.width && mapY < model.map.height){
-				if (model.map.tiles[mapX][mapY].tower != null){
+				if (model.map.tiles[mapX][mapY].tower != null && !model.plantMode){
 					model.map.tiles[mapX][mapY].tower.mouseHovering = true;
 				}
 			}

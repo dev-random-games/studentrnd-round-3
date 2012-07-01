@@ -18,6 +18,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextPane;
 
+import mvc.Model;
+
 public class Init extends Thread{
 	
 	private ClientManager connector;
@@ -71,18 +73,19 @@ public class Init extends Thread{
 			serverDisplay.pack();
 			serverDisplay.setVisible(true);
 			
-			map = new Map("data/testcase.png", 32, 32, 29, 29);
+			map = new Map("data/testcase.png", Model.WIDTH, Model.HEIGHT, Model.TILEW, Model.TILEH);
 			StateEncoder encode = new StateEncoder();
 			
 			//map.monsters.add(new Monster(1, 1, 1, 1, 1));
 			while (true) {
 				try {
 					map.step();
-					String state = encode.getEncodedState();
-					//System.out.println("------------------");
-					//System.out.println(state);
-					connector.sendMessage(MessageType.PROVIDE_STATE, state);
-					Thread.sleep(2000);
+					
+					for (Monster monster : map.monsters){
+						connector.sendMessage(MessageType.MOVE_MONSTER, Integer.toString(monster.uniqueId) + "." + Integer.toString((int) monster.x) + "." + Integer.toString((int) monster.y));
+					}
+					
+					Thread.sleep(10);
 				} catch (Exception e) {
 					e.printStackTrace();
 					System.exit(0);
