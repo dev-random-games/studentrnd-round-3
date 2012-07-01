@@ -88,8 +88,8 @@ public class View extends Thread {
 		float screenX = screenPixel.x - WIDTH / 2;
 		float screenY = screenPixel.y - HEIGHT / 2;
 		
-		System.out.println("(" + screenX + ", " + screenY + ")");
-		System.out.println(viewTranslation.toString());
+		//System.out.println("(" + screenX + ", " + screenY + ")");
+		//System.out.println(viewTranslation.toString());
 		
 		Vector3D screenVector = cameraForwards.scale((float) (WIDTH / (2 * Math.tan(FOV / 360 * Math.PI)))).add(cameraRight.scale(screenX))
 											  		  	 .add(cameraUp.scale(screenY));
@@ -97,7 +97,7 @@ public class View extends Thread {
 		float distScale = viewTranslation.getZ() / screenVector.getZ();
 		Vector3D planeIntersection = viewTranslation.add(screenVector.scale(-distScale));
 		
-		System.out.println("Projected point: " + planeIntersection.toString());
+		//System.out.println("Projected point: " + planeIntersection.toString());
 		
 		return new Point((int) (planeIntersection.getX()), (int) planeIntersection.getY());
 

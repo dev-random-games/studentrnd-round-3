@@ -78,10 +78,11 @@ public class Client extends Thread{
 				case ADD_TOWER:
 					int x = message.charAt(0);
 					int y = message.charAt(1);
+					int towerType = message.charAt(2);
 					if (this.canPlaceTower(x, y)) {
 						this.subtractEnergy();
 						System.out.println("Adding tower at " + x + ", " + y);
-						model.map.addTower(x, y);
+						model.map.addTower(x, y, towerType);	
 					} else {
 						System.out.println("Cannot place tower at " + x + ", " + y);
 					}
@@ -131,7 +132,7 @@ public class Client extends Thread{
 		}
 	}
 	
-	public void addTower(int x, int y){
-		sendMessage(MessageType.ADD_TOWER, "" + (char) x + (char) y);
+	public void addTower(int x, int y, int towerType){
+		sendMessage(MessageType.ADD_TOWER, "" + (char) x + (char) y + (char) towerType);
 	}
 }

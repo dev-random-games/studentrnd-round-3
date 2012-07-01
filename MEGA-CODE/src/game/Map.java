@@ -119,9 +119,18 @@ public class Map extends Sprite{
 		}
 	}
 	
-	public boolean addTower(int x, int y){
+	public boolean addTower(int x, int y, int type){
 		if (tiles[x][y].tower == null){
-			Tower tower = new Tower(x * tileWidth + 5, y * tileHeight + 5, tileWidth - 10, tileHeight - 10);
+			Tower tower;
+			switch (type) {
+			case 0: 
+				tower = new LaserTower(this, x, y);
+				break;
+			default:
+				tower = new Tower(this, x, y);
+				break;
+			}
+			
 			towers.add(tower);
 			tiles[x][y].tower = tower;
 			monsterPath = generatePath(start, end);
