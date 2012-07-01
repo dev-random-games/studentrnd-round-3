@@ -18,4 +18,8 @@ public abstract class Sprite{
 	 * been handled.
 	 */
 	public abstract void draw();
+	
+	public boolean shouldDie() {
+		return false;
+	}
 }
