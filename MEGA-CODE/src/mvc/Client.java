@@ -28,8 +28,8 @@ public class Client extends Thread{
 	private ObjectOutputStream out;
 	public ObjectInputStream in;
 	
-//	String host = "localhost";
-	String host = "192.168.137.74";
+	String host = "localhost";
+//	String host = "192.168.137.74";
 	int port = 12345;
 	
 	int userId;
