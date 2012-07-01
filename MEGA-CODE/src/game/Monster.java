@@ -15,7 +15,7 @@ import mvc.Vector3D;
 public class Monster extends RectSprite {
 	
 //	float x, y, z;
-	public float speed = 2;
+	public float speed = .5f;
 	public double health;
 	int uniqueId;
 	public double maxHealth;
