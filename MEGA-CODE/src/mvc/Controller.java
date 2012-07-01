@@ -126,7 +126,7 @@ public class Controller extends Thread {
 	 * @param evt
 	 */
 	public void mousePressed(int x, int y){
-		System.out.println(x + ", " + y);
+		//System.out.println(x + ", " + y);
 	}
 	
 	/**

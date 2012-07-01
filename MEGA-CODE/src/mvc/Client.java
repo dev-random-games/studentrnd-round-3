@@ -1,5 +1,7 @@
 package mvc;
 
+import game.GatlingTower;
+import game.LaserTower;
 import game.Monster;
 import game.Tile;
 import game.Tower;
@@ -67,14 +69,12 @@ public class Client extends Thread{
 	public void run(){
 		while (true){
 			try {
-				System.out.println("ALIVE 1!");
 				String val = (String) in.readObject();
 				
 				MessageType type = MessageType.translate(val.charAt(0));
 				String message = val.substring(1);
 				
 				int x, y;
-				System.out.println("ALIVE 2!");
 				switch (type) {
 				case SERVER_MESSAGE:
 					System.out.println("SERVER: " + message);
@@ -177,7 +177,7 @@ public class Client extends Thread{
 	}
 	
 	public void addMonster(int x, int y, int monsterType){
-		System.out.println("monster - client outgoing");
+		//System.out.println("monster - client outgoing");
 		sendMessage(MessageType.ADD_MONSTER, "" + (char) x + (char) y + (char) monsterType);
 	}
 }

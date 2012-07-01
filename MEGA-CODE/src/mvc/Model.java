@@ -54,7 +54,7 @@ public class Model extends Thread {
 	/**
 	 * True if plants, false if mecha.
 	 */
-	boolean plantMode = true;
+	boolean plantMode = false;
 	
 	public Model() {
 		sprites = new ArrayList<Sprite>();

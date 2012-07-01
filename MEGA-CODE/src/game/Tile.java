@@ -65,6 +65,8 @@ public class Tile extends ExtrudeSprite{
 		}
 		
 		if (tower != null){
+			//System.out.println(tower.x + ", " + tower.y);
+			//System.out.println("Range: " + tower.range);
 			tower.draw();
 		}
 	}

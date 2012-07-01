@@ -4,8 +4,11 @@ import java.awt.Color;
 import java.awt.Point;
 import java.util.ArrayList;
 
+import org.lwjgl.opengl.GL11;
+
 import mvc.ExtrudeSprite;
 import mvc.Model;
+import mvc.TextureSprite;
 import game.Map;
 
 public class Tower extends ExtrudeSprite{
@@ -18,12 +21,18 @@ public class Tower extends ExtrudeSprite{
 	public double evolutionScalar;
 	
 	String[] texturePaths;
-
+	TextureSprite base, guns, tower;
+	
 	public int beamType;
 	public char towerType;
 	public int uniqueId;
 	
 	public boolean mouseHovering;
+	
+	TextureSprite hoverRing = new TextureSprite(this.x, this.y, w, h, 45, "src/data/hoverRing.png");
+	TextureSprite upgradeArrow = new TextureSprite(this.x + w / 4, this.y, w / 2, h / 2, 45, "src/data/upgrade.png");
+	
+	float upgradeArrowTranslate = 0;
 	
 	public Tower(Map map, float x, float y) {
 		super(x * map.tileWidth + 5, y * map.tileHeight + 5, map.tileWidth - 6, map.tileHeight - 6, 20, Color.BLUE);
@@ -47,6 +56,10 @@ public class Tower extends ExtrudeSprite{
 		this.evolutionScalar = evolutionScalar;
 		
 		this.texturePaths = texturePaths;
+		
+		base = new TextureSprite(this.x, this.y, w, h, 20, texturePaths[0]);
+		guns = new TextureSprite(this.x, this.y, w, h, 30, texturePaths[1]);
+		tower = new TextureSprite(this.x, this.y, w, h, 40, texturePaths[2]);
 		
 	}
 	
@@ -84,5 +97,38 @@ public class Tower extends ExtrudeSprite{
 	
 	public String getClassName() {
 		return "Tower";
+	}
+	
+	public String toString() {
+		return this.getClassName() + this.texturePaths[0] + this.texturePaths[1] + this.texturePaths[2]; 
+	}
+	
+	public void draw(){
+		base.setRot((float) r);
+		guns.setRot((float) r);
+		tower.setRot((float) r);
+		
+		base.draw();
+		guns.draw();
+		tower.draw();
+		
+		r += 1;
+		
+		if (mouseHovering){
+			GL11.glColor4f(1.0f, 1.0f, 1.0f, .5f);
+			hoverRing.w = hoverRing.h = (float) (range * 2);
+			hoverRing.x = (float) (x + w / 2 - range);
+			hoverRing.y = (float) (y + h / 2 - range);
+			hoverRing.r += 10;
+			hoverRing.draw();
+			GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+			
+			upgradeArrowTranslate ++;
+			upgradeArrow.y = y + upgradeArrowTranslate;
+			upgradeArrow.draw();
+			if (upgradeArrowTranslate > h){
+				upgradeArrowTranslate = 0;
+			}
+		}
 	}
 }
