@@ -118,7 +118,8 @@ public class Map extends Sprite{
 				if (tower.coolCounter <= 0) {
 					target.health -= tower.damage; 
 					tower.coolCounter = tower.cooldown;
-					effectMessages.add("" + target.x + "#" + target.y + "#" + (tower.x + this.tileWidth/2) + "#" + (tower.y + this.tileHeight/2));
+					effectMessages.add("" + target.x + "#" + target.y + "#" + (tower.x + this.tileWidth/2) + "#" + (tower.y + this.tileHeight/2) +
+							"#" + tower.red + "#" + tower.green + "#" + tower.blue);
 				} else {
 					tower.coolCounter -= 1;
 				}
