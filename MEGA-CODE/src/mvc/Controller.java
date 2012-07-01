@@ -185,10 +185,10 @@ public class Controller extends Thread {
 					model.client.addTower((int) model.map.selectedTile.x / model.TILEW, (int) model.map.selectedTile.y / model.TILEH, 0);
 					model.map.selectedTile = null;
 				} else if (new Rectangle(111, 64, 169 - 111, 121 - 64).contains(mouse)){	// Add a bomb turret
-					model.client.addTower((int) model.map.selectedTile.x, (int) model.map.selectedTile.y, 1);
+					model.client.addTower((int) model.map.selectedTile.x / model.TILEW, (int) model.map.selectedTile.y / model.TILEH, 2);
 					model.map.selectedTile = null;
 				} else if (new Rectangle(203, 64, 262 - 203, 121 - 64).contains(mouse)){	// Add a gatling gun
-					model.client.addTower((int) model.map.selectedTile.x, (int) model.map.selectedTile.y, 2);
+					model.client.addTower((int) model.map.selectedTile.x / model.TILEW, (int) model.map.selectedTile.y / model.TILEH, 1);
 					model.map.selectedTile = null;
 				} else if (new Rectangle(299, 64, 356 - 299, 121 - 64).contains(mouse)){	// Cancel
 					model.map.selectedTile = null;

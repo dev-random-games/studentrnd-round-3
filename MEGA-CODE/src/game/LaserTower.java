@@ -2,12 +2,14 @@ package game;
 
 import java.awt.Color;
 
+import mvc.TextureSprite;
+
 public class LaserTower extends Tower {
 	
-	static String[] texturePaths = {"data/laser0.png", "data/laser1.png", "data/laser2.png"};
+	static String[] texturePaths = {"data/BombBase.png", "data/BombArms.png", "data/BombBody.png"};
 	
 	public LaserTower(Map map, float x, float y) {
-		super(map, x, y, 14f, 100f, 500.0, 10.0, 0.1, 2.0, Color.RED, texturePaths);
+		super(map, x, y, map.tileHeight, map.tileHeight, 500.0, 10.0, 5.0, 2.0, Color.RED, texturePaths);
 	}
 	
 	public String getClassName() {

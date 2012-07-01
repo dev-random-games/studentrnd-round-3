@@ -306,12 +306,14 @@ public class View extends Thread {
 					
 					upgrade.draw();
 				} else {
-					mechaMenu.x = corner1.x;
-					mechaMenu.y = corner1.y;
-					mechaMenu.w = corner2.x - corner1.x;
-					mechaMenu.h = corner2.y - corner1.y;
-					
-					mechaMenu.draw();
+					if (model.map.selectedTile != null){
+						mechaMenu.x = corner1.x;
+						mechaMenu.y = corner1.y;
+						mechaMenu.w = corner2.x - corner1.x;
+						mechaMenu.h = corner2.y - corner1.y;
+						
+						mechaMenu.draw();
+					}
 				}
 				
 				hud.x = corner1.x;
