@@ -87,18 +87,15 @@ public class Map extends Sprite{
 		
 		start = new Point(1, 1);
 		end = new Point(width - 5, height - 2);
-		monsterPath = generatePath(start, end);
-		
-//		addMonster(1, 1, 0);
+		monsterPath = generatePath(start, end); 
 				
 	}
 	
 	public void step(){
-		for (Monster monster : monsters){
-			if (!monster.moveAlong(monsterPath, tileWidth, tileHeight)){
-				monster.moveAlong(generatePath(monster.getMapPosition(tileWidth, tileHeight), end), tileWidth, tileHeight);
+		for (int i = 0; i < monsters.size(); i++){
+			if (!monsters.get(i).moveAlong(monsterPath, tileWidth, tileHeight)){
+				monsters.get(i).moveAlong(generatePath(monsters.get(i).getMapPosition(tileWidth, tileHeight), end), tileWidth, tileHeight);
 			}
-			
 		}
 		
 		// Remove dead monsters
@@ -110,6 +107,10 @@ public class Map extends Sprite{
 			} else {
 				i++;
 			}
+		}
+		
+		for (Tower tower : towers){
+			tower.target(monsters, end);
 		}
 	}
 

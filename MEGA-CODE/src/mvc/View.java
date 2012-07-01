@@ -48,6 +48,7 @@ public class View extends Thread {
 	TextureLoader textureLoader;
 	
 	TextureSprite hud;
+	TextureSprite plantOverlay;
 
 //	@SuppressWarnings("deprecation")
 //	TrueTypeFont font;
@@ -133,10 +134,9 @@ public class View extends Thread {
 			GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MAG_FILTER, GL11.GL_NEAREST);
 			
 			if (model.plantMode){
-				hud = new TextureSprite(0, 0, 100, 100, 0, "src/data/plantHUD.png");
-			} else {
-				hud = new TextureSprite(0, 0, 100, 100, 0, "src/data/HUD.png");
+				plantOverlay = new TextureSprite(0, 0, 100, 100, 0, "src/data/plantOverlay.png");
 			}
+				hud = new TextureSprite(0, 0, 100, 100, 0, "src/data/HUD.png");
 			
 			//Fonts?
 			//NOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOPE!
@@ -198,6 +198,15 @@ public class View extends Thread {
 				hud.h = corner2.y - corner1.y;
 				
 				hud.draw();
+				
+				if (model.plantMode){
+					plantOverlay.x = corner1.x;
+					plantOverlay.y = corner1.y;
+					plantOverlay.w = corner2.x - corner1.x;
+					plantOverlay.h = corner2.y - corner1.y;
+					
+					plantOverlay.draw();
+				}
 				
 				GL11.glDepthMask(true);  // disable writes to Z-Buffer
 				GL11.glEnable(GL11.GL_DEPTH_TEST);  // disable depth-testing
