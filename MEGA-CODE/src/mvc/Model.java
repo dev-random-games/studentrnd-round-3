@@ -40,8 +40,8 @@ public class Model extends Thread {
 	
 	Map map;
 	
-	public static final int WIDTH = 20;
-	public static final int HEIGHT = 20;
+	public static final int WIDTH = 32;
+	public static final int HEIGHT = 32;
 	public static final int TILEW = 29;
 	public static final int TILEH = 29;
 	
@@ -50,7 +50,8 @@ public class Model extends Thread {
 		
 //		sprites.add(new ExtrudeSprite(100, 100, 100, 100, 300, Color.RED));
 		
-		map = new Map(WIDTH, HEIGHT, TILEW, TILEH);
+		//map = new Map(WIDTH, HEIGHT, TILEW, TILEH);
+		map = new Map("data/testcase.png", WIDTH, HEIGHT, TILEW, TILEH);
 		
 		sprites.add(map);
 		
