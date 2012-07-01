@@ -1,5 +1,7 @@
 package server;
 
+import game.Monster;
+
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -90,7 +92,7 @@ public class ClientManager extends Thread {
 			}
 			break;
 		case ADD_MONSTER:
-			System.out.println("monster - clientmanager");
+//			System.out.println("monster - clientmanager");
 			x = message.charAt(0);
 			y = message.charAt(1);
 			int monsterType = message.charAt(2);
@@ -107,6 +109,7 @@ public class ClientManager extends Thread {
 				e.printStackTrace();
 			}
 			break;
+		
 		}
 	}
 }
