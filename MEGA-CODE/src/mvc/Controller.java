@@ -74,7 +74,7 @@ public class Controller extends Thread {
 			
 			Point mousePos = view.pickPointOnScreen(new Point(Mouse.getX(), Mouse.getY()), 0);
 			
-			System.out.println(Mouse.getX() + ", " + Mouse.getY());
+//			System.out.println(Mouse.getX() + ", " + Mouse.getY());
 
 			for (Tower tower : model.map.towers){
 				tower.mouseHovering = false;

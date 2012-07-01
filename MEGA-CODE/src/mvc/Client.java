@@ -25,7 +25,7 @@ public class Client extends Thread{
 	public ObjectInputStream in;
 	
 	String host = "localhost";
-	//String host = "192.168.1.2";
+//	String host = "192.168.1.2";
 	int port = 12345;
 	
 	int userId;
@@ -148,6 +148,16 @@ public class Client extends Thread{
 							model.map.monsters.remove(i);
 						}
 					}
+					break;
+				case PROVIDE_EFFECT:
+					System.out.println(message);
+					String[] split = message.split("#");
+					System.out.println(split.toString());
+					float startX = Float.parseFloat(split[0]);
+					float startY = Float.parseFloat(split[1]);
+					float endX = Float.parseFloat(split[2]);
+					float endY = Float.parseFloat(split[3]);
+					model.effects.add(new Effect(startX, startY, endX, endY, 10));
 					break;
 				}
 				model.map.move();

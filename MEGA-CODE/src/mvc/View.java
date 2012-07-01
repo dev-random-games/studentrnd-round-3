@@ -218,6 +218,16 @@ public class View extends Thread {
 					sprite.draw();
 				}
 				
+				int i = 0;
+				while (i < model.effects.size()) {
+					model.effects.get(i).draw();
+					if (model.effects.get(i).shouldDie()) {
+						model.effects.remove(i);
+					} else {
+						i++;
+					}
+					
+				}
 				
 				GL11.glDepthMask(false);  // disable writes to Z-Buffer
 				GL11.glDisable(GL11.GL_DEPTH_TEST);  // disable depth-testing
