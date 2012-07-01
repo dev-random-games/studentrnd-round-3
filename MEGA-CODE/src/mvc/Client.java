@@ -1,10 +1,14 @@
 package mvc;
 
+import game.BombTower;
+import game.EntMonster;
 import game.GatlingTower;
 import game.LaserTower;
 import game.Monster;
+import game.ThornMonster;
 import game.Tile;
 import game.Tower;
+import game.TreeMonster;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;
@@ -106,10 +110,21 @@ public class Client extends Thread{
 					int towerType = message.charAt(2);
 					if (this.canPlaceTower(x, y)) {
 						System.out.println("Adding tower at " + x + ", " + y);
-						model.map.addTower(x, y, towerType);	
-						if (!model.plantMode) {
-							this.energy -= model.map.tiles[x][y].tower.cost;
-							System.out.println("energy: " + energy);
+						if (!model.plantMode && this.model.energy >= model.map.tiles[x][y].tower.cost) {
+							double cost = 0;
+							switch (towerType) {
+							case(0):
+								cost = LaserTower.cost;
+							case(1):
+								cost = GatlingTower.cost;
+							case(2):
+								cost = BombTower.cost;
+							} 
+							
+							if (this.model.energy >= cost) {
+								this.model.energy -= cost;
+								model.map.addTower(x, y, towerType);
+							}
 						}
 					} else {
 						System.out.println("Cannot place tower at " + x + ", " + y);
@@ -124,10 +139,21 @@ public class Client extends Thread{
 					if (this.canPlaceTower(x, y)) {
 						this.subtractEnergy();
 						System.out.println("Adding monster at " + x + ", " + y);
-						model.map.addMonster(x, y, monsterType, monsterId);	
 						if (model.plantMode) {
-							this.energy -= model.map.tiles[x][y].tower.cost;
-							System.out.println("energy: " + energy);
+							double cost = 0;
+							switch (monsterType) {
+							case(0):
+								cost = EntMonster.getCost(EntMonster.baseEvolution);
+							case(1):
+								cost = TreeMonster.getCost(TreeMonster.baseEvolution);
+							case(2):
+								cost = ThornMonster.getCost(ThornMonster.baseEvolution);
+							} 
+							
+							if (this.model.energy >= cost) {
+								this.model.energy -= cost;
+								model.map.addMonster(x, y, monsterType, monsterId);	
+							}
 						}
 					} else {
 						System.out.println("Cannot place monster at " + x + ", " + y);
