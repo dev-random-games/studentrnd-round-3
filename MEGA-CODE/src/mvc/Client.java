@@ -1,5 +1,7 @@
 package mvc;
 
+import game.GatlingTower;
+import game.LaserTower;
 import game.Monster;
 import game.Tile;
 import game.Tower;
@@ -67,14 +69,12 @@ public class Client extends Thread{
 	public void run(){
 		while (true){
 			try {
-				System.out.println("ALIVE 1!");
 				String val = (String) in.readObject();
 				
 				MessageType type = MessageType.translate(val.charAt(0));
 				String message = val.substring(1);
 				
 				int x, y;
-				System.out.println("ALIVE 2!");
 				switch (type) {
 				case SERVER_MESSAGE:
 					System.out.println("SERVER: " + message);
@@ -95,6 +95,7 @@ public class Client extends Thread{
 					userId = Integer.parseInt(message.substring(1));
 					sendMessage(MessageType.SERVER_MESSAGE, "Hello server!");
 					break;
+				/*
 				case ADD_TOWER:
 					x = message.charAt(0);
 					y = message.charAt(1);
@@ -121,7 +122,9 @@ public class Client extends Thread{
 						System.out.println("Cannot place monster at " + x + ", " + y);
 					}
 					break;
+					*/
 				case PROVIDE_STATE:
+					try {
 					model.map.monsters = new ArrayList<Monster>();
 					ArrayList<Tower> newTowers = new ArrayList<Tower>();
 					// BIG NOTE: THIS DOES NOT REMOVE ANY TURRETS THAT ARE REMOVED!!!!!!
@@ -134,9 +137,20 @@ public class Client extends Thread{
 							float tileX = Float.parseFloat(splitl[1]);
 							float tileY = Float.parseFloat(splitl[2]);
 						} else if (splitl[0].equals("tower")) {
+							//System.out.println(splitl.toString());
 							int towerX = Integer.parseInt(splitl[1]);
 							int towerY = Integer.parseInt(splitl[2]);
-							Tower temp = new Tower(model.map, towerX, towerY);
+							char towerType = splitl[10].charAt(0);
+							Tower temp;
+							if (towerType == 0) {
+								temp = new GatlingTower(model.map, towerX, towerY);
+							} else if (towerType == 1) {
+								temp = new GatlingTower(model.map, towerX, towerY);
+							} else {
+								System.out.println("Unknown tower type: " + towerType);
+								temp = new LaserTower(model.map, towerX, towerY);
+							}
+							//System.out.println(towerX + ", " + towerY);
 							temp.beamType = Integer.parseInt(splitl[9]);
 							temp.cooldown = Double.parseDouble(splitl[4]);
 							temp.damage = Double.parseDouble(splitl[3]);
@@ -145,10 +159,10 @@ public class Client extends Thread{
 							temp.evolutionScalar = Double.parseDouble(splitl[7]);
 							temp.r = Double.parseDouble(splitl[5]);
 							temp.range = Double.parseDouble(splitl[8]);
-							temp.towerType = splitl[10].charAt(0);
 							temp.uniqueId = Integer.parseInt(splitl[11]);
 							model.map.tiles[(int) towerX][(int) towerY].tower = temp;
 							newTowers.add(temp);
+							System.out.println(temp.toString());
 						} else if (splitl[0].equals("monster")) {
 							//TODO: fix
 							float monsterX = Float.parseFloat(splitl[1]);
@@ -165,7 +179,10 @@ public class Client extends Thread{
 						}
 					}
 					model.map.towers = newTowers;
-					System.out.println(newTowers.toString());
+					//System.out.println(newTowers.toString());
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
 					
 					break;
 				}
@@ -211,7 +228,7 @@ public class Client extends Thread{
 	}
 	
 	public void addMonster(int x, int y, int monsterType){
-		System.out.println("monster - client outgoing");
+		//System.out.println("monster - client outgoing");
 		sendMessage(MessageType.ADD_MONSTER, "" + (char) x + (char) y + (char) monsterType);
 	}
 }

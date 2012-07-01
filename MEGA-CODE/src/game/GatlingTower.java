@@ -1,35 +1,18 @@
 package game;
 
+import java.awt.Color;
+
 import mvc.TextureSprite;
 
 public class GatlingTower extends Tower{
 	
-	TextureSprite base, guns, tower;
-
+	static String[] texturePaths = {"data/RabbitBase128.png", "data/RabbitArms128.png", "data/RabbitBody128.png"};
+	
 	public GatlingTower(Map map, float x, float y) {
-		super(map, x, y);
-		
-		range = 100;
-		damage = 20;
-		cooldown = 2;
-		
-		evolution = 0;
-		evolutionScalar = 1;
-		
-		base = new TextureSprite(this.x, this.y, w, h, 20, "src/data/RabbitBase128.png");
-		guns = new TextureSprite(this.x, this.y, w, h, 30, "src/data/RabbitArms128.png");
-		tower = new TextureSprite(this.x, this.y, w, h, 40, "src/data/RabbitBody128.png");
+		super(map, x, y, map.tileHeight, map.tileHeight, 100.0, 20.0, 2.0, 2.0, Color.CYAN, texturePaths);
 	}
-
-	public void draw(){
-		base.setRot((float) r);
-		guns.setRot((float) r);
-		tower.setRot((float) r);
-		
-		base.draw();
-		guns.draw();
-		tower.draw();
-		
-		r += 1;
+	
+	public String getClassName() {
+		return "GatlingTower";
 	}
 }

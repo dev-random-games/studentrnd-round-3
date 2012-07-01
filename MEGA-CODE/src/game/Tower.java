@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import mvc.ExtrudeSprite;
 import mvc.Model;
+import mvc.TextureSprite;
 import game.Map;
 
 public class Tower extends ExtrudeSprite{
@@ -18,7 +19,8 @@ public class Tower extends ExtrudeSprite{
 	public double evolutionScalar;
 	
 	String[] texturePaths;
-
+	TextureSprite base, guns, tower;
+	
 	public int beamType;
 	public char towerType;
 	public int uniqueId;
@@ -45,6 +47,10 @@ public class Tower extends ExtrudeSprite{
 		this.evolutionScalar = evolutionScalar;
 		
 		this.texturePaths = texturePaths;
+		
+		base = new TextureSprite(this.x, this.y, w, h, 20, texturePaths[0]);
+		guns = new TextureSprite(this.x, this.y, w, h, 30, texturePaths[1]);
+		tower = new TextureSprite(this.x, this.y, w, h, 40, texturePaths[2]);
 		
 	}
 	
@@ -75,5 +81,21 @@ public class Tower extends ExtrudeSprite{
 	
 	public String getClassName() {
 		return "Tower";
+	}
+	
+	public String toString() {
+		return this.getClassName() + this.texturePaths[0] + this.texturePaths[1] + this.texturePaths[2]; 
+	}
+	
+	public void draw(){
+		base.setRot((float) r);
+		guns.setRot((float) r);
+		tower.setRot((float) r);
+		
+		base.draw();
+		guns.draw();
+		tower.draw();
+		
+		r += 1;
 	}
 }

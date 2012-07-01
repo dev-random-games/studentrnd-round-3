@@ -109,7 +109,7 @@ public class Controller extends Thread {
 	 * @param evt
 	 */
 	public void mousePressed(int x, int y){
-		System.out.println(x + ", " + y);
+		//System.out.println(x + ", " + y);
 	}
 	
 	/**
@@ -121,7 +121,7 @@ public class Controller extends Thread {
 		if (model.plantMode){
 			model.client.addMonster((int) (x / model.map.tileWidth), (int) (y / model.map.tileHeight), 1);
 		} else {
-			model.client.addTower((int) (x / model.map.tileWidth), (int) (y / model.map.tileHeight), 0);
+			model.client.addTower((int) (x / model.map.tileWidth), (int) (y / model.map.tileHeight), 1);
 		}
 	}
 	

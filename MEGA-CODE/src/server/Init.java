@@ -79,8 +79,8 @@ public class Init extends Thread{
 				try {
 					map.step();
 					String state = encode.getEncodedState();
-					System.out.println("------------------");
-					System.out.println(state);
+					//System.out.println("------------------");
+					//System.out.println(state);
 					connector.sendMessage(MessageType.PROVIDE_STATE, state);
 					Thread.sleep(2000);
 				} catch (Exception e) {

@@ -190,6 +190,7 @@ public class View extends Thread {
 					sprite.draw();
 				}
 				
+				
 				GL11.glDepthMask(false);  // disable writes to Z-Buffer
 				GL11.glDisable(GL11.GL_DEPTH_TEST);  // disable depth-testing
 				
