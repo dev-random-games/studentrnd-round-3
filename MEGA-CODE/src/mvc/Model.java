@@ -75,7 +75,7 @@ public class Model extends Thread {
 		sprites.add(map);
 		
 		sprites.add(new TextureSprite(0, 0, TILEW * 3, TILEH * 3, 50, "src/data/motherTree.png"));
-		sprites.add(new TextureSprite(TILEW * (WIDTH - 3), TILEH * (HEIGHT - 3), TILEW * 3, TILEH * 3, 50, "src/data/coreBuilding.png"));
+		sprites.add(new TextureSprite(TILEW * (WIDTH - 6), TILEH * (HEIGHT - 3), TILEW * 3, TILEH * 3, 50, "src/data/coreBuilding.png"));
 		
 //		sprites.add(new TextureSprite(100, 100, 100, 100, 300, "/data/test.png"));
 	}
@@ -147,6 +147,13 @@ public class Model extends Thread {
 	public void run() {
 		while (true) {
 			map.move();
+			
+			if (this.plantMode){
+				if (energy < STARTENERGY){
+					energy += .2f;
+				}
+			}
+			
 			try {
 				Thread.sleep(10);
 			} catch (InterruptedException e) {

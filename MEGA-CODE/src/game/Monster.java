@@ -22,6 +22,7 @@ public class Monster extends RectSprite {
 
 	public int evolution;
 	public static float evolutionScalar;
+	public boolean complete = false;
 	
 	String[] texturePaths;
 	

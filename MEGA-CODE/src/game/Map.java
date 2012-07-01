@@ -41,6 +41,8 @@ public class Map extends Sprite{
 	public ArrayList<Tower> towers;
 	public ArrayList<Monster> monsters;
 	
+	public int monstersWon = 0;
+	
 	public Tile selectedTile = null;
 	
 	Point start, end;
@@ -109,6 +111,11 @@ public class Map extends Sprite{
 				}
 			} catch (Exception e){
 				e.printStackTrace();
+			}
+			if (Math.abs(monsters.get(i).x / tileWidth - end.x) + Math.abs(monsters.get(i).y / tileHeight - end.y) < 1 && !monsters.get(i).complete){
+				monstersWon++;
+				monsters.get(i).complete = true;
+				System.out.println("MONSTER REACHED THE ORB!");
 			}
 		}
 		

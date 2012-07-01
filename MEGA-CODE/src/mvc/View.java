@@ -216,6 +216,9 @@ public class View extends Thread {
 //				Color.white.bind();
 //				font.drawString(100, 50, "THE LIGHTWEIGHT JAVA GAMES LIBRARY", Color.yellow);
 
+//				GL11.glPushMatrix();
+//				GL11.glRotatef(-f, 1, 0, 0);
+				
 				for (Sprite sprite : model.sprites){
 					sprite.draw();
 				}
@@ -235,6 +238,8 @@ public class View extends Thread {
 					Tile tile = model.map.selectedTile;
 					new RectSprite(tile.x, tile.y, tile.w, tile.h, 20, Color.RED).draw();
 				}
+				
+//				GL11.glPopMatrix();
 				
 				GL11.glDepthMask(false);  // disable writes to Z-Buffer
 				GL11.glDisable(GL11.GL_DEPTH_TEST);  // disable depth-testing

@@ -137,7 +137,9 @@ public class Client extends Thread{
 					System.out.println("deleting monster " + monsterID);
 					for (int i = 0; i < model.map.monsters.size(); i++) {
 						if (monsterID == model.map.monsters.get(i).uniqueId) {
+							Monster dead = model.map.monsters.get(i);
 							model.map.monsters.remove(i);
+							model.energy += dead.cost / 2;
 						}
 					}
 					break;
