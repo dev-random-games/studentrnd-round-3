@@ -157,9 +157,24 @@ public class Map extends Sprite{
 	
 	public boolean addMonster(int x, int y, int type, int id){
 		if (tiles[x][y].tower == null && !tiles[x][y].highGround){
-			Monster monster = new Monster(x, y, tileWidth, tileHeight, 100);	// Add a real health value at some point!!
+			Monster monster;
+			
+			switch (type) {
+			case 0: 
+				monster = new EntMonster(x, y, tileWidth, tileHeight);
+				break;
+			case 1:
+				monster = new TreeMonster(x, y, tileWidth, tileHeight);
+				break;
+			default:
+				monster = new ThornMonster(x, y, tileWidth, tileHeight);
+				break;
+			}
+			
 			monster.uniqueId = id;
 			monsters.add(monster); 
+			
+			
 			return true;
 		} else {
 			return false;

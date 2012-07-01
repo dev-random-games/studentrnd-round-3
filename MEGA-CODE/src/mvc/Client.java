@@ -80,9 +80,46 @@ public class Client extends Thread{
 					System.out.println("SERVER: " + message);
 					break;
 				case CONNECT:
+					switch ((int) message.charAt(0)){	// Determine player type
+					case 0:
+						model.plantMode = true;
+						break;
+					case 1:
+						model.plantMode = false;
+						break;
+					default:
+						System.out.println("Uh oh! Connection refused by a full server.");
+						System.exit(0);
+					}
 					System.out.println("Connection with server confirmed. Connected as user " + message + ".");
-					userId = Integer.parseInt(message);
+					userId = Integer.parseInt(message.substring(1));
 					sendMessage(MessageType.SERVER_MESSAGE, "Hello server!");
+					break;
+				case ADD_TOWER:
+					x = message.charAt(0);
+					y = message.charAt(1);
+					int towerType = message.charAt(2);
+					if (this.canPlaceTower(x, y)) {
+						this.subtractEnergy();
+						System.out.println("Adding tower at " + x + ", " + y);
+						model.map.addTower(x, y, towerType);	
+					} else {
+						System.out.println("Cannot place tower at " + x + ", " + y);
+					}
+					break;
+				case ADD_MONSTER:
+					System.out.println("monster - client incoming");
+					x = message.charAt(0);
+					y = message.charAt(1);
+					int monsterType = message.charAt(2);
+					int monsterId = Integer.parseInt(message.substring(3));
+					if (this.canPlaceTower(x, y)) {
+						this.subtractEnergy();
+						System.out.println("Adding monster at " + x + ", " + y);
+						model.map.addMonster(x, y, monsterType, monsterId);	
+					} else {
+						System.out.println("Cannot place monster at " + x + ", " + y);
+					}
 					break;
 				case PROVIDE_STATE:
 					model.map.monsters = new ArrayList<Monster>();
@@ -174,6 +211,7 @@ public class Client extends Thread{
 	}
 	
 	public void addMonster(int x, int y, int monsterType){
+		System.out.println("monster - client outgoing");
 		sendMessage(MessageType.ADD_MONSTER, "" + (char) x + (char) y + (char) monsterType);
 	}
 }

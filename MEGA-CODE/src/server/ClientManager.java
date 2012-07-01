@@ -18,6 +18,9 @@ public class ClientManager extends Thread {
 	ServerSocket server;
 
 	ArrayList<Connector> connections;
+	
+	boolean hasPlant = false;
+	boolean hasMecha = false;
 
 	public ClientManager(ServerSocket server) {
 		this.server = server;
@@ -63,7 +66,17 @@ public class ClientManager extends Thread {
 			break;
 		case CONNECT:
 			Init.sendServerMessage("New client connected.");
-			client.sendMessage(MessageType.CONNECT, Integer.toString(client.id));
+			int newClientType;
+			if (!hasPlant){
+				newClientType = 0;	//Connect plant player
+				hasPlant = true;
+			} else if (!hasMecha){
+				newClientType = 1;	//Connect mecha player
+				hasMecha = true;
+			} else {
+				newClientType = 2;	//Reject player
+			}
+			client.sendMessage(MessageType.CONNECT, "" + (char) newClientType + client.id);
 			break;
 		case ADD_TOWER:
 			int x = message.charAt(0);
@@ -77,15 +90,21 @@ public class ClientManager extends Thread {
 			}
 			break;
 		case ADD_MONSTER:
+			System.out.println("monster - clientmanager");
 			x = message.charAt(0);
 			y = message.charAt(1);
 			int monsterType = message.charAt(2);
 			Init.sendServerMessage("[USER " + client.id + "] adding monster at " + x + ", " + y);
 			int monsterId = Init.getUniqueId();
+			try {
 			if (Init.map.addMonster(x, y, monsterType, monsterId)){
+				System.out.println("monster - clientmanager - Init.map.add... true");
 				sendMessage(MessageType.ADD_MONSTER, "" + (char) x + (char) y + (char) monsterType + Integer.toString(monsterId));
 			} else {
 				Init.sendServerMessage("[USER " + client.id + "] Oops, you can't spawn a monster there!");
+			}
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
 			break;
 		}
