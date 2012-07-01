@@ -1,5 +1,8 @@
 package mvc;
 
+import game.Monster;
+import game.Tile;
+
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -7,6 +10,7 @@ import java.io.ObjectOutputStream;
 import java.net.ConnectException;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
 
 import server.MessageType;
 
@@ -15,7 +19,7 @@ public class Client extends Thread{
 	private ObjectOutputStream out;
 	public ObjectInputStream in;
 	
-	String host = "localhost";
+	String host = "192.168.1.2";
 	int port = 12345;
 	
 	int userId;
@@ -103,9 +107,21 @@ public class Client extends Thread{
 					}
 					break;
 				case PROVIDE_STATE:
+					model.map.monsters = new ArrayList<Monster>();
+					
 					String delimiter = "#@#@#@#";
 					// Load state from this
 					String[] split = message.split("\n");
+					for (String l : split) {
+						String[] splitl = l.split(delimiter);
+						if (splitl[0] == "tile") {
+							float tileX = Float.parseFloat(splitl[1]);
+							float tileY = Float.parseFloat(splitl[2]);
+							
+							
+						}
+					}
+					
 				}
 				
 			} catch (IOException e){
