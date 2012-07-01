@@ -76,6 +76,18 @@ public class ClientManager extends Thread {
 				Init.sendServerMessage("[USER " + client.id + "] Oops, there's already a tower there!");
 			}
 			break;
+		case ADD_MONSTER:
+			x = message.charAt(0);
+			y = message.charAt(1);
+			int monsterType = message.charAt(2);
+			Init.sendServerMessage("[USER " + client.id + "] adding monster at " + x + ", " + y);
+			int monsterId = Init.getUniqueId();
+			if (Init.map.addMonster(x, y, monsterType, monsterId)){
+				sendMessage(MessageType.ADD_TOWER, "" + (char) x + (char) y + (char) monsterType + Integer.toString(monsterId));
+			} else {
+				Init.sendServerMessage("[USER " + client.id + "] Oops, you can't spawn a monster there!");
+			}
+			break;
 		}
 	}
 }

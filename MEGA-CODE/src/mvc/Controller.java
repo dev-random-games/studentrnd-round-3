@@ -118,7 +118,11 @@ public class Controller extends Thread {
 	 * @param evt
 	 */
 	public void mouseReleased(int x, int y){
-		model.client.addTower((int) (x / model.map.tileWidth), (int) (y / model.map.tileHeight), 0);
+		if (model.plantMode){
+			model.client.addMonster((int) (x / model.map.tileWidth), (int) (y / model.map.tileHeight), 0);
+		} else {
+			model.client.addTower((int) (x / model.map.tileWidth), (int) (y / model.map.tileHeight), 1);
+		}
 	}
 	
 	/**
