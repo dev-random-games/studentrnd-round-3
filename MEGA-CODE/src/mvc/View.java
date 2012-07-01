@@ -2,6 +2,7 @@ package mvc;
 
 import game.EntMonster;
 import game.ThornMonster;
+import game.Tile;
 import game.TreeMonster;
 
 import java.awt.Color;
@@ -157,6 +158,7 @@ public class View extends Thread {
 			TreeMonster demoTree = new TreeMonster(0, 0, 50, 50);
 			ThornMonster demoThorn = new ThornMonster(0, 0, 50, 50);
 			TextureSprite upgrade = new TextureSprite(0, 0, 50, 100, 0, "src/data/upgrade.png");
+			TextureSprite mechaMenu = new TextureSprite(0, 0, 100, 100, 0, "src/data/mechaMenu.png");
 			energy = new RectSprite(0, 0, 10, 10, 0, Color.BLUE);
 			
 			//Fonts?
@@ -226,7 +228,12 @@ public class View extends Thread {
 					} else {
 						i++;
 					}
+				}
 					
+
+				if (model.map.selectedTile != null){
+					Tile tile = model.map.selectedTile;
+					new RectSprite(tile.x, tile.y, tile.w, tile.h, 20, Color.RED).draw();
 				}
 				
 				GL11.glDepthMask(false);  // disable writes to Z-Buffer
@@ -309,6 +316,15 @@ public class View extends Thread {
 					upgrade.h = upgradeCorner2.y - upgradeCorner1.y;
 					
 					upgrade.draw();
+				} else {
+					if (model.map.selectedTile != null){
+						mechaMenu.x = corner1.x;
+						mechaMenu.y = corner1.y;
+						mechaMenu.w = corner2.x - corner1.x;
+						mechaMenu.h = corner2.y - corner1.y;
+						
+						mechaMenu.draw();
+					}
 				}
 				
 				hud.x = corner1.x;
@@ -318,19 +334,35 @@ public class View extends Thread {
 				
 				hud.draw();
 				
-				energyBar.x = corner1.x;
-				energyBar.y = corner1.y;
-				energyBar.w = corner2.x - corner1.x;
-				energyBar.h = corner2.y - corner1.y;
-				
-				energyBar.draw();
-				
 				energyBarBackdrop.x = corner1.x;
 				energyBarBackdrop.y = corner1.y;
 				energyBarBackdrop.w = corner2.x - corner1.x;
 				energyBarBackdrop.h = corner2.y - corner1.y;
 				
 				energyBarBackdrop.draw();
+				
+				Point barXY   = pickPointOnScreen(new Point(101, 13), 0);
+				Point barX1Y1 = pickPointOnScreen(new Point(598, 45), 0);
+				
+				energy = new RectSprite(barXY.x, barXY.y, (barX1Y1.x - barXY.x) * Model.energy / Model.STARTENERGY, barX1Y1.y - barXY.y, 0, new Color(150, 150, 255));
+				energy.draw();
+				if (Model.energyCost > 0){
+					float x2 = ((barX1Y1.x - barXY.x) * Model.energy / Model.STARTENERGY) + barXY.x;
+					float x1 = x2 - ((barX1Y1.x - barXY.x) * Model.energyCost / Model.STARTENERGY);
+					if (x1 < barXY.x){
+						x1 = barXY.x;
+					}
+					energy = new RectSprite(x1, barXY.y, x2 - x1, barX1Y1.y - barXY.y, 0, Color.RED);
+					energy.draw();
+				}
+				
+				
+				energyBar.x = corner1.x;
+				energyBar.y = corner1.y;
+				energyBar.w = corner2.x - corner1.x;
+				energyBar.h = corner2.y - corner1.y;
+				
+				energyBar.draw();
 				
 				if (model.plantMode){
 					plantOverlay.x = corner1.x;

@@ -41,6 +41,8 @@ public class Map extends Sprite{
 	public ArrayList<Tower> towers;
 	public ArrayList<Monster> monsters;
 	
+	public Tile selectedTile = null;
+	
 	Point start, end;
 	
 	public Map(String path, int width, int height, float tileWidth, float tileHeight) {
@@ -166,8 +168,11 @@ public class Map extends Sprite{
 			case 1:
 				tower = new GatlingTower(this, x, y);
 				break;
+			case 2:
+				tower = new BombTower(this, x, y);
+				break;
 			default:
-				tower = new Tower(this, x, y);
+				tower = new BombTower(this, x, y);
 				break;
 			}
 			
