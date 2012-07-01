@@ -149,8 +149,11 @@ public class Map extends Sprite{
 			case 1:
 				tower = new GatlingTower(this, x, y);
 				break;
+			case 2:
+				tower = new BombTower(this, x, y);
+				break;
 			default:
-				tower = new Tower(this, x, y);
+				tower = new BombTower(this, x, y);
 				break;
 			}
 			

@@ -19,7 +19,7 @@ public class ClientManager extends Thread {
 
 	ArrayList<Connector> connections;
 	
-	boolean hasPlant = false;
+	boolean hasPlant = true;
 	boolean hasMecha = false;
 
 	public ClientManager(ServerSocket server) {
@@ -82,7 +82,7 @@ public class ClientManager extends Thread {
 			int x = message.charAt(0);
 			int y = message.charAt(1);
 			int towerType = message.charAt(2);
-			Init.sendServerMessage("[USER " + client.id + "] adding tower at " + x + ", " + y);
+			Init.sendServerMessage("[USER " + client.id + "] adding tower at " + x + ", " + y + "of type: " + towerType);
 			if (Init.map.addTower(x, y, towerType)){
 				sendMessage(MessageType.ADD_TOWER, "" + (char) x + (char) y + (char) towerType);
 			} else {
@@ -98,7 +98,7 @@ public class ClientManager extends Thread {
 			int monsterId = Init.getUniqueId();
 			try {
 			if (Init.map.addMonster(x, y, monsterType, monsterId)){
-				System.out.println("monster - clientmanager - Init.map.add... true");
+//				System.out.println("monster - clientmanager - Init.map.add... true");
 				sendMessage(MessageType.ADD_MONSTER, "" + (char) x + (char) y + (char) monsterType + Integer.toString(monsterId));
 			} else {
 				Init.sendServerMessage("[USER " + client.id + "] Oops, you can't spawn a monster there!");

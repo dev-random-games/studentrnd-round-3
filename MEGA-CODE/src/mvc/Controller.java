@@ -140,10 +140,10 @@ public class Controller extends Thread {
 		
 		if (mapX >= 0 && mapY >= 0 && mapX < model.map.width && mapY < model.map.height){
 			if (model.plantMode){
-				model.client.addMonster(mapX, mapY, 0);
+				model.client.addMonster(mapX, mapY, 1);
 			} else {
 				if (model.map.tiles[mapX][mapY].tower == null){
-					model.client.addTower(mapX, mapY, 1);
+					model.client.addTower(mapX, mapY, 2);
 				} else {
 					model.map.tiles[mapX][mapY].tower.upgrade();
 				}
