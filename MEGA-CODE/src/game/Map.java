@@ -87,6 +87,7 @@ public class Map extends Sprite{
 		
 		tiles = new Tile[width][height];
 		towers = new ArrayList<Tower>();
+		monsters = new ArrayList<Monster>();
 		
 		try {
 			BufferedImage image = ImageIO.read(file);
