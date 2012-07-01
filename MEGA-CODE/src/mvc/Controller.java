@@ -127,6 +127,12 @@ public class Controller extends Thread {
 				if (keysPressed[Keyboard.KEY_DOWN]){
 					view.viewVelocity.setY(-4 * (view.viewTranslation.getZ() / 1000));
 				}
+				if (keysPressed[Keyboard.KEY_E]){
+					view.coolCamera = true;
+				}
+				if (keysPressed[Keyboard.KEY_Q]){
+					view.coolCamera = false;
+				}
 			} catch (NullPointerException e){
 				continue;
 			}

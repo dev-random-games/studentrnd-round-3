@@ -67,7 +67,7 @@ public class Tower extends ExtrudeSprite{
 		
 		this.texturePaths = texturePaths;
 		
-		base = new TextureSprite(this.x, this.y, w, h, 20, texturePaths[0]);
+		base = new TextureSprite(this.x, this.y, w, h, 21, texturePaths[0]);
 		guns = new TextureSprite(this.x, this.y, w, h, 30, texturePaths[1]);
 		tower = new TextureSprite(this.x, this.y, w, h, 40, texturePaths[2]);
 		
