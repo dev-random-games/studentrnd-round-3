@@ -16,8 +16,10 @@ public class Monster extends RectSprite {
 	
 //	float x, y, z;
 	float speed = 2;
-	double health;
+	public double health;
 	int uniqueId;
+	public double maxHealth, rotation;
+	public int speedUpgrade, healthUpgrade;
 	
 	public Monster(float x, float y, float tileWidth, float tileHeight, double health) {
 		super(x * tileWidth - 5 + tileWidth / 2, y * tileHeight - 5 + tileHeight / 2, 10, 10, 5, Color.RED);

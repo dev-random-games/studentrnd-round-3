@@ -100,6 +100,17 @@ public class Map extends Sprite{
 			}
 			
 		}
+		
+		// Remove dead monsters
+		
+		int i = 0;
+		while (i < monsters.size()) {
+			if (monsters.get(i).shouldDie()) {
+				monsters.remove(i);
+			} else {
+				i++;
+			}
+		}
 	}
 
 	@Override
