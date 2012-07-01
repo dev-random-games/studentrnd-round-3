@@ -16,6 +16,7 @@ import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 
+import server.Init;
 import server.MessageType;
 
 public class Client extends Thread{
@@ -24,6 +25,7 @@ public class Client extends Thread{
 	public ObjectInputStream in;
 	
 	String host = "localhost";
+//	String host = "192.168.1.2";
 	int port = 12345;
 	
 	int userId;
@@ -39,6 +41,7 @@ public class Client extends Thread{
 			this.view = view;
 			
 			client = new Socket(host, port);
+			client.setTcpNoDelay(true);
 			client.setSoTimeout(1000);
 			
 			out = new ObjectOutputStream(client.getOutputStream());
@@ -73,6 +76,8 @@ public class Client extends Thread{
 				
 				MessageType type = MessageType.translate(val.charAt(0));
 				String message = val.substring(1);
+				
+				
 				
 				int x, y;
 				switch (type) {
@@ -133,8 +138,19 @@ public class Client extends Thread{
 							break;
 						}
 					}
+					
+					break;
+				case REMOVE_MONSTER:
+					int monsterID = Integer.parseInt(message);
+					System.out.println("deleting monster " + monsterID);
+					for (int i = 0; i < model.map.monsters.size(); i++) {
+						if (monsterID == model.map.monsters.get(i).uniqueId) {
+							model.map.monsters.remove(i);
+						}
+					}
 					break;
 				}
+				model.map.move();
 			} catch (IOException e) {
 				if (!client.isConnected()) {	// If server has disconnected, attempt to reconnect.
 					try {

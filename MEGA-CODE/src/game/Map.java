@@ -11,7 +11,11 @@ import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
+import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.util.ResourceLoader;
+
+import server.MessageType;
+import server.ClientManager;
 
 import mvc.RectSprite;
 import mvc.Sprite;
@@ -103,23 +107,31 @@ public class Map extends Sprite{
 		}
 		
 		for (Tower tower : towers){
-			tower.target(monsters, end);
+			Monster target= tower.target(monsters, end);
+			if (target != null) { 
+				if (tower.coolCounter <= 0) {
+					target.health -= tower.damage; 
+					tower.coolCounter = tower.cooldown;
+				} else {
+					tower.coolCounter -= 1;
+				}
+			}
 		}
 	}
 	
 	public void step(){
 		move();
 		
-		// Remove dead monsters
+		// Remove dead monsters // Moved over to Client.java!
 		
-		int i = 0;
+		/*int i = 0;
 		while (i < monsters.size()) {
 			if (monsters.get(i).shouldDie()) {
 				monsters.remove(i);
 			} else {
 				i++;
 			}
-		}
+		}*/
 	}
 
 	@Override
@@ -134,8 +146,8 @@ public class Map extends Sprite{
 				tiles[x][y].draw();
 			}
 		}
-		for (Monster monster : monsters){
-			monster.draw();
+		for (int i = 0; i < monsters.size(); i++){
+			monsters.get(i).draw();
 		}
 	}
 	

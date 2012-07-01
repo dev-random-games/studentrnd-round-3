@@ -51,6 +51,8 @@ public class Model extends Thread {
 	
 	public static final float STARTENERGY = 500f;
 	
+	public static float energy = STARTENERGY;
+	
 	/**
 	 * True if plants, false if mecha.
 	 */

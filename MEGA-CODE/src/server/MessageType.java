@@ -9,7 +9,8 @@ public enum MessageType {
 	REQUEST_STATE (5),
 	PROVIDE_STATE (6),
 	MOVE_MONSTER (7),
-	UPGRADE (8);
+	UPGRADE (8),
+	REMOVE_MONSTER (9);
 	
 	
 	private final int index;

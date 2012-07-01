@@ -17,6 +17,8 @@ public class Tower extends ExtrudeSprite{
 	public double damage;
 	public double cooldown;
 	
+	public double coolCounter = 0;
+	
 	public int evolution;
 	public double evolutionScalar;
 	

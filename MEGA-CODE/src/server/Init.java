@@ -86,6 +86,18 @@ public class Init extends Thread{
 						connector.sendMessage(MessageType.MOVE_MONSTER, Integer.toString(monster.uniqueId) + "." + Integer.toString((int) monster.x) + "." + Integer.toString((int) monster.y));
 					}
 					
+					// Remove dead monsters
+					int i = 0;
+					while (i < map.monsters.size()) {
+						if (map.monsters.get(i).shouldDie()) {
+							connector.sendMessage(MessageType.REMOVE_MONSTER, "" + Integer.toString(map.monsters.get(i).uniqueId));
+							System.out.println("REMOVED MONSTER " + map.monsters.get(i).uniqueId);
+							map.monsters.remove(i);
+						} else {
+							i++;
+						}
+					}
+					
 					Thread.sleep(10);
 				} catch (Exception e) {
 					e.printStackTrace();

@@ -156,6 +156,7 @@ public class View extends Thread {
 			EntMonster demoEnt = new EntMonster(0, 0, 50, 50);
 			TreeMonster demoTree = new TreeMonster(0, 0, 50, 50);
 			ThornMonster demoThorn = new ThornMonster(0, 0, 50, 50);
+			TextureSprite upgrade = new TextureSprite(0, 0, 50, 100, 0, "src/data/upgrade.png");
 			energy = new RectSprite(0, 0, 10, 10, 0, Color.BLUE);
 			
 			//Fonts?
@@ -221,8 +222,8 @@ public class View extends Thread {
 				GL11.glDepthMask(false);  // disable writes to Z-Buffer
 				GL11.glDisable(GL11.GL_DEPTH_TEST);  // disable depth-testing
 				
-				Point corner1 = pickPointOnScreen(new Point(0, 0), 0);
-				Point corner2 = pickPointOnScreen(new Point(700, 700), 0);
+				Point corner1 = pickPointOnScreen(new Point(0, 0), -2000);
+				Point corner2 = pickPointOnScreen(new Point(700, 700), -2000);
 				
 				if (model.plantMode){
 					plantMenu.x = corner1.x;
@@ -232,20 +233,21 @@ public class View extends Thread {
 					
 					plantMenu.draw();
 					
-					Point demoEntCorner1 = pickPointOnScreen(new Point(0, 0), 0);
-					Point demoEntCorner2 = pickPointOnScreen(new Point(700, 700), 0);
+					Point demoEntCorner1 = pickPointOnScreen(new Point(31, 74), -2000);
+					Point demoEntCorner2 = pickPointOnScreen(new Point(69, 111), -2000);
 					
 					demoEnt.x = demoEntCorner1.x;
 					demoEnt.y = demoEntCorner1.y;
 					demoEnt.w = demoEntCorner2.x - demoEntCorner1.x;
 					demoEnt.h = demoEntCorner2.y - demoEntCorner1.y;
+//					demoEnt.depth = viewTranslation.getZ() - 200;
 					
 					demoEnt.evolution = EntMonster.baseEvolution;
 					
 					demoEnt.draw();
 					
-					Point demoTreeCorner1 = pickPointOnScreen(new Point(0, 0), 0);
-					Point demoTreeCorner2 = pickPointOnScreen(new Point(700, 700), 0);
+					Point demoTreeCorner1 = pickPointOnScreen(new Point(121, 74), -2000);
+					Point demoTreeCorner2 = pickPointOnScreen(new Point(158, 110), -2000);
 					
 					demoTree.x = demoTreeCorner1.x;
 					demoTree.y = demoTreeCorner1.y;
@@ -256,8 +258,8 @@ public class View extends Thread {
 					
 					demoTree.draw();
 					
-					Point demoThornCorner1 = pickPointOnScreen(new Point(0, 0), 0);
-					Point demoThornCorner2 = pickPointOnScreen(new Point(700, 700), 0);
+					Point demoThornCorner1 = pickPointOnScreen(new Point(214, 74), 0);
+					Point demoThornCorner2 = pickPointOnScreen(new Point(251, 112), 0);
 					
 					demoThorn.x = demoThornCorner1.x;
 					demoThorn.y = demoThornCorner1.y;
@@ -267,6 +269,36 @@ public class View extends Thread {
 					demoThorn.evolution = ThornMonster.baseEvolution;
 					
 					demoThorn.draw();
+					
+					Point upgradeCorner1 = pickPointOnScreen(new Point(79, 64), -2000);
+					Point upgradeCorner2 = pickPointOnScreen(new Point(111, 121), -2000);
+					
+					upgrade.x = upgradeCorner1.x;
+					upgrade.y = upgradeCorner1.y;
+					upgrade.w = upgradeCorner2.x - upgradeCorner1.x;
+					upgrade.h = upgradeCorner2.y - upgradeCorner1.y;
+					
+					upgrade.draw();
+					
+					upgradeCorner1 = pickPointOnScreen(new Point(169, 64), -2000);
+					upgradeCorner2 = pickPointOnScreen(new Point(203, 121), -2000);
+					
+					upgrade.x = upgradeCorner1.x;
+					upgrade.y = upgradeCorner1.y;
+					upgrade.w = upgradeCorner2.x - upgradeCorner1.x;
+					upgrade.h = upgradeCorner2.y - upgradeCorner1.y;
+					
+					upgrade.draw();
+					
+					upgradeCorner1 = pickPointOnScreen(new Point(262, 64), -2000);
+					upgradeCorner2 = pickPointOnScreen(new Point(296, 121), -2000);
+					
+					upgrade.x = upgradeCorner1.x;
+					upgrade.y = upgradeCorner1.y;
+					upgrade.w = upgradeCorner2.x - upgradeCorner1.x;
+					upgrade.h = upgradeCorner2.y - upgradeCorner1.y;
+					
+					upgrade.draw();
 				}
 				
 				hud.x = corner1.x;
