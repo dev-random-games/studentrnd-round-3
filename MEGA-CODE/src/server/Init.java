@@ -68,7 +68,7 @@ public class Init extends Thread{
 			serverDisplay.pack();
 			serverDisplay.setVisible(true);
 			
-			map = new Map(20, 20, 5, 5);
+			map = new Map("data/testcase.png", 32, 32, 29, 29);
 			
 			while (true) {
 				try {
