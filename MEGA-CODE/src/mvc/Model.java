@@ -152,6 +152,10 @@ public class Model extends Thread {
 				if (energy < STARTENERGY){
 					energy += .2f;
 				}
+			} else {
+				if (energy < STARTENERGY){
+					energy += .1f;
+				}
 			}
 			
 			try {

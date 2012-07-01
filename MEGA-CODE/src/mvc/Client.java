@@ -139,7 +139,9 @@ public class Client extends Thread{
 						if (monsterID == model.map.monsters.get(i).uniqueId) {
 							Monster dead = model.map.monsters.get(i);
 							model.map.monsters.remove(i);
-							model.energy += dead.cost / 2;
+							if (!model.plantMode){
+								model.energy += 100 ;//dead.baseCost * (dead.evolution + 1) / 2;
+							}
 						}
 					}
 					break;
