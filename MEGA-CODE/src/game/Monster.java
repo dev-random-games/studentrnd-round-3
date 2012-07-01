@@ -15,10 +15,10 @@ import mvc.Vector3D;
 public class Monster extends RectSprite {
 	
 //	float x, y, z;
-	float speed = 2;
+	public float speed = 2;
 	public double health;
 	int uniqueId;
-	public double maxHealth, rotation;
+	public double maxHealth;
 	public int speedUpgrade, healthUpgrade;
 	
 	public Monster(float x, float y, float tileWidth, float tileHeight, double health) {
