@@ -78,11 +78,21 @@ public class Client extends Thread{
 					System.out.println("SERVER: " + message);
 					break;
 				case CONNECT:
+					switch ((int) message.charAt(0)){	// Determine player type
+					case 0:
+						model.plantMode = true;
+						break;
+					case 1:
+						model.plantMode = false;
+						break;
+					default:
+						System.out.println("Uh oh! Connection refused by a full server.");
+						System.exit(0);
+					}
 					System.out.println("Connection with server confirmed. Connected as user " + message + ".");
-					userId = Integer.parseInt(message);
+					userId = Integer.parseInt(message.substring(1));
 					sendMessage(MessageType.SERVER_MESSAGE, "Hello server!");
 					break;
-				/*
 				case ADD_TOWER:
 					x = message.charAt(0);
 					y = message.charAt(1);
@@ -108,7 +118,6 @@ public class Client extends Thread{
 						System.out.println("Cannot place monster at " + x + ", " + y);
 					}
 					break;
-					*/
 				case PROVIDE_STATE:
 					model.map.monsters = new ArrayList<Monster>();
 					// BIG NOTE: THIS DOES NOT REMOVE ANY TURRETS THAT ARE REMOVED!!!!!!
