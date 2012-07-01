@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Point;
 import java.awt.Rectangle;
 
+import server.Init;
+
 import mvc.RectSprite;
 import mvc.Sprite;
 import mvc.TextureSprite;

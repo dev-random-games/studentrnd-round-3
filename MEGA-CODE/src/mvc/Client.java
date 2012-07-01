@@ -16,6 +16,7 @@ public class Client extends Thread{
 	public ObjectInputStream in;
 	
 	String host = "localhost";
+	
 	int port = 12345;
 	
 	int userId;

@@ -26,7 +26,7 @@ public class Init extends Thread{
 	static JTextArea textOut;
 	static JTextPane textIn;
 	
-	public static int currentId;
+	public static int currentId = 0;
 	
 	int WIDTH  = 500;
 	int HEIGHT = 500;
@@ -35,7 +35,6 @@ public class Init extends Thread{
 	
 	public void run(){
 		try {
-			currentId = 0;
 			ServerSocket server = new ServerSocket(12345);
 			connector = new ClientManager(server);
 			connector.start();
@@ -69,7 +68,7 @@ public class Init extends Thread{
 			serverDisplay.pack();
 			serverDisplay.setVisible(true);
 			
-			map = new Map(20, 20, 5, 5);
+			map = new Map("data/testcase.png", 32, 32, 29, 29);
 			
 			while (true) {
 				try {
@@ -94,4 +93,12 @@ public class Init extends Thread{
 		textOut.append(msg + "\n");
 		scroll.getVerticalScrollBar().setValue(scroll.getVerticalScrollBar().getMaximum());
 	}
+	
+	public static int getUniqueId() {
+			int id = currentId;
+			currentId++;
+			return id;
+	}
+	
+	
 }

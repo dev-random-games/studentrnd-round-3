@@ -3,7 +3,15 @@ package game;
 import java.awt.Color;
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
+
+import javax.imageio.ImageIO;
+
+import org.newdawn.slick.util.ResourceLoader;
 
 import mvc.RectSprite;
 import mvc.Sprite;
@@ -23,10 +31,12 @@ public class Map extends Sprite{
 	public int[][] map;
 	public int[][] graph;
 	
-	ArrayList<Tower> towers;
-	ArrayList<Monster> monsters;
+	public ArrayList<Tower> towers;
+	public ArrayList<Monster> monsters;
 
+	
 	Point start, end;
+
 	
 	public Map(int width, int height, float tileWidth, float tileHeight){
 		this.width = width;
@@ -61,6 +71,52 @@ public class Map extends Sprite{
 		for (Monster monster : monsters){
 			monster.moveTowards(smallestNeighbor(monster.getMapPosition(tileWidth, tileHeight)), tileWidth, tileHeight);
 		}
+	}
+	
+	public Map(String path, int width, int height, float tileWidth, float tileHeight) {
+		
+		InputStream file = ResourceLoader.getResourceAsStream(path);
+		
+		this.width = width;
+		this.height = height;
+		this.tileWidth = tileWidth;
+		this.tileHeight = tileHeight;
+		
+		mapWidth = width * tileWidth;
+		mapHeight = height * tileHeight;
+		
+		tiles = new Tile[width][height];
+		towers = new ArrayList<Tower>();
+		
+		try {
+			BufferedImage image = ImageIO.read(file);
+			
+			for (int x = 0; x < width; x++) {
+				for (int y = 0; y < height; y++) {
+					
+					int rgb = image.getRGB(x, y);
+					int red = (rgb & 0x00ff0000) >> 16;
+					int green = (rgb & 0x0000ff00) >> 8;
+					int blue = rgb & 0x000000ff;
+					
+					int transY = height - 1 - y;
+					
+					
+					//TODO: add blue (mob spawn) and green (mob target)
+					if (red == 255 && green == 0 && blue == 0) {
+						tiles[x][transY] = new Tile(x, transY, tileWidth, tileHeight, true);
+					} else {
+						tiles[x][transY] = new Tile(x, transY, tileWidth, tileHeight, false);
+					} 
+					
+					
+				}
+			}
+		} catch(IOException e) {
+			e.printStackTrace();
+			System.exit(0);
+		}
+				
 	}
 
 	@Override
