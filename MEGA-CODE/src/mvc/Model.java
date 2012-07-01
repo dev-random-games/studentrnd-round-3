@@ -70,11 +70,12 @@ public class Model extends Thread {
 //		sprites.add(new ExtrudeSprite(100, 100, 100, 100, 300, Color.RED));
 		
 		//map = new Map(WIDTH, HEIGHT, TILEW, TILEH);
-		map = new Map("data/testcase.png", WIDTH, HEIGHT, TILEW, TILEH);
+		map = new Map("data/map2.png", WIDTH, HEIGHT, TILEW, TILEH);
 		
 		sprites.add(map);
 		
 		sprites.add(new TextureSprite(0, 0, TILEW * 3, TILEH * 3, 50, "src/data/motherTree.png"));
+		sprites.add(new TextureSprite(TILEW * (WIDTH - 3), TILEH * (HEIGHT - 3), TILEW * 3, TILEH * 3, 50, "src/data/coreBuilding.png"));
 		
 //		sprites.add(new TextureSprite(100, 100, 100, 100, 300, "/data/test.png"));
 	}
