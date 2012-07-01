@@ -61,7 +61,7 @@ public class Tile extends ExtrudeSprite{
 				setColor(highGround ? Color.LIGHT_GRAY : Color.DARK_GRAY);
 			}
 			
-			super.draw();
+//			super.draw();
 		}
 		
 		if (tower != null){
