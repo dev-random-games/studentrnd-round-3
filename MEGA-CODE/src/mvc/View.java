@@ -49,6 +49,9 @@ public class View extends Thread {
 	
 	TextureSprite hud;
 	TextureSprite plantOverlay;
+	TextureSprite energyBar;
+	TextureSprite energyBarBackdrop;
+	RectSprite energy;
 
 //	@SuppressWarnings("deprecation")
 //	TrueTypeFont font;
@@ -136,7 +139,11 @@ public class View extends Thread {
 			if (model.plantMode){
 				plantOverlay = new TextureSprite(0, 0, 100, 100, 0, "src/data/plantOverlay.png");
 			}
-				hud = new TextureSprite(0, 0, 100, 100, 0, "src/data/HUD.png");
+			
+			hud = new TextureSprite(0, 0, 100, 100, 0, "src/data/HUD.png");
+			energyBar = new TextureSprite(0, 0, 100, 100, 0, "src/data/energyBar.png");
+			energyBarBackdrop = new TextureSprite(0, 0, 100, 100, 0, "src/data/energyBarBackdrop.png");
+			energy = new RectSprite(0, 0, 10, 10, 0, Color.BLUE);
 			
 			//Fonts?
 			//NOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOPE!
@@ -198,6 +205,20 @@ public class View extends Thread {
 				hud.h = corner2.y - corner1.y;
 				
 				hud.draw();
+				
+				energyBar.x = corner1.x;
+				energyBar.y = corner1.y;
+				energyBar.w = corner2.x - corner1.x;
+				energyBar.h = corner2.y - corner1.y;
+				
+				energyBar.draw();
+				
+				energyBarBackdrop.x = corner1.x;
+				energyBarBackdrop.y = corner1.y;
+				energyBarBackdrop.w = corner2.x - corner1.x;
+				energyBarBackdrop.h = corner2.y - corner1.y;
+				
+				energyBarBackdrop.draw();
 				
 				if (model.plantMode){
 					plantOverlay.x = corner1.x;

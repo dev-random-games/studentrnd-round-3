@@ -82,6 +82,7 @@ public class Client extends Thread{
 					userId = Integer.parseInt(message);
 					sendMessage(MessageType.SERVER_MESSAGE, "Hello server!");
 					break;
+				/*
 				case ADD_TOWER:
 					x = message.charAt(0);
 					y = message.charAt(1);
@@ -107,6 +108,7 @@ public class Client extends Thread{
 						System.out.println("Cannot place monster at " + x + ", " + y);
 					}
 					break;
+					*/
 				case PROVIDE_STATE:
 					model.map.monsters = new ArrayList<Monster>();
 					// BIG NOTE: THIS DOES NOT REMOVE ANY TURRETS THAT ARE REMOVED!!!!!!
