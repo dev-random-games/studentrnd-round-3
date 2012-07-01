@@ -20,7 +20,7 @@ public class Client extends Thread{
 	private ObjectOutputStream out;
 	public ObjectInputStream in;
 	
-	String host = "192.168.1.2";
+	String host = "localhost";
 	int port = 12345;
 	
 	int userId;
@@ -82,7 +82,6 @@ public class Client extends Thread{
 					userId = Integer.parseInt(message);
 					sendMessage(MessageType.SERVER_MESSAGE, "Hello server!");
 					break;
-				/*
 				case ADD_TOWER:
 					x = message.charAt(0);
 					y = message.charAt(1);
@@ -96,6 +95,7 @@ public class Client extends Thread{
 					}
 					break;
 				case ADD_MONSTER:
+					System.out.println("monster - client incoming");
 					x = message.charAt(0);
 					y = message.charAt(1);
 					int monsterType = message.charAt(2);
@@ -108,7 +108,6 @@ public class Client extends Thread{
 						System.out.println("Cannot place monster at " + x + ", " + y);
 					}
 					break;
-					*/
 				case PROVIDE_STATE:
 					model.map.monsters = new ArrayList<Monster>();
 					// BIG NOTE: THIS DOES NOT REMOVE ANY TURRETS THAT ARE REMOVED!!!!!!
@@ -202,6 +201,7 @@ public class Client extends Thread{
 	}
 	
 	public void addMonster(int x, int y, int monsterType){
+		System.out.println("monster - client outgoing");
 		sendMessage(MessageType.ADD_MONSTER, "" + (char) x + (char) y + (char) monsterType);
 	}
 }
