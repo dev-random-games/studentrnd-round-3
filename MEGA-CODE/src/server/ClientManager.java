@@ -18,6 +18,9 @@ public class ClientManager extends Thread {
 	ServerSocket server;
 
 	ArrayList<Connector> connections;
+	
+	boolean hasPlant = false;
+	boolean hasMecha = false;
 
 	public ClientManager(ServerSocket server) {
 		this.server = server;
@@ -63,7 +66,17 @@ public class ClientManager extends Thread {
 			break;
 		case CONNECT:
 			Init.sendServerMessage("New client connected.");
-			client.sendMessage(MessageType.CONNECT, Integer.toString(client.id));
+			int newClientType;
+			if (!hasPlant){
+				newClientType = 0;	//Connect plant player
+				hasPlant = true;
+			} else if (!hasMecha){
+				newClientType = 1;	//Connect mecha player
+				hasMecha = true;
+			} else {
+				newClientType = 2;	//Reject player
+			}
+			client.sendMessage(MessageType.CONNECT, "" + (char) newClientType + client.id);
 			break;
 		case ADD_TOWER:
 			int x = message.charAt(0);

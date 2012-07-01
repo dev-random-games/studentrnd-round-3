@@ -136,10 +136,7 @@ public class View extends Thread {
 			GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, GL11.GL_NEAREST);
 			GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MAG_FILTER, GL11.GL_NEAREST);
 			
-			if (model.plantMode){
-				plantOverlay = new TextureSprite(0, 0, 100, 100, 0, "src/data/plantOverlay.png");
-			}
-			
+			plantOverlay = new TextureSprite(0, 0, 100, 100, 0, "src/data/plantOverlay.png");
 			hud = new TextureSprite(0, 0, 100, 100, 0, "src/data/HUD.png");
 			energyBar = new TextureSprite(0, 0, 100, 100, 0, "src/data/energyBar.png");
 			energyBarBackdrop = new TextureSprite(0, 0, 100, 100, 0, "src/data/energyBarBackdrop.png");
