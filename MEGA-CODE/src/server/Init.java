@@ -26,6 +26,8 @@ public class Init extends Thread{
 	static JTextArea textOut;
 	static JTextPane textIn;
 	
+	public static int currentId;
+	
 	int WIDTH  = 500;
 	int HEIGHT = 500;
 	
@@ -33,6 +35,7 @@ public class Init extends Thread{
 	
 	public void run(){
 		try {
+			currentId = 0;
 			ServerSocket server = new ServerSocket(12345);
 			connector = new ClientManager(server);
 			connector.start();

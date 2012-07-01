@@ -1,6 +1,7 @@
 package mvc;
 
 import game.Map;
+import game.Tower;
 
 import java.awt.Color;
 import java.io.IOException;
@@ -28,7 +29,7 @@ import org.newdawn.slick.util.ResourceLoader;
  * 
  */
 public class Model extends Thread {
-
+	
 	public ArrayList<Sprite> sprites;
 	
 	/*
@@ -40,8 +41,11 @@ public class Model extends Thread {
 	
 	Map map;
 	
+	boolean gameMode;
+
 	public static final int WIDTH = 32;
 	public static final int HEIGHT = 32;
+
 	public static final int TILEW = 29;
 	public static final int TILEH = 29;
 	
