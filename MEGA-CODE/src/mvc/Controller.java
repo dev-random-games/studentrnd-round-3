@@ -107,7 +107,7 @@ public class Controller extends Thread {
 	 * @param evt
 	 */
 	public void mouseReleased(int x, int y){
-		model.client.addTower(x * 20 / View.WIDTH, y * 20 / View.HEIGHT);
+		model.client.addTower((int) (x / model.map.tileWidth), (int) (y / model.map.tileHeight));
 	}
 	
 	/**

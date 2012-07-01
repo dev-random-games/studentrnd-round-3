@@ -23,7 +23,7 @@ public class Map extends Sprite{
 	
 	public int width;		//x and y position, number of tiles width-wise and height-wise
 	public int height;
-	float tileWidth, tileHeight;	//W/H for individual tiles on the map
+	public float tileWidth, tileHeight;	//W/H for individual tiles on the map
 	float mapWidth, mapHeight;		//Total width and height of the map
 	
 	public Tile[][] tiles;
