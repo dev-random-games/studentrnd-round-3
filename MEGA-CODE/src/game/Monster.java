@@ -108,6 +108,9 @@ public class Monster extends RectSprite {
 	}
 	
 	public void draw() {
+		if (this.health <= 0) {
+			return;
+		}
 		switch(this.evolution) {
 		case 0:
 			stage0.x = this.x;
@@ -134,6 +137,18 @@ public class Monster extends RectSprite {
 			stage2.draw();
 			break;
 		}
+		float barXOffset = 0;
+		float barYOffset = 0;
+		float barZOffset = 30;
+		float barWidth = 20;
+		float barHeight = 5;
+		if (this.health < 0) this.health=0;
+		RectSprite barBg = new RectSprite(this.x + barWidth / 2 + barXOffset, this.y + barYOffset,
+				barWidth, barHeight, barZOffset, new Color(255, 0, 0));
+		RectSprite barFg = new RectSprite(this.x + barWidth / 2 + barXOffset, this.y + barYOffset,
+				(float) (barWidth * (this.health / this.maxHealth)), barHeight, barZOffset + 1, new Color(0, 255, 0));
+		barBg.draw();
+		barFg.draw();
 	}
 	
 	

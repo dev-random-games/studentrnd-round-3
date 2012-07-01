@@ -7,7 +7,7 @@ public class ThornMonster extends Monster{
 	public static int baseEvolution = 0;
 	
 	public ThornMonster(float x, float y, float tileWidth, float tileHeight) {
-		super(x, y, tileWidth, tileHeight, 500, 2, baseEvolution, 2f, texturePaths, 50);
+		super(x, y, tileWidth, tileHeight, 1000, 3, baseEvolution, 2f, texturePaths, 50);
 	}
 	
 	/**
