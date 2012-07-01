@@ -81,7 +81,8 @@ public class Init extends Thread{
 				try {
 					map.step();
 					
-					for (Monster monster : map.monsters){
+					for (int i = 0; i < map.monsters.size(); i++){
+						Monster monster = map.monsters.get(i);
 						connector.sendMessage(MessageType.MOVE_MONSTER, Integer.toString(monster.uniqueId) + "." + Integer.toString((int) monster.x) + "." + Integer.toString((int) monster.y));
 					}
 					

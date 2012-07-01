@@ -91,7 +91,7 @@ public class Map extends Sprite{
 				
 	}
 	
-	public void step(){
+	public void move(){
 		for (int i = 0; i < monsters.size(); i++){
 			try {
 				if (!monsters.get(i).moveAlong(monsterPath, tileWidth, tileHeight)){
@@ -102,6 +102,14 @@ public class Map extends Sprite{
 			}
 		}
 		
+		for (Tower tower : towers){
+			tower.target(monsters, end);
+		}
+	}
+	
+	public void step(){
+		move();
+		
 		// Remove dead monsters
 		
 		int i = 0;
@@ -111,10 +119,6 @@ public class Map extends Sprite{
 			} else {
 				i++;
 			}
-		}
-		
-		for (Tower tower : towers){
-			tower.target(monsters, end);
 		}
 	}
 
