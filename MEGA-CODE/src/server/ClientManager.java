@@ -75,14 +75,7 @@ public class ClientManager extends Thread {
 			} else {
 				Init.sendServerMessage("[USER " + client.id + "] Oops, there's already a tower there!");
 			}
-			
-		case REQUEST_ID:
-			int id = Init.currentId;
-			Init.currentId++;
-			sendMessage(MessageType.PROVIDE_ID, "" + id);
-
-			
-
+			break;
 		}
 	}
 }
