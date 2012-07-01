@@ -71,7 +71,6 @@ public class Controller extends Thread {
 			} catch (IllegalStateException e){
 				
 			}
-			if (model.energy < 500) model.energy += 0.1;
 			Point mousePos = view.pickPointOnScreen(new Point(Mouse.getX(), Mouse.getY()), 0);
 			
 //			System.out.println(Mouse.getX() + ", " + Mouse.getY());
