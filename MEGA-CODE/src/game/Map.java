@@ -134,8 +134,8 @@ public class Map extends Sprite{
 				tiles[x][y].draw();
 			}
 		}
-		for (Monster monster : monsters){
-			monster.draw();
+		for (int i = 0; i < monsters.size(); i++){
+			monsters.get(i).draw();
 		}
 	}
 	
