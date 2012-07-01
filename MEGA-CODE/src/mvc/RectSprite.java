@@ -7,8 +7,8 @@ import org.lwjgl.opengl.GL11;
 
 public class RectSprite extends Sprite{
 
-	protected float x, y, w, h;
-	protected float depth;
+	public float x, y, w, h;
+	public float depth;
 	public float r;
 	Color color;
 	

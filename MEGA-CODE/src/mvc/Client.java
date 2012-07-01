@@ -86,6 +86,12 @@ public class Client extends Thread{
 					} else {
 						System.out.println("Cannot place tower at " + x + ", " + y);
 					}
+				case PROVIDE_STATE:
+					String delimiter = "#@#@#@#";
+					// Load state from this
+					String[] split = message.split("\n");
+					
+					
 				}
 				
 			} catch (IOException e){
