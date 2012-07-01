@@ -108,7 +108,11 @@ public class ClientManager extends Thread {
 				e.printStackTrace();
 			}
 			break;
-		
+		case UPGRADE:
+			int upType = (int) message.charAt(0);
+			Init.map.upgrade(upType);
+			sendMessage(MessageType.UPGRADE, "" + message.charAt(0));
+			break;
 		}
 	}
 }

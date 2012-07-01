@@ -211,6 +211,26 @@ public class Map extends Sprite{
 		}
 	}
 	
+	public void upgrade(int type){
+		switch (type) {
+		case 0: 
+			if (EntMonster.baseEvolution < 2){
+				EntMonster.baseEvolution++;
+			}
+			break;
+		case 1:
+			if (TreeMonster.baseEvolution < 2){
+				TreeMonster.baseEvolution++;
+			}
+			break;
+		default:
+			if (ThornMonster.baseEvolution < 2){
+				ThornMonster.baseEvolution++;
+			}
+			break;
+		}
+	}
+	
 	/*
 	 * Returns an integer representation of the map -- -1 means that monsters can't walk through a square.
 	 */

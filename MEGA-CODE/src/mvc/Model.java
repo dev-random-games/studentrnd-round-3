@@ -74,6 +74,8 @@ public class Model extends Thread {
 		
 		sprites.add(map);
 		
+		sprites.add(new TextureSprite(0, 0, TILEW * 3, TILEH * 3, 50, "src/data/motherTree.png"));
+		
 //		sprites.add(new TextureSprite(100, 100, 100, 100, 300, "/data/test.png"));
 	}
 	
