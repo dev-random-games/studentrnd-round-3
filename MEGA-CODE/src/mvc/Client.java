@@ -29,7 +29,7 @@ public class Client extends Thread{
 	public ObjectInputStream in;
 	
 //	String host = "localhost";
-	String host = "192.168.1.2";
+	String host = "192.168.137.74";
 	int port = 12345;
 	
 	int userId;
@@ -110,7 +110,7 @@ public class Client extends Thread{
 					int towerType = message.charAt(2);
 					if (this.canPlaceTower(x, y)) {
 						System.out.println("Adding tower at " + x + ", " + y);
-						if (!model.plantMode && this.model.energy >= model.map.tiles[x][y].tower.cost) {
+						if (!model.plantMode) {
 							double cost = 0;
 							switch (towerType) {
 							case(0):
@@ -121,7 +121,7 @@ public class Client extends Thread{
 								cost = BombTower.cost;
 							} 
 							
-							if (this.model.energy >= cost) {
+							if (this.model.energy >= cost || true) {
 								this.model.energy -= cost;
 								model.map.addTower(x, y, towerType);
 							}
@@ -137,7 +137,6 @@ public class Client extends Thread{
 					int monsterType = message.charAt(2);
 					int monsterId = Integer.parseInt(message.substring(3));
 					if (this.canPlaceTower(x, y)) {
-						this.subtractEnergy();
 						System.out.println("Adding monster at " + x + ", " + y);
 						if (model.plantMode) {
 							double cost = 0;
@@ -150,7 +149,7 @@ public class Client extends Thread{
 								cost = ThornMonster.getCost(ThornMonster.baseEvolution);
 							} 
 							
-							if (this.model.energy >= cost) {
+							if (this.model.energy >= cost || true) {
 								this.model.energy -= cost;
 								model.map.addMonster(x, y, monsterType, monsterId);	
 							}
