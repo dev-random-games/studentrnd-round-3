@@ -7,6 +7,6 @@ public class TreeMonster extends Monster {
 	public static int baseEvolution = 0;
 	
 	public TreeMonster(float x, float y, float tileWidth, float tileHeight) {
-		super(x, y, tileWidth, tileHeight, 200, 2, baseEvolution, 2, texturePaths);
+		super(x, y, tileWidth, tileHeight, 200, 2, baseEvolution, 2, texturePaths, 50);
 	}
 }
