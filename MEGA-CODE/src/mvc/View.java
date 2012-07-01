@@ -72,7 +72,7 @@ public class View extends Thread {
 		GL11.glLoadIdentity();
 
 		float whRatio = (float) WIDTH / (float) HEIGHT;
-		GLU.gluPerspective(FOV, whRatio, 1, 1000);
+		GLU.gluPerspective(FOV, whRatio, 1, 10000);
 		GLU.gluLookAt(viewTranslation.getX(), viewTranslation.getY(), viewTranslation.getZ(),
 				viewTranslation.getX(), viewTranslation.getY(), 0, 0, 1, 0);
 
@@ -80,7 +80,7 @@ public class View extends Thread {
 		GL11.glLoadIdentity();
 	}
 	
-	public Point pickPointOnScreen(Point screenPixel){
+	public Point pickPointOnScreen(Point screenPixel, float pickHeight){
 		Vector3D cameraForwards = new Vector3D(0, 0, -1);
 		Vector3D cameraRight = new Vector3D(1, 0, 0);
 		Vector3D cameraUp = new Vector3D(0, 1, 0);
@@ -94,7 +94,7 @@ public class View extends Thread {
 		Vector3D screenVector = cameraForwards.scale((float) (WIDTH / (2 * Math.tan(FOV / 360 * Math.PI)))).add(cameraRight.scale(screenX))
 											  		  	 .add(cameraUp.scale(screenY));
 		
-		float distScale = viewTranslation.getZ() / screenVector.getZ();
+		float distScale = (viewTranslation.getZ()) / screenVector.getZ();
 		Vector3D planeIntersection = viewTranslation.add(screenVector.scale(-distScale));
 		
 		System.out.println("Projected point: " + planeIntersection.toString());
@@ -170,11 +170,12 @@ public class View extends Thread {
 
 //				Color.white.bind();
 //				font.drawString(100, 50, "THE LIGHTWEIGHT JAVA GAMES LIBRARY", Color.yellow);
-				
 
 				for (Sprite sprite : model.sprites){
 					sprite.draw();
 				}
+				
+//				GL11.glDisable(GL11.GL_DEPTH_TEST);
 
 				/*
 				 * End of stuff you can change without breaking everything.

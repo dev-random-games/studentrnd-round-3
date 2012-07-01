@@ -13,7 +13,7 @@ public class Tower extends ExtrudeSprite{
 	int uniqueId;
 	
 	public Tower(float x, float y, float width, float height) {
-		super(x, y, width, height, 20, Color.BLUE);
+		super(x, y, width, height, 50, Color.BLUE);
 		
 		range = 150;
 		strength = 20;
