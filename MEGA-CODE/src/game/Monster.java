@@ -25,7 +25,7 @@ public class Monster extends RectSprite {
 	
 	String[] texturePaths;
 	
-	TextureSprite stage0, stage1, stage2;
+	static TextureSprite stage0, stage1, stage2;
 	
 	public Monster(float x, float y, float tileWidth, float tileHeight, double health) {
 		super(x * tileWidth - 5 + tileWidth / 2, y * tileHeight - 5 + tileHeight / 2, 10, 10, 5, Color.RED);
@@ -44,9 +44,11 @@ public class Monster extends RectSprite {
 		this.evolutionScalar = evolutionScalar;
 		this.texturePaths = texturePaths;
 		
-		this.stage0 = new TextureSprite(this.x, this.y, w, h, 20, this.texturePaths[0]);
-		this.stage1 = new TextureSprite(this.x, this.y, w * evolutionScalar, h * evolutionScalar, 20, this.texturePaths[1]);
-		this.stage2 = new TextureSprite(this.x, this.y, w * evolutionScalar * evolutionScalar, h * evolutionScalar * evolutionScalar, 20, this.texturePaths[2]);
+		if (stage0 == null || stage1 == null || stage2 == null){
+			stage0 = new TextureSprite(this.x, this.y, w, h, 20, this.texturePaths[0]);
+			stage1 = new TextureSprite(this.x, this.y, w * evolutionScalar, h * evolutionScalar, 20, this.texturePaths[1]);
+			stage2 = new TextureSprite(this.x, this.y, w * evolutionScalar * evolutionScalar, h * evolutionScalar * evolutionScalar, 20, this.texturePaths[2]);
+		}
 		
 		System.out.println("sex: " + this.x);
 	}

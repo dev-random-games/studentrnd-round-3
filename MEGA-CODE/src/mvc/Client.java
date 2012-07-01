@@ -121,52 +121,18 @@ public class Client extends Thread{
 						System.out.println("Cannot place monster at " + x + ", " + y);
 					}
 					break;
-				case PROVIDE_STATE:
-					model.map.monsters = new ArrayList<Monster>();
-					ArrayList<Tower> newTowers = new ArrayList<Tower>();
-					// BIG NOTE: THIS DOES NOT REMOVE ANY TURRETS THAT ARE REMOVED!!!!!!
-					String delimiter = "##";
-					// Load state from this
-					String[] split = message.split("\n");
-					for (String l : split) {
-						String[] splitl = l.split(delimiter);
-						if (splitl[0].equals("tile")) { // For now, let's just leave the poor tiles alone.
-							float tileX = Float.parseFloat(splitl[1]);
-							float tileY = Float.parseFloat(splitl[2]);
-						} else if (splitl[0].equals("tower")) {
-							int towerX = Integer.parseInt(splitl[1]);
-							int towerY = Integer.parseInt(splitl[2]);
-							Tower temp = new Tower(model.map, towerX, towerY);
-							temp.beamType = Integer.parseInt(splitl[9]);
-							temp.cooldown = Double.parseDouble(splitl[4]);
-							temp.damage = Double.parseDouble(splitl[3]);
-							temp.depth = 0;
-							temp.evolution = Integer.parseInt(splitl[6]);
-							temp.evolutionScalar = Double.parseDouble(splitl[7]);
-							temp.r = Double.parseDouble(splitl[5]);
-							temp.range = Double.parseDouble(splitl[8]);
-							temp.towerType = splitl[10].charAt(0);
-							temp.uniqueId = Integer.parseInt(splitl[11]);
-							model.map.tiles[(int) towerX][(int) towerY].tower = temp;
-							newTowers.add(temp);
-						} else if (splitl[0].equals("monster")) {
-							//TODO: fix
-							float monsterX = Float.parseFloat(splitl[1]);
-							float monsterY = Float.parseFloat(splitl[2]);
-							float health = Float.parseFloat(splitl[5]);
-							Monster m = new Monster(monsterX, monsterY, model.map.tileWidth, model.map.tileHeight, health);
-							m.evolution= 0; //fix me!
-							m.maxHealth = Double.parseDouble(splitl[4]);
-							m.r = Float.parseFloat(splitl[8]);
-							m.speed = Float.parseFloat(splitl[3]);
-							m.evolutionScalar = 1; //fix me!
-							m.uniqueId = Integer.parseInt(splitl[9]);
-							model.map.monsters.add(m);
+				case MOVE_MONSTER:
+					String[] parts = message.split("\\.");
+					int checkId = Integer.parseInt(parts[0]);
+					x = Integer.parseInt(parts[1]);
+					y = Integer.parseInt(parts[2]);
+					for (Monster monster : model.map.monsters){
+						if (monster.uniqueId == checkId){
+							monster.x = x;
+							monster.y = y;
+							break;
 						}
 					}
-					model.map.towers = newTowers;
-					System.out.println(newTowers.toString());
-					
 					break;
 				}
 			} catch (IOException e) {
