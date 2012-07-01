@@ -1,6 +1,7 @@
 package mvc;
 
 import java.awt.Dimension;
+import java.awt.Point;
 import java.awt.Font;
 import java.io.IOException;
 import java.io.InputStream;
@@ -34,6 +35,8 @@ public class View extends Thread {
 
 	public static final int WIDTH = 700;
 	public static final int HEIGHT = 700;
+	public static final int Z = 1000;
+	public static final float FOV = 45;
 
 	public Vector3D viewTranslation;// Vector specifying the translation of the
 	// view in 2D space.
@@ -54,10 +57,10 @@ public class View extends Thread {
 			e.printStackTrace();
 			System.exit(0);
 		}
-		viewTranslation = new Vector3D((Model.WIDTH * Model.TILEW) / 2, (Model.HEIGHT * Model.TILEH) / 2, HEIGHT);
+//		viewTranslation = new Vector3D((Model.WIDTH * Model.TILEW) / 2, (Model.HEIGHT * Model.TILEH) / 2, HEIGHT);
+		viewTranslation = new Vector3D(0, 0, Z);
 
 		textureLoader = new TextureLoader(); 
-
 	}
 
 	/*
@@ -69,12 +72,35 @@ public class View extends Thread {
 		GL11.glLoadIdentity();
 
 		float whRatio = (float) WIDTH / (float) HEIGHT;
-		GLU.gluPerspective(45, whRatio, 1, 1000);
+		GLU.gluPerspective(FOV, whRatio, 1, 1000);
 		GLU.gluLookAt(viewTranslation.getX(), viewTranslation.getY(), viewTranslation.getZ(),
 				viewTranslation.getX(), viewTranslation.getY(), 0, 0, 1, 0);
 
 		GL11.glMatrixMode(GL11.GL_MODELVIEW);
 		GL11.glLoadIdentity();
+	}
+	
+	public Point pickPointOnScreen(Point screenPixel){
+		Vector3D cameraForwards = new Vector3D(0, 0, -1);
+		Vector3D cameraRight = new Vector3D(1, 0, 0);
+		Vector3D cameraUp = new Vector3D(0, 1, 0);
+		
+		float screenX = screenPixel.x - WIDTH / 2;
+		float screenY = screenPixel.y - HEIGHT / 2;
+		
+		System.out.println("(" + screenX + ", " + screenY + ")");
+		System.out.println(viewTranslation.toString());
+		
+		Vector3D screenVector = cameraForwards.scale((float) (WIDTH / (2 * Math.tan(FOV / 360 * Math.PI)))).add(cameraRight.scale(screenX))
+											  		  	 .add(cameraUp.scale(screenY));
+		
+		float distScale = viewTranslation.getZ() / screenVector.getZ();
+		Vector3D planeIntersection = viewTranslation.add(screenVector.scale(-distScale));
+		
+		System.out.println("Projected point: " + planeIntersection.toString());
+		
+		return new Point((int) (planeIntersection.getX()), (int) planeIntersection.getY());
+
 	}
 
 	/*

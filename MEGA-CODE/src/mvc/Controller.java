@@ -1,6 +1,7 @@
 package mvc;
 
 import java.awt.KeyboardFocusManager;
+import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
@@ -61,30 +62,32 @@ public class Controller extends Thread {
 				}
 			}
 			
+			Point mousePos = view.pickPointOnScreen(new Point(Mouse.getX(), Mouse.getY()));
+			
 			/*
 			 * Catch mouse events
 			 */
 			if (Mouse.isButtonDown(0)){
 				if (!mouseDown){
 					mouseDown = true;
-					mousePressed(Mouse.getX(), Mouse.getY());
+					mousePressed((int) mousePos.getX(), (int) mousePos.getY());
 				}
 			} else if (mouseDown){
 				mouseDown = false;
-				mouseReleased(Mouse.getX(), Mouse.getY());
+				mouseReleased((int) mousePos.getX(), (int) mousePos.getY());
 			}
 			
 			if (keysPressed[Keyboard.KEY_LEFT]){
-//				view.viewTranslation = view.viewTranslation.add(new Vector3D(-1, 0, 0));
+				view.viewTranslation = view.viewTranslation.add(new Vector3D(-4, 0, 0));
 			}
 			if (keysPressed[Keyboard.KEY_UP]){
-//				view.viewTranslation = view.viewTranslation.add(new Vector3D(0, 1, 0));
+				view.viewTranslation = view.viewTranslation.add(new Vector3D(0, 4, 0));
 			}
 			if (keysPressed[Keyboard.KEY_RIGHT]){
-//				view.viewTranslation = view.viewTranslation.add(new Vector3D(1, 0, 0));
+				view.viewTranslation = view.viewTranslation.add(new Vector3D(4, 0, 0));
 			}
 			if (keysPressed[Keyboard.KEY_DOWN]){
-//				view.viewTranslation = view.viewTranslation.add(new Vector3D(0, -1, 0));
+				view.viewTranslation = view.viewTranslation.add(new Vector3D(0, -4, 0));
 			}
 		}
 	}
@@ -104,7 +107,7 @@ public class Controller extends Thread {
 	 * @param evt
 	 */
 	public void mouseReleased(int x, int y){
-		model.client.addTower(x * 20 / View.WIDTH, y * 20 / View.HEIGHT);
+		model.client.addTower((int) (x / model.map.tileWidth), (int) (y / model.map.tileHeight));
 	}
 	
 	/**

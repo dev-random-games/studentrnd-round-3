@@ -46,8 +46,8 @@ public class Model extends Thread {
 	public static final int WIDTH = 32;
 	public static final int HEIGHT = 32;
 
-	public static final int TILEW = 29;
-	public static final int TILEH = 29;
+	public static final int TILEW = 40;
+	public static final int TILEH = 40;
 	
 	public Model() {
 		sprites = new ArrayList<Sprite>();
@@ -128,6 +128,7 @@ public class Model extends Thread {
 	 */
 	public void run() {
 		while (true) {
+			map.step();
 			try {
 				Thread.sleep(10);
 			} catch (InterruptedException e) {
