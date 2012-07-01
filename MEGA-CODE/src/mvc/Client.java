@@ -15,7 +15,7 @@ public class Client extends Thread{
 	private ObjectOutputStream out;
 	public ObjectInputStream in;
 	
-	String host = "192.168.1.47";
+	String host = "192.168.1.2";
 	int port = 12345;
 	
 	int userId;

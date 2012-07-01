@@ -23,9 +23,9 @@ public class Map extends Sprite{
 	public int[][] map;
 	public int[][] graph;
 	
-	ArrayList<Tower> towers;
+	public ArrayList<Tower> towers;
 
-	ArrayList<Monster> monster;
+	public ArrayList<Monster> monster;
 
 	
 	Point start, end;
